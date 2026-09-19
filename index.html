@@ -1,0 +1,962 @@
+
+
+Site · HTML
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>องค์กรพหุพัฒนา · ระบบหลักประกันสู่การมีงานทำอย่างเท่าเทียม</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#12283F; --ink-2:#3B5068; --muted:#586A7E;
+  --bg:#F3F5F8; --surface:#FFFFFF; --surface-2:#E9EEF4;
+  --line:#D5DCE5; --line-strong:#9FAEC0;
+  --brand:#12283F; --on-brand:#FFFFFF;
+  --band:#12283F; --on-band:#FFFFFF;
+  --focus:#2B59C3; --danger:#B3261E;
+  --gov:#2B59C3; --gov-s:#E4EBFA;
+  --loc:#23805A; --loc-s:#DFF1E8;
+  --pri:#B87400; --pri-s:#FBEFD5;
+  --civ:#B82D78; --civ-s:#F9E1EE;
+  --int:#6547B8; --int-s:#E9E3F8;
+  --spe:#0C7F8C; --spe-s:#D9EFF1;
+  --font-head:'Anuphan','Noto Sans Thai','Sarabun',Tahoma,sans-serif;
+  --font-body:'IBM Plex Sans Thai','Noto Sans Thai','Sarabun',Tahoma,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#E8EEF5; --ink-2:#B9C6D6; --muted:#93A3B6;
+    --bg:#0E1723; --surface:#152233; --surface-2:#1C2C40;
+    --line:#2A3B52; --line-strong:#4B6079;
+    --brand:#DDE7F3; --on-brand:#0E1723;
+    --band:#1C2C40; --on-band:#E8EEF5;
+    --focus:#8FB0FF; --danger:#FF8A80;
+    --gov:#7FA2FF; --gov-s:#1B2A4D;
+    --loc:#5CCB97; --loc-s:#16342A;
+    --pri:#F0B54A; --pri-s:#3A2D10;
+    --civ:#F07DB4; --civ-s:#3D1B2E;
+    --int:#A791F0; --int-s:#2A2246;
+    --spe:#4CC4D1; --spe-s:#123338;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#E8EEF5; --ink-2:#B9C6D6; --muted:#93A3B6;
+  --bg:#0E1723; --surface:#152233; --surface-2:#1C2C40;
+  --line:#2A3B52; --line-strong:#4B6079;
+  --brand:#DDE7F3; --on-brand:#0E1723;
+  --band:#1C2C40; --on-band:#E8EEF5;
+  --focus:#8FB0FF; --danger:#FF8A80;
+  --gov:#7FA2FF; --gov-s:#1B2A4D;
+  --loc:#5CCB97; --loc-s:#16342A;
+  --pri:#F0B54A; --pri-s:#3A2D10;
+  --civ:#F07DB4; --civ-s:#3D1B2E;
+  --int:#A791F0; --int-s:#2A2246;
+  --spe:#4CC4D1; --spe-s:#123338;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.75}
+h1,h2,h3,h4{font-family:var(--font-head);line-height:1.4;margin:0;font-weight:700;text-wrap:balance}
+p{margin:0}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+.muted{color:var(--muted)}
+.small{font-size:.9rem}
+.strong{font-weight:600}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--brand);color:var(--on-brand);padding:8px 14px;border-radius:8px;border:0;z-index:50}
+.skip:focus{left:8px}
+ 
+/* prototype strip + header */
+.strip{background:var(--surface-2);color:var(--ink-2);font-size:.85rem;text-align:center;padding:6px 16px;line-height:1.5}
+header.site{position:sticky;top:0;z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:20px;min-height:72px}
+.brand{display:flex;align-items:center;gap:12px;color:var(--ink);text-decoration:none;flex:none}
+.brand svg{width:40px;height:40px;flex:none}
+.brand-t{display:flex;flex-direction:column;line-height:1.3}
+.brand-t b{font-family:var(--font-head);font-size:1.05rem}
+.brand-t small{font-size:.78rem;color:var(--muted)}
+.nav{display:flex;gap:2px;margin-left:auto}
+.nav a{padding:8px 12px;border-radius:10px;color:var(--ink-2);text-decoration:none;font-family:var(--font-head);font-weight:500;font-size:.95rem;white-space:nowrap}
+.nav a:hover{background:var(--surface-2)}
+.nav a[aria-current="page"]{color:var(--ink);background:var(--surface-2);font-weight:600}
+.nav .nav-login{display:none}
+.actions{display:flex;align-items:center;gap:8px;flex:none}
+.iconbtn{display:inline-grid;place-items:center;width:42px;height:42px;border-radius:50%;border:1.5px solid var(--line-strong);background:transparent;color:var(--ink);cursor:pointer;text-decoration:none}
+.iconbtn:hover{background:var(--surface-2)}
+.menu-btn{display:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:9px 20px;border-radius:999px;border:2px solid var(--brand);background:var(--brand);color:var(--on-brand);font:600 .95rem/1.5 var(--font-head);text-decoration:none;cursor:pointer}
+.btn:hover{filter:brightness(1.12)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line-strong)}
+.btn-ghost:hover{background:var(--surface-2);filter:none}
+.btn-lg{padding:14px 28px;font-size:1.05rem}
+@media (max-width:1080px){
+  .menu-btn{display:inline-grid}
+  .nav{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--surface);border-bottom:1px solid var(--line);padding:8px 24px 16px;margin:0}
+  .nav.open{display:flex}
+  .nav a{padding:12px 8px;border-radius:8px}
+  .actions{margin-left:auto}
+}
+@media (max-width:640px){
+  .brand-t small{display:none}
+  .actions .btn-ghost{display:none}
+  .nav .nav-login{display:block;text-align:left;padding:12px 8px;background:transparent;border:0;font-family:var(--font-head);font-weight:500;color:var(--ink-2);cursor:pointer}
+  .bar{gap:10px}
+  .actions .btn{padding:8px 14px;font-size:.9rem}
+}
+ 
+/* layout blocks */
+main{display:block;outline:0}
+.section{padding:48px 0}
+.sec-h{margin-bottom:24px}
+.sec-h h2{font-size:clamp(1.5rem,3vw,2rem)}
+.sec-h p{color:var(--muted);margin-top:6px;max-width:64ch}
+.pagehead{padding:44px 0 8px}
+.pagehead h1{font-size:clamp(1.8rem,4vw,2.6rem)}
+.pagehead p{color:var(--ink-2);margin-top:10px;max-width:64ch}
+ 
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:48px;align-items:start;padding:56px 0 36px}
+.hero-h{font-size:clamp(2rem,4.4vw,3.3rem);line-height:1.3}
+.hero-h .en{display:block;font-weight:500;color:var(--ink-2);font-size:.6em;margin-top:2px}
+.lede{font-size:1.15rem;color:var(--ink-2);margin-top:18px;max-width:52ch}
+.searchbar{display:flex;margin-top:28px;border:2px solid var(--brand);border-radius:18px;background:var(--surface);overflow:hidden}
+.searchbar input{flex:1;min-width:0;border:0;background:transparent;padding:0 20px;height:62px;font-size:1.05rem}
+.searchbar input:focus-visible{outline:none}
+.searchbar:focus-within{outline:3px solid var(--focus);outline-offset:2px}
+.searchbar button{border:0;background:var(--brand);color:var(--on-brand);padding:0 26px;font:600 1rem var(--font-head);cursor:pointer;display:flex;align-items:center;gap:8px}
+.quick{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:14px}
+.quick span{font-size:.9rem;color:var(--muted)}
+.chip{border:1.5px solid var(--line-strong);background:var(--surface);border-radius:999px;padding:6px 14px;font-size:.92rem;cursor:pointer;line-height:1.5}
+.chip:hover{background:var(--surface-2)}
+.chip.on{background:var(--brand);color:var(--on-brand);border-color:var(--brand)}
+.triage{background:var(--surface);border:1.5px solid var(--line);border-radius:20px;padding:26px}
+.triage-h{font-size:1.25rem}
+.triage .chips{display:flex;flex-direction:column;align-items:flex-start;gap:8px;margin:16px 0}
+.triage-res{border-top:1px dashed var(--line-strong);padding-top:16px;margin-top:4px}
+.route{list-style:none;margin:10px 0 18px;padding:0;display:grid;gap:8px}
+.route li{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.route .sec{font-size:.8rem;color:var(--muted);margin-left:auto}
+.dot{width:12px;height:12px;border-radius:50%;background:var(--c);flex:none}
+@media (max-width:900px){.hero{grid-template-columns:1fr;gap:28px;padding-top:36px}}
+ 
+/* sector tiles */
+.tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.tile{display:flex;flex-direction:column;gap:4px;padding:22px 22px 18px;border-radius:20px;background:var(--cs);border:2px solid var(--c);text-decoration:none}
+@media (hover:hover){.tile:hover{background:var(--surface)}}
+.tile-badge{display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:var(--surface);border:2px solid var(--c);font-size:1.5rem;margin-bottom:10px}
+.tile-name{font:700 1.2rem/1.4 var(--font-head)}
+.tile-sub{color:var(--ink-2);font-size:.95rem}
+@media (max-width:560px){.tiles{grid-template-columns:1fr}}
+ 
+/* rows (services) */
+.rows{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.rows.two{display:grid;grid-template-columns:1fr 1fr;column-gap:36px}
+.svc-row{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding:16px 8px;border-bottom:1px solid var(--line);text-decoration:none}
+.svc-row:hover{background:var(--surface-2)}
+.svc-e{font-size:1.6rem;width:44px;text-align:center}
+.svc-t{display:flex;flex-direction:column;line-height:1.5}
+.svc-t b{font-family:var(--font-head);font-weight:600}
+.svc-t span{color:var(--muted);font-size:.92rem}
+.svc-go{display:flex;align-items:center;gap:6px;color:var(--ink-2);font-size:.88rem;text-align:right}
+@media (max-width:820px){.rows.two{grid-template-columns:1fr}.svc-go span.a{display:none}}
+ 
+/* finder band */
+.band{background:var(--band);color:var(--on-band)}
+.band .wrap{display:grid;grid-template-columns:1fr 1.4fr;gap:40px;align-items:center;padding-top:44px;padding-bottom:44px}
+.band h2{font-size:clamp(1.5rem,3vw,2rem)}
+.band p{opacity:.85;margin-top:8px}
+.finder{display:grid;grid-template-columns:1fr 1.3fr auto;gap:10px}
+.finder select,.finder input{height:52px;border-radius:14px;border:2px solid transparent;background:var(--surface);color:var(--ink);padding:0 14px;min-width:0}
+.finder .btn{background:var(--on-band);color:var(--band);border-color:var(--on-band);height:52px}
+@media (max-width:900px){.band .wrap{grid-template-columns:1fr;gap:22px}.finder{grid-template-columns:1fr}}
+ 
+/* news + knowledge */
+.news{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.news li{display:grid;grid-template-columns:120px 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+.news time{color:var(--muted);font-size:.92rem}
+.news h3{font-size:1.05rem}
+.news p{color:var(--muted);font-size:.95rem}
+.tag{display:inline-block;font-size:.75rem;border:1px solid var(--line-strong);border-radius:6px;padding:0 8px;color:var(--ink-2);margin-left:6px;vertical-align:middle;line-height:1.7}
+.kb{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:2px solid var(--ink);}
+.kb a{display:flex;flex-direction:column;gap:8px;padding:22px 22px 24px 0;text-decoration:none;border-right:1px solid var(--line);margin-right:22px}
+.kb a:last-child{border-right:0;margin-right:0}
+.kb h3{font-size:1.15rem}
+.kb p{color:var(--ink-2);font-size:.95rem}
+.kb .src{color:var(--muted);font-size:.85rem;display:flex;align-items:center;gap:6px;margin-top:auto}
+@media (max-width:820px){.kb{grid-template-columns:1fr}.kb a{border-right:0;margin-right:0;border-bottom:1px solid var(--line)}.news li{grid-template-columns:1fr;gap:2px}}
+ 
+/* agencies */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 14px}
+.filters a{text-decoration:none}
+.agsearch{display:flex;gap:10px;max-width:520px;margin-bottom:18px}
+.agsearch input,.field input,.field select,.field textarea,.sbox input{width:100%;border:2px solid var(--line-strong);border-radius:12px;background:var(--surface);padding:10px 14px;min-height:48px}
+.aglist{list-style:none;margin:0;padding:0}
+.aggroup{margin-top:30px}
+.aggroup h2{font-size:1.25rem;display:flex;align-items:center;gap:10px;padding-bottom:10px;border-bottom:2px solid var(--c)}
+.ag{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:start;padding:14px 4px;border-bottom:1px solid var(--line)}
+.ag h3{font-size:1.02rem;font-weight:600}
+.ag p{color:var(--muted);font-size:.93rem}
+.ag .dot{margin-top:9px}
+.ag a.go{display:inline-flex;align-items:center;gap:6px;font-size:.9rem;color:var(--ink);white-space:nowrap;margin-top:2px}
+.ag .nolink{font-size:.85rem;color:var(--muted);margin-top:2px}
+.note{border:1.5px dashed var(--line-strong);background:var(--surface-2);border-radius:14px;padding:12px 16px;font-size:.92rem;color:var(--ink-2);margin-top:14px}
+.empty{padding:28px 0;color:var(--muted)}
+ 
+/* services */
+.svc-sec{padding:34px 0 8px;scroll-margin-top:90px}
+.svc-sec .sec-h{margin-bottom:12px}
+.mooc-block{margin:22px 0 8px;background:var(--surface);border:1.5px solid var(--line);border-radius:20px;padding:24px}
+.mooc-block h3{font-size:1.25rem}
+.mooc-block>p{color:var(--ink-2);margin:8px 0 6px;max-width:70ch}
+.rows-plain{list-style:none;margin:10px 0 0;padding:0}
+.mooc{display:flex;gap:18px;justify-content:space-between;align-items:center;padding:16px 0;border-top:1px solid var(--line)}
+.mooc h4{font-size:1.05rem}
+.mooc p{font-size:.93rem;color:var(--ink-2)}
+@media (max-width:700px){.mooc{flex-direction:column;align-items:flex-start}}
+ 
+/* help form */
+.split{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:48px;align-items:start;padding-top:12px}
+.formbox{background:var(--surface);border:1.5px solid var(--line);border-radius:20px;padding:28px}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:20px}
+.field label,.field legend{font:600 1rem var(--font-head);padding:0}
+.field textarea{min-height:150px;resize:vertical;line-height:1.7}
+fieldset.field{border:0;padding:0;margin:0 0 20px}
+.checks{display:flex;flex-wrap:wrap;gap:10px}
+.checks label{display:flex;align-items:center;gap:8px;border:1.5px solid var(--line-strong);border-radius:12px;padding:8px 14px;cursor:pointer;font-family:var(--font-body);font-weight:400;font-size:1rem}
+.checks input{width:18px;height:18px;min-height:0;margin:0;accent-color:var(--brand)}
+.hint{font-size:.88rem;color:var(--muted)}
+.err{color:var(--danger);font-size:.92rem;margin:0 0 14px;padding:10px 14px;border:1.5px solid var(--danger);border-radius:12px}
+.side h2{font-size:1.15rem;margin-bottom:8px}
+.side ul{margin:8px 0 18px;padding-left:20px;color:var(--ink-2)}
+.emerg{border-left:5px solid var(--danger);background:var(--surface);padding:14px 18px;border-radius:0 14px 14px 0}
+.emerg ul{list-style:none;padding:0;margin:8px 0 0}
+.emerg li{display:flex;gap:10px}
+.emerg a{font-weight:600}
+.done h2{font-size:1.5rem}
+.code{display:inline-block;font:600 1.1rem var(--font-head);background:var(--surface-2);border-radius:10px;padding:2px 14px;margin:8px 0}
+.btnrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+@media (max-width:900px){.split{grid-template-columns:1fr;gap:28px}}
+ 
+/* flow + dashboard */
+.flow{list-style:none;margin:8px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);counter-reset:s}
+.flow li{position:relative;padding:46px 18px 0 0}
+.flow li::before{counter-increment:s;content:counter(s);position:absolute;top:0;left:0;width:34px;height:34px;border-radius:50%;background:var(--brand);color:var(--on-brand);display:grid;place-items:center;font:600 .95rem var(--font-head)}
+.flow li::after{content:"";position:absolute;top:16px;left:44px;right:10px;height:2px;background:var(--line-strong)}
+.flow li:last-child::after{display:none}
+.flow h3{font-size:1.02rem}
+.flow p{font-size:.92rem;color:var(--ink-2);margin-top:4px}
+.flow .who{display:block;font-size:.82rem;color:var(--muted);margin-top:6px}
+@media (max-width:900px){
+  .flow{grid-template-columns:1fr}
+  .flow li{padding:0 0 26px 52px;min-height:44px}
+  .flow li::after{top:40px;bottom:4px;left:16px;right:auto;width:2px;height:auto}
+}
+.dash{margin-top:14px}
+.kpis{display:flex;flex-wrap:wrap;border-top:2px solid var(--ink);border-bottom:1px solid var(--line)}
+.kpi{flex:1 1 150px;padding:18px 20px 16px 0;margin-right:20px}
+.kpi b{display:block;font:700 2.4rem/1.1 var(--font-head)}
+.kpi span{color:var(--muted);font-size:.92rem}
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:44px;margin-top:30px}
+.charts h3{font-size:1.1rem;margin-bottom:12px}
+.barrow{display:grid;grid-template-columns:150px 1fr 34px;gap:12px;align-items:center;margin-bottom:10px;font-size:.93rem}
+.track{height:16px;border-radius:8px;background:var(--surface-2);overflow:hidden}
+.fill{height:100%;border-radius:8px;background:var(--fillc,var(--ink-2));min-width:0}
+.barrow output{text-align:right;font-weight:600}
+@media (prefers-reduced-motion:no-preference){.fill{transition:width .5s ease}}
+@media (max-width:900px){.charts{grid-template-columns:1fr;gap:28px}.barrow{grid-template-columns:120px 1fr 30px}}
+.tablewrap{overflow-x:auto;margin-top:30px}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:.93rem}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.5}
+th{font:600 .88rem var(--font-head);color:var(--muted);border-bottom:2px solid var(--line-strong)}
+tr.is-new td{background:var(--surface-2)}
+@media (prefers-reduced-motion:no-preference){tr.is-new td{animation:flash 1.6s ease-out}}
+@keyframes flash{from{background:var(--focus);color:var(--surface)}to{background:var(--surface-2)}}
+.pill{display:inline-flex;align-items:center;gap:6px;margin:0 8px 4px 0;font-size:.85rem;white-space:nowrap}
+.tablewrap select{border:1.5px solid var(--line-strong);border-radius:8px;background:var(--surface);padding:4px 8px}
+.dashhead{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;justify-content:space-between}
+ 
+/* about */
+.about-hero{padding:52px 0 8px;max-width:76ch}
+.about-hero h1{font-size:clamp(2rem,4.6vw,3rem)}
+.about-hero p{color:var(--ink-2);font-size:1.15rem;margin-top:14px;max-width:56ch}
+.about-sec{padding:36px 0}
+.about-sec+.about-sec{border-top:1px solid var(--line)}
+.about-sec .sec-h{margin-bottom:20px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:2px solid var(--ink);border-bottom:1px solid var(--line);margin-top:8px}
+.stat{padding:20px 22px 22px 0;border-right:1px solid var(--line);margin-right:22px}
+.stat:last-child{border-right:0;margin-right:0}
+.stat b{display:block;font:700 2.1rem/1.15 var(--font-head)}
+.stat span{color:var(--muted);font-size:.92rem;display:block;margin-top:6px}
+.solutions{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.solution{display:flex;gap:16px;padding:20px;border-radius:18px;background:var(--surface);border:1.5px solid var(--line)}
+.solution .e{font-size:1.6rem;flex:none;width:40px}
+.solution h3{font-size:1.05rem}
+.solution p{color:var(--ink-2);font-size:.94rem;margin-top:4px}
+.goals{list-style:none;margin:0;padding:0}
+.goals li{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+.goals li:first-child{border-top:1px solid var(--line)}
+.goals .dot2{flex:none;width:8px;height:8px;border-radius:50%;background:var(--ink);margin-top:11px}
+@media (max-width:820px){.stats{grid-template-columns:1fr}.stat{border-right:0;margin-right:0;border-bottom:1px solid var(--line)}.solutions{grid-template-columns:1fr}}
+ 
+/* faq / contact / search */
+.faq{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;padding:18px 4px;font:600 1.05rem var(--font-head);list-style-position:outside}
+.faq p{padding:0 4px 18px;color:var(--ink-2);max-width:70ch}
+.faqs{border-top:1px solid var(--line);margin-top:22px}
+.channels{list-style:none;margin:22px 0 0;padding:0;border-top:1px solid var(--line)}
+.channels li{display:grid;grid-template-columns:52px 1fr;gap:12px;padding:16px 4px;border-bottom:1px solid var(--line)}
+.channels .e{font-size:1.6rem;text-align:center}
+.channels b{font-family:var(--font-head)}
+.sbox{display:flex;gap:10px;max-width:640px;margin:22px 0 8px}
+.res{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.res li{padding:14px 4px;border-bottom:1px solid var(--line)}
+.res a{font:600 1.05rem var(--font-head);text-decoration:none}
+.res a:hover{text-decoration:underline}
+.res p{color:var(--muted);font-size:.93rem}
+ 
+/* footer */
+footer.site{background:var(--surface);border-top:1px solid var(--line);margin-top:24px}
+.foot{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px;padding-top:40px;padding-bottom:40px}
+.foot h2{font-size:1.05rem;margin-bottom:10px}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:.95rem}
+.foot a{text-decoration:none;color:var(--ink-2)}
+.foot a:hover{text-decoration:underline}
+.foot .fine{color:var(--muted);font-size:.88rem;margin-top:10px}
+@media (max-width:820px){.foot{grid-template-columns:1fr}}
+ 
+/* login dialog */
+dialog{border:1.5px solid var(--line);border-radius:20px;background:var(--surface);color:var(--ink);padding:28px;max-width:440px;width:calc(100% - 32px)}
+dialog::backdrop{background:rgba(10,20,32,.55)}
+dialog h2{font-size:1.3rem}
+dialog p{color:var(--ink-2);margin:8px 0 18px}
+dialog .stack{display:grid;gap:10px}
+</style>
+</head>
+<body>
+<button type="button" class="skip" data-act="skip">ข้ามไปยังเนื้อหาหลัก</button>
+<div class="strip">ต้นแบบเพื่อการนำเสนอ — ยังไม่ได้เชื่อมต่อกับหน่วยงานจริง ข้อมูลที่กรอกไม่ถูกส่งออกจากเบราว์เซอร์นี้</div>
+ 
+<header class="site">
+  <div class="wrap bar">
+    <a class="brand" href="#/home" aria-label="องค์กรพหุพัฒนา หน้าแรก">
+      <svg viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="7" r="5.6" fill="var(--gov)"/>
+        <circle cx="31.3" cy="13.5" r="5.6" fill="var(--loc)"/>
+        <circle cx="31.3" cy="26.5" r="5.6" fill="var(--pri)"/>
+        <circle cx="20" cy="33" r="5.6" fill="var(--civ)"/>
+        <circle cx="8.7" cy="26.5" r="5.6" fill="var(--int)"/>
+        <circle cx="8.7" cy="13.5" r="5.6" fill="var(--spe)"/>
+        <circle cx="20" cy="20" r="4.2" fill="var(--ink)"/>
+      </svg>
+      <span class="brand-t"><b>องค์กรพหุพัฒนา</b><small>โดยชุมชนนิมนต์หนองยิ้ม</small></span>
+    </a>
+    <nav id="nav" class="nav" aria-label="เมนูหลัก">
+      <a href="#/home" data-nav="home">หน้าแรก</a>
+      <a href="#/about" data-nav="about">เกี่ยวกับเรา</a>
+      <a href="#/services" data-nav="services">บริการทั้งหมด</a>
+      <a href="#/agencies" data-nav="agencies">หน่วยงานที่เกี่ยวข้อง</a>
+      <a href="#/knowledge" data-nav="knowledge">ข่าวสาร</a>
+      <a href="#/faq" data-nav="faq">คำถามที่พบบ่อย</a>
+      <a href="#/contact" data-nav="contact">ติดต่อเรา</a>
+      <button type="button" class="nav-login" data-act="open-login">เข้าสู่ระบบ</button>
+    </nav>
+    <div class="actions">
+      <a class="iconbtn" href="#/search" aria-label="ค้นหา" id="hdr-search"></a>
+      <button type="button" class="btn btn-ghost" data-act="open-login">เข้าสู่ระบบ</button>
+      <a class="btn" href="#/help">ขอความช่วยเหลือ</a>
+      <button type="button" class="iconbtn menu-btn" data-act="menu" aria-expanded="false" aria-controls="nav" aria-label="เปิดเมนู" id="menu-btn"></button>
+    </div>
+  </div>
+</header>
+ 
+<main id="app" tabindex="-1"></main>
+ 
+<footer class="site">
+  <div class="wrap foot">
+    <div>
+      <h2>ติดต่อเรา</h2>
+      <ul>
+        <li>☎️ โทรศัพท์ส่วนกลาง: 02-123-4567</li>
+        <li>📱 สายด่วน Case Manager: 089-999-9999</li>
+        <li>✉️ Email: contact@pahupattana-nongyim.org</li>
+        <li>💬 LINE Official: @PahuPattana_Center</li>
+        <li>📍 อาคารศูนย์พหุพัฒนา ชุมชนนิมนต์หนองยิ้ม เลขที่ 99/9 ซอยร่วมใจ ถนนพัฒนาสังคม ต.หนองยิ้ม อ.เมือง จ.สมมติ 99999</li>
+        <li>Facebook: องค์กรพหุพัฒนา ชุมชนนิมนต์หนองยิ้ม</li>
+        <li>เวลาทำการ: จันทร์–ศุกร์ 08:30–17:00 น. (ปิดเสาร์–อาทิตย์และวันหยุดนักขัตฤกษ์)</li>
+      </ul>
+    </div>
+    <div>
+      <h2>ไปยังหน้า</h2>
+      <ul>
+        <li><a href="#/about">เกี่ยวกับเรา</a></li>
+        <li><a href="#/help">ขอความช่วยเหลือ</a></li>
+        <li><a href="#/services">บริการทั้งหมด</a></li>
+        <li><a href="#/agencies">หน่วยงานที่เกี่ยวข้อง</a></li>
+        <li><a href="#/system">ระบบการทำงาน และแดชบอร์ดเจ้าหน้าที่</a></li>
+        <li><a href="#/faq">คำถามที่พบบ่อย</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>เกี่ยวกับต้นแบบนี้</h2>
+      <p class="small muted">เว็บไซต์ต้นแบบของ <a href="#/about" style="text-decoration:underline">องค์กรพหุพัฒนา</a> จัดตั้งโดยชุมชนนิมนต์หนองยิ้ม ให้ประชาชนเล่าเรื่องครั้งเดียวแล้วส่งต่อไปยังหน่วยงานภาครัฐและท้องถิ่นที่เกี่ยวข้อง</p>
+      <p class="fine">ลิงก์ภายนอกพาไปยังเว็บไซต์ของหน่วยงานเจ้าของบริการโดยตรง เว็บไซต์: www.pahupattana-nongyim.org</p>
+    </div>
+  </div>
+</footer>
+ 
+<dialog id="login" aria-labelledby="login-h">
+  <h2 id="login-h">เข้าสู่ระบบ (ต้นแบบ)</h2>
+  <p>ต้นแบบนี้ไม่มีการยืนยันตัวตนจริง เลือกมุมมองที่ต้องการดู</p>
+  <div class="stack">
+    <button type="button" class="btn btn-lg" data-act="login-citizen">ประชาชน — ไปหน้าขอความช่วยเหลือ</button>
+    <button type="button" class="btn btn-ghost btn-lg" data-act="login-staff">เจ้าหน้าที่ — ดูแดชบอร์ด</button>
+    <button type="button" class="btn btn-ghost" data-act="close-login">ปิด</button>
+  </div>
+</dialog>
+ 
+<noscript><div class="wrap section">หน้าเว็บนี้ต้องเปิดใช้งาน JavaScript</div></noscript>
+ 
+<script>
+(function(){
+'use strict';
+ 
+/* ---------- helpers ---------- */
+var $ = function(s,el){return (el||document).querySelector(s);};
+var $$ = function(s,el){return Array.prototype.slice.call((el||document).querySelectorAll(s));};
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function ic(path,size){return '<svg viewBox="0 0 24 24" width="'+(size||18)+'" height="'+(size||18)+'" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+path+'</svg>';}
+var ICON={
+  search:ic('<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>',20),
+  ext:ic('<path d="M7 17L17 7M9 7h8v8"/>',16),
+  arrow:ic('<path d="M5 12h14M13 6l6 6-6 6"/>',16),
+  menu:ic('<path d="M4 7h16M4 12h16M4 17h16"/>',20)
+};
+$('#hdr-search').innerHTML=ICON.search;
+$('#menu-btn').innerHTML=ICON.menu;
+ 
+/* ---------- data ---------- */
+var SECTORS=[
+  {id:'gov',name:'ภาครัฐ',emoji:'🏛️',sub:'กระทรวง / กรม / หน่วยงานรัฐ',intro:'กระทรวง กรม และหน่วยงานรัฐที่เป็นเจ้าของบริการโดยตรง'},
+  {id:'loc',name:'องค์กรปกครองส่วนท้องถิ่น',emoji:'🏘️',sub:'อบต. / เทศบาล / อบจ.',intro:'ด่านหน้าระดับพื้นที่ ใกล้ประชาชนที่สุด'}
+];
+var SEC={}; SECTORS.forEach(function(s){SEC[s.id]=s;});
+function sty(id){return '--c:var(--'+id+');--cs:var(--'+id+'-s)';}
+ 
+var AGENCIES=[
+  {id:'mso',s:'gov',n:'กระทรวงการพัฒนาสังคมและความมั่นคงของมนุษย์ (พม.)',sn:'พม.',d:'ดูแลสวัสดิการ บัตรคนพิการ และเงินอุดหนุนกลุ่มเปราะบาง',u:'https://www.m-society.go.th'},
+  {id:'doe',s:'gov',n:'กรมการจัดหางาน (กระทรวงแรงงาน)',sn:'กรมการจัดหางาน',d:'ตำแหน่งงานว่างและการขึ้นทะเบียนผู้ว่างงาน',u:'https://www.doe.go.th'},
+  {id:'dsd',s:'gov',n:'กรมพัฒนาฝีมือแรงงาน (กระทรวงแรงงาน)',sn:'กรมพัฒนาฝีมือแรงงาน',d:'หลักสูตรฝึกอาชีพและการยกระดับทักษะแรงงาน',u:'https://www.dsd.go.th'},
+  {id:'nfe',s:'gov',n:'กระทรวงศึกษาธิการ / กรมส่งเสริมการเรียนรู้ (สกร.)',sn:'สกร. / ศธ.',d:'สนับสนุนผู้ที่หลุดจากระบบการศึกษาให้กลับมาเรียนต่อ (กศน.)',u:'https://www.moe.go.th'},
+  {id:'mhesi',s:'gov',n:'กระทรวงการอุดมศึกษา วิทยาศาสตร์ วิจัยและนวัตกรรม (อว.)',sn:'อว.',d:'โครงการ Reskill / Upskill ของมหาวิทยาลัยสำหรับวัยแรงงาน',u:'https://www.mhesi.go.th'},
+  {id:'dep',s:'gov',n:'กรมส่งเสริมและพัฒนาคุณภาพชีวิตคนพิการ (พก.)',sn:'พก.',d:'สิทธิและการส่งเสริมคุณภาพชีวิตคนพิการ',u:'https://www.dep.go.th'},
+  {id:'consular',s:'gov',n:'กรมการกงสุล (กระทรวงการต่างประเทศ)',sn:'กรมการกงสุล',d:'หนังสือเดินทางและงานบริการด้านกงสุล',u:'https://www.consular.go.th'},
+  {id:'dopa',s:'gov',n:'กรมการปกครอง (กระทรวงมหาดไทย)',sn:'กรมการปกครอง',d:'บัตรประจำตัวประชาชนและงานทะเบียนราษฎร',u:'https://www.dopa.go.th'},
+  {id:'dol',s:'gov',n:'กรมที่ดิน',sn:'กรมที่ดิน',d:'งานเอกสารสิทธิ์และการดำเนินการเกี่ยวกับที่ดิน',u:'https://www.dol.go.th'},
+ 
+  {id:'bma',s:'loc',n:'กรุงเทพมหานคร (กทม.)',sn:'กทม.',d:'คลินิกความหลากหลายทางเพศ (BKK Pride Clinic) และศูนย์ฝึกอาชีพ กทม.',u:'https://www.bangkok.go.th'},
+  {id:'dla',s:'loc',n:'กรมส่งเสริมการปกครองท้องถิ่น (สถ.)',sn:'สถ.',d:'กำกับดูแลและประสานงาน อบจ. เทศบาล และ อบต. ทั่วประเทศ',u:'https://www.dla.go.th'},
+  {id:'front',s:'loc',n:'เทศบาล / อบจ. / อบต. ในพื้นที่ของคุณ',sn:'อปท. ในพื้นที่',d:'ด่านหน้าระดับพื้นที่ในการเยี่ยมบ้านและประเมินเคส (บทบาทตามแบบจำลองของโครงการ)',u:''},
+ 
+ 
+ 
+ 
+];
+var AG={}; AGENCIES.forEach(function(a){AG[a.id]=a;});
+ 
+var TOPICS=[
+  {id:'edu',label:'การศึกษา',emoji:'🎓',chip:'หลุดจากระบบการศึกษา / อยากเรียนต่อ',routes:['nfe','front']},
+  {id:'work',label:'ว่างงาน / ฝึกอาชีพ',emoji:'💼',chip:'ตกงาน / อยากเปลี่ยนสายงาน',routes:['doe','dsd','mhesi']},
+  {id:'welfare',label:'สวัสดิการ',emoji:'🏥',chip:'ต้องการสวัสดิการหรือสิทธิรักษา',routes:['mso','front']},
+  {id:'lgbtq',label:'สิทธิ LGBTQ+',emoji:'🏳️‍🌈',chip:'ถูกเลือกปฏิบัติเพราะเพศสภาพ',routes:['bma','mso','doe']},
+  {id:'disab',label:'ผู้พิการ',emoji:'♿',chip:'สิทธิและการจ้างงานคนพิการ',routes:['dep','mso','doe']}
+];
+var TOPIC={}; TOPICS.forEach(function(t){TOPIC[t.id]=t;});
+ 
+var KEYWORDS=[
+  {re:/(ตกงาน|เลิกจ้าง|ว่างงาน|สมัครงาน|ปฏิเสธ)/,add:['doe','dsd']},
+  {re:/(เรียน|กศน|หลุด)/,add:['nfe']},
+  {re:/(พิการ)/,add:['dep']},
+  {re:/(ข้ามเพศ|เพศสภาพ|LGBT)/i,add:['bma']},
+  {re:/(ไร้บ้าน|ที่อยู่อาศัย|ไม่มีบ้าน)/,add:['mso']}
+];
+ 
+var POPULAR=[
+  {e:'📄',t:'ขอหนังสือเดินทาง',a:'กรมการกงสุล',u:'https://www.consular.go.th'},
+  {e:'🪪',t:'ทำบัตรประชาชน',a:'กรมการปกครอง',u:'https://www.dopa.go.th'},
+  {e:'🎓',t:'สมัครทุนการศึกษา',a:'กยศ.',u:'https://www.studentloan.or.th'},
+  {e:'💼',t:'ขึ้นทะเบียนผู้ว่างงาน',a:'กรมการจัดหางาน',u:'https://www.doe.go.th'},
+  {e:'🏥',t:'ตรวจสอบสิทธิการรักษา',a:'สปสช.',u:'https://www.nhso.go.th'},
+  {e:'🏠',t:'ขออนุญาตก่อสร้าง / ที่ดิน',a:'กรมที่ดิน',u:'https://www.dol.go.th'}
+];
+ 
+var SERVICES=[
+  {id:'docs',emoji:'📄',title:'เอกสารและใบอนุญาต',intro:'บริการยอดนิยมที่พาไปยังหน่วยงานเจ้าของบริการโดยตรง',items:[
+    {e:'📄',t:'ขอหนังสือเดินทาง',d:'ยื่นคำร้องและตรวจสอบขั้นตอนกับกรมการกงสุล',a:'กรมการกงสุล',u:'https://www.consular.go.th',k:'passport พาสปอร์ต หนังสือเดินทาง'},
+    {e:'🪪',t:'ทำบัตรประชาชน',d:'ขั้นตอนการทำและเปลี่ยนบัตรประจำตัวประชาชน',a:'กรมการปกครอง',u:'https://www.dopa.go.th',k:'บัตรประชาชน ทะเบียนราษฎร'},
+    {e:'🏠',t:'ขออนุญาตก่อสร้าง / ที่ดิน',d:'งานที่ดินอยู่ที่กรมที่ดิน ส่วนใบอนุญาตก่อสร้างยื่นที่ท้องถิ่นในพื้นที่',a:'กรมที่ดิน',u:'https://www.dol.go.th',k:'ที่ดิน ก่อสร้าง ใบอนุญาต โฉนด'}
+  ]},
+  {id:'edu',emoji:'🎓',title:'การศึกษา',intro:'ค้นหาทางเรียนต่อและแหล่งทุน สำหรับทั้งคนในระบบและนอกระบบ',items:[
+    {e:'📚',t:'เรียนต่อเมื่อหลุดจากระบบการศึกษา (กศน.)',d:'ค้นหาหลักสูตรของ สกร. สำหรับผู้ที่ต้องการกลับมาเรียน',a:'สกร. / ศธ.',u:'https://www.moe.go.th',k:'กศน หลุดจากระบบ เรียนต่อ สกร'},
+    {e:'🎓',t:'สมัครทุนการศึกษา และกู้ยืม กยศ.',d:'ตรวจสอบเงื่อนไขการกู้ยืมเพื่อการศึกษา',a:'กยศ.',u:'https://www.studentloan.or.th',k:'ทุน กยศ กู้ยืม การศึกษา'}
+  ]},
+  {id:'work',emoji:'💼',title:'การทำงานและพัฒนาทักษะ',intro:'จากการหางาน ไปจนถึงเรียนรู้ทักษะใหม่ (Upskill / Reskill)',items:[
+    {e:'💼',t:'ขึ้นทะเบียนผู้ว่างงาน',d:'ลงทะเบียนและค้นหาตำแหน่งงานว่างกับกรมการจัดหางาน',a:'กรมการจัดหางาน',u:'https://www.doe.go.th',k:'ว่างงาน ตกงาน หางาน ตำแหน่งงาน'},
+    {e:'🛠️',t:'หลักสูตรฝึกอาชีพ',d:'หลักสูตรยกระดับฝีมือแรงงาน ตรวจสอบค่าใช้จ่ายของแต่ละหลักสูตรก่อนสมัคร',a:'กรมพัฒนาฝีมือแรงงาน',u:'https://www.dsd.go.th',k:'ฝึกอาชีพ ฝีมือแรงงาน อบรม'},
+    {e:'🔎',t:'จับคู่ทักษะกับตำแหน่งงานและคอร์สเรียน',d:'แนวคิดของโครงการ: แนะนำงานและคอร์สที่ตรงกับทักษะ ตอนนี้ให้เริ่มที่ระบบค้นหางานของกรมการจัดหางาน',a:'กรมการจัดหางาน',u:'https://www.doe.go.th',k:'จับคู่ ทักษะ งาน'}
+  ]},
+  {id:'health',emoji:'🏥',title:'สุขภาพและสวัสดิการ',intro:'ตรวจสอบสิทธิและช่องทางรับความช่วยเหลือ',items:[
+    {e:'🏥',t:'ตรวจสอบสิทธิการรักษา (บัตรทอง)',d:'เช็กสิทธิด้วยตัวเองผ่านเว็บไซต์ สปสช.',a:'สปสช.',u:'https://www.nhso.go.th',k:'บัตรทอง สิทธิรักษา สุขภาพ'},
+    {e:'♿',t:'บัตรประจำตัวคนพิการและเงินอุดหนุน',d:'สิทธิและขั้นตอนสำหรับคนพิการ',a:'พก.',u:'https://www.dep.go.th',k:'คนพิการ บัตรคนพิการ เงินอุดหนุน'},
+    {e:'🩺',t:'บริการสุขภาพที่เป็นมิตรกับความหลากหลายทางเพศ',d:'BKK Pride Clinic ของกรุงเทพมหานคร',a:'กทม.',u:'https://www.bangkok.go.th',k:'คลินิก ความหลากหลายทางเพศ pride lgbtq'}
+  ]},
+  {id:'equal',emoji:'🏳️‍🌈',title:'ความเท่าเทียม',intro:'เรื่องการเลือกปฏิบัติและสิทธิที่ควรรู้',items:[
+    {e:'📣',t:'แจ้งเรื่องการเลือกปฏิบัติ',d:'เล่าเรื่องผ่านแบบฟอร์มของโครงการ (ต้นแบบยังไม่ส่งต่อหน่วยงานจริง)',a:'แบบฟอร์ม',to:'#/help?topic=lgbtq',k:'เลือกปฏิบัติ ร้องเรียน lgbtq'},
+  ]}
+];
+ 
+var MOOCS=[
+  {e:'🌐',n:'Thai MOOC',d:'ศูนย์รวมคอร์สเรียนออนไลน์จากมหาวิทยาลัยทั่วประเทศ ภายใต้ อว.',t:'ทักษะดิจิทัลพื้นฐาน, การเริ่มต้นธุรกิจออนไลน์, ภาษาเพื่ออาชีพ',b:'ค้นหาคอร์สบน Thai MOOC',u:'https://thaimooc.org/'},
+  {e:'🩷',n:'CHULA MOOC (จุฬาลงกรณ์มหาวิทยาลัย)',d:'คอร์สด้านธุรกิจ ไอที ภาษา และการจัดการ',t:'ภาษาอังกฤษเพื่อการสื่อสารเบื้องต้น, การจัดการเงินส่วนบุคคล',b:'ดูคอร์สของ CHULA MOOC',u:'https://mooc.chula.ac.th/'},
+  {e:'💙',n:'MUx (มหาวิทยาลัยมหิดล)',d:'โดดเด่นด้านสุขภาพกาย สุขภาพใจ และทักษะการทำงาน (Soft Skills)',t:'การดูแลสุขภาพใจเมื่อว่างงาน, ทักษะการสื่อสาร',b:'พัฒนาทักษะกับ MUx',u:'https://mux.mahidol.ac.th/'},
+  {e:'💜',n:'CMU MOOC (มหาวิทยาลัยเชียงใหม่)',d:'คอร์สทักษะยุคใหม่และการใช้ชีวิต ตั้งแต่วัยเรียนถึงวัยทำงาน',t:'การสร้างสรรค์สื่อดิจิทัลเบื้องต้น',b:'ดูหลักสูตรของ CMU MOOC',u:'https://mooc.cmu.ac.th/'},
+  {e:'🧡',n:'KMITL (สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง)',d:'คอร์สออนไลน์และแพลตฟอร์ม KLIX ด้านเทคโนโลยีดิจิทัล',t:'ทักษะดิจิทัลพื้นฐาน, พื้นฐาน AI และโค้ดดิ้ง',b:'ดูคอร์สออนไลน์ของ สจล.',u:'https://kmitl.ac.th/article/online-course'}
+];
+ 
+var KNOWLEDGE=[
+  {t:'กฎหมายสมรสเท่าเทียม',d:'ทำความเข้าใจสิทธิของคู่สมรสตามกฎหมายที่แก้ไขให้ไม่จำกัดเพศ ตรวจข้อมูลล่าสุดจากเว็บไซต์ พม.',a:'กระทรวง พม.',u:'https://www.m-society.go.th',k:'สมรสเท่าเทียม กฎหมาย คู่สมรส lgbtq'},
+  {t:'สิทธิคนพิการตาม พ.ร.บ. ส่งเสริมและพัฒนาคุณภาพชีวิตคนพิการ',d:'สรุปสิทธิด้านการศึกษา การจ้างงาน และสวัสดิการ จากหน่วยงานที่ดูแลโดยตรง',a:'กรมส่งเสริมและพัฒนาคุณภาพชีวิตคนพิการ',u:'https://www.dep.go.th',k:'สิทธิคนพิการ พ.ร.บ. จ้างงาน'},
+  {t:'วิธีเช็กสิทธิบัตรทองด้วยตัวเอง',d:'ตรวจสอบสิทธิการรักษาและหน่วยบริการประจำของคุณผ่านเว็บไซต์ สปสช.',a:'สปสช.',u:'https://www.nhso.go.th',k:'บัตรทอง สิทธิ สปสช เช็กสิทธิ'}
+];
+ 
+var NEWS=[
+  {date:'15 ก.ย. 2569',t:'เปิดทดลองระบบรับเรื่องเบื้องต้น',d:'ทดลองส่งเรื่องผ่านแบบฟอร์ม "ขอความช่วยเหลือ" และดูผลการส่งต่อบนแดชบอร์ดเจ้าหน้าที่'},
+  {date:'10 ก.ย. 2569',t:'รวมแหล่งเรียนรู้ทักษะใหม่จาก MOOC ของมหาวิทยาลัยชั้นนำ',d:'Thai MOOC, CHULA MOOC, MUx, CMU MOOC และ สจล. อยู่ในหน้าบริการทั้งหมดแล้ว'},
+  {date:'5 ก.ย. 2569',t:'แนวทางคุ้มครองข้อมูลผู้ขอรับความช่วยเหลือ',d:'ต้นแบบนี้ไม่บันทึกข้อความที่พิมพ์ในช่องเล่าปัญหา ใช้เพื่อจัดหมวดเท่านั้น'}
+];
+ 
+var FAQS=[
+  {q:'One Stop Service คืออะไร',a:'เป็นจุดเดียวสำหรับค้นหาบริการและหน่วยงาน และส่งเรื่องขอความช่วยเหลือครั้งเดียว เพื่อให้ระบบช่วยส่งต่อไปยังหน่วยงานภาครัฐและท้องถิ่นที่เกี่ยวข้อง'},
+  {q:'ต้องเล่าปัญหาซ้ำหลายหน่วยงานหรือไม่',a:'แนวคิดของระบบคือไม่ต้อง ประชาชนเล่าเรื่องครั้งเดียวผ่านแบบฟอร์ม เจ้าหน้าที่ตรวจสอบและส่งต่อไปยังหน่วยงานที่เหมาะสม เพื่อลดการเดินทางและการเล่าซ้ำ'},
+  {q:'เว็บไซต์นี้ใช้งานได้จริงหรือยัง',a:'เว็บไซต์นี้เป็นต้นแบบเพื่อการนำเสนอ ยังไม่ได้เชื่อมต่อกับหน่วยงานจริง ข้อมูลที่กรอกจะอยู่ในเบราว์เซอร์นี้เท่านั้น และลิงก์ภายนอกพาไปยังเว็บไซต์ของหน่วยงานเจ้าของบริการ'},
+  {q:'ข้อมูลส่วนบุคคลจะถูกจัดการอย่างไร',a:'ในต้นแบบนี้ไม่มีการส่งข้อมูลออกและไม่บันทึกข้อความที่พิมพ์ หากพัฒนาเป็นระบบจริง ควรขอความยินยอมตามพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล (PDPA) และเปิดเผยข้อมูลเท่าที่จำเป็นต่อการส่งต่อเรื่อง'},
+  {q:'ไม่รู้ว่าต้องติดต่อหน่วยงานไหน ทำอย่างไร',a:'เลือกสถานการณ์ที่ใกล้เคียงในหน้าแรก หรือไปที่หน้า "หน่วยงานที่เกี่ยวข้อง" เพื่อค้นหาตามประเภทและชื่อ หากยังไม่แน่ใจ ให้ส่งเรื่องผ่านแบบฟอร์ม "ขอความช่วยเหลือ"'},
+  {q:'ถ้าอยู่ในสถานการณ์ฉุกเฉินควรทำอย่างไร',a:'เว็บไซต์นี้ไม่ใช่ช่องทางฉุกเฉิน หากมีอันตรายให้โทร 191 (แจ้งเหตุด่วนเหตุร้าย) หรือ 1669 (การแพทย์ฉุกเฉิน) หากต้องการปรึกษาด้านสุขภาพใจโทร 1323 และหากต้องการความช่วยเหลือทางสังคมโทร 1300'}
+];
+ 
+/* ---------- state ---------- */
+var KEY='oss-demo-cases-v2';
+var STATUS={new:'รอคัดกรอง',routed:'ส่งต่อแล้ว',closed:'ปิดเคส'};
+function seed(){
+  var rows=[
+    ['PP-2569-0001','2026-09-08T09:20','work','routed',['doe','dsd']],
+    ['PP-2569-0002','2026-09-08T14:05','edu','closed',['nfe']],
+    ['PP-2569-0003','2026-09-09T10:40','lgbtq','routed',['bma','doe']],
+    ['PP-2569-0004','2026-09-10T11:15','welfare','routed',['mso']],
+    ['PP-2569-0005','2026-09-10T16:30','work','new',['doe','dsd']],
+    ['PP-2569-0006','2026-09-11T09:05','disab','routed',['dep','mso']],
+    ['PP-2569-0007','2026-09-12T13:50','edu','new',['nfe','front']],
+    ['PP-2569-0008','2026-09-14T10:10','work','closed',['doe']],
+    ['PP-2569-0009','2026-09-15T15:25','lgbtq','new',['mso','bma']],
+    ['PP-2569-0010','2026-09-16T09:45','welfare','routed',['mso','front']],
+    ['PP-2569-0011','2026-09-17T11:30','edu','routed',['nfe','front']],
+    ['PP-2569-0012','2026-09-18T14:40','work','new',['doe','mhesi']]
+  ];
+  return rows.map(function(r){return {id:r[0],ts:r[1],topic:r[2],status:r[3],routed:r[4],channels:['phone'],sample:true};});
+}
+function load(){
+  try{
+    var raw=localStorage.getItem(KEY);
+    if(raw){var a=JSON.parse(raw); if(Array.isArray(a)&&a.length) return a;}
+  }catch(e){}
+  return seed();
+}
+var cases=load();
+function save(){try{localStorage.setItem(KEY,JSON.stringify(cases));}catch(e){}}
+var triage=null, lastCase=null, newId=null, ag={sector:'all',q:''};
+ 
+/* ---------- small renderers ---------- */
+function agLink(a){
+  if(a.u) return '<a href="'+esc(a.u)+'" target="_blank" rel="noopener noreferrer">'+esc(a.n)+'</a>';
+  return '<span>'+esc(a.n)+'</span>';
+}
+function routeList(ids){
+  return '<ul class="route">'+ids.map(function(id){
+    var a=AG[id]; if(!a) return '';
+    return '<li style="'+sty(a.s)+'"><span class="dot" aria-hidden="true"></span>'+agLink(a)+(a.flag?'<span class="tag">'+esc(a.flag)+'</span>':'')+'<span class="sec">'+esc(SEC[a.s].name)+'</span></li>';
+  }).join('')+'</ul>';
+}
+function triageHTML(){
+  var chips=TOPICS.map(function(t){
+    return '<button type="button" class="chip'+(triage===t.id?' on':'')+'" data-act="triage" data-topic="'+t.id+'" aria-pressed="'+(triage===t.id)+'">'+t.emoji+' '+esc(t.chip)+'</button>';
+  }).join('');
+  var res='<p class="small muted">เลือกสถานการณ์ที่ใกล้เคียง เพื่อดูว่าเรื่องนี้มักเกี่ยวข้องกับหน่วยงานใดบ้าง</p>';
+  if(triage){
+    var t=TOPIC[triage];
+    res='<p class="small strong">เรื่องนี้มักเกี่ยวข้องกับ</p>'+routeList(t.routes)+'<a class="btn" href="#/help?topic='+t.id+'">เล่าเรื่องนี้ครั้งเดียว '+ICON.arrow+'</a>';
+  }
+  return '<h2 class="triage-h">ไม่แน่ใจว่าต้องเริ่มที่ไหน?</h2><div class="chips">'+chips+'</div><div class="triage-res" aria-live="polite">'+res+'</div>';
+}
+function svcRow(it){
+  var href=it.to||it.u, ext=!it.to;
+  return '<li><a class="svc-row" href="'+esc(href)+'"'+(ext?' target="_blank" rel="noopener noreferrer"':'')+'><span class="svc-e" aria-hidden="true">'+it.e+'</span><span class="svc-t"><b>'+esc(it.t)+'</b>'+(it.d?'<span>'+esc(it.d)+'</span>':'')+'</span><span class="svc-go"><span class="a">'+esc(it.a||'')+'</span> '+(ext?ICON.ext:ICON.arrow)+'</span></a></li>';
+}
+function moocBlock(){
+  var rows=MOOCS.map(function(m){
+    return '<li class="mooc"><div><h4>'+m.e+' '+esc(m.n)+'</h4><p><b>จุดเด่น:</b> '+esc(m.d)+'</p><p><b>หัวข้อที่น่าลองค้นหา:</b> '+esc(m.t)+'</p></div><a class="btn btn-ghost" href="'+esc(m.u)+'" target="_blank" rel="noopener noreferrer">'+esc(m.b)+' '+ICON.ext+'</a></li>';
+  }).join('');
+  return '<div class="mooc-block"><h3>🎓 ยกระดับทักษะฟรี เพื่อโอกาสที่มากกว่า (Reskill &amp; Upskill)</h3><p>ไม่ว่าจะต้องการเปลี่ยนสายงานหรือเพิ่มทักษะใหม่ One Stop Service เชื่อมไปยังแพลตฟอร์ม MOOC จากมหาวิทยาลัยชั้นนำ หลายคอร์สเรียนได้ฟรี และบางคอร์สมีเกียรติบัตรรับรอง (ตรวจเงื่อนไขของแต่ละคอร์สอีกครั้ง)</p><ul class="rows-plain">'+rows+'</ul></div>';
+}
+function fmtTime(ts){
+  try{return new Date(ts).toLocaleString('th-TH',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});}
+  catch(e){return String(ts);}
+}
+ 
+/* ---------- dashboard ---------- */
+function stats(){
+  var byTopic={}, bySector={}, byStatus={new:0,routed:0,closed:0};
+  TOPICS.forEach(function(t){byTopic[t.id]=0;});
+  SECTORS.forEach(function(s){bySector[s.id]=0;});
+  cases.forEach(function(c){
+    if(byTopic[c.topic]!==undefined) byTopic[c.topic]++;
+    if(byStatus[c.status]!==undefined) byStatus[c.status]++;
+    var seen={};
+    (c.routed||[]).forEach(function(id){var a=AG[id]; if(a&&!seen[a.s]){seen[a.s]=1; bySector[a.s]++;}});
+  });
+  return {byTopic:byTopic,bySector:bySector,byStatus:byStatus};
+}
+function barRows(items,max){
+  return items.map(function(it){
+    var w=max?Math.round(it.n/max*100):0;
+    return '<div class="barrow"><span>'+it.label+'</span><div class="track"><div class="fill" style="width:'+w+'%;'+(it.color?'--fillc:'+it.color:'')+'"></div></div><output>'+it.n+'</output></div>';
+  }).join('');
+}
+function dashHTML(){
+  var st=stats(), total=cases.length;
+  var topicItems=TOPICS.map(function(t){return {label:t.emoji+' '+esc(t.label),n:st.byTopic[t.id]};});
+  var secItems=SECTORS.map(function(s){return {label:s.emoji+' '+esc(s.name),n:st.bySector[s.id],color:'var(--'+s.id+')'};});
+  var max1=Math.max.apply(null,topicItems.map(function(x){return x.n;}).concat([1]));
+  var max2=Math.max.apply(null,secItems.map(function(x){return x.n;}).concat([1]));
+  var rows=cases.slice().sort(function(a,b){return a.ts<b.ts?1:-1;}).slice(0,10).map(function(c){
+    var t=TOPIC[c.topic]||{label:c.topic,emoji:''};
+    var pills=(c.routed||[]).slice(0,4).map(function(id){var a=AG[id]; return a?'<span class="pill" style="'+sty(a.s)+'"><span class="dot"></span>'+esc(a.sn)+'</span>':'';}).join('');
+    var opts=Object.keys(STATUS).map(function(k){return '<option value="'+k+'"'+(c.status===k?' selected':'')+'>'+STATUS[k]+'</option>';}).join('');
+    return '<tr'+(c.id===newId?' class="is-new"':'')+'><td>'+esc(c.id)+(c.sample?'<span class="tag">ตัวอย่าง</span>':'<span class="tag">ใหม่</span>')+'</td><td>'+esc(fmtTime(c.ts))+'</td><td>'+t.emoji+' '+esc(t.label)+'</td><td>'+pills+'</td><td><select data-case="'+esc(c.id)+'" aria-label="สถานะของ '+esc(c.id)+'">'+opts+'</select></td></tr>';
+  }).join('');
+  return '<div class="kpis"><div class="kpi"><b>'+total+'</b><span>เรื่องทั้งหมด</span></div><div class="kpi"><b>'+st.byStatus.new+'</b><span>รอคัดกรอง</span></div><div class="kpi"><b>'+st.byStatus.routed+'</b><span>ส่งต่อแล้ว</span></div><div class="kpi"><b>'+st.byStatus.closed+'</b><span>ปิดเคส</span></div></div>'
+   +'<div class="charts"><div><h3>เรื่องที่ขอความช่วยเหลือ แยกตามด้าน</h3>'+barRows(topicItems,max1)+'</div><div><h3>เรื่องที่ถูกส่งต่อ แยกตามภาคส่วน</h3>'+barRows(secItems,max2)+'</div></div>'
+   +'<div class="tablewrap"><table><thead><tr><th>รหัสเรื่อง</th><th>เวลา</th><th>ด้าน</th><th>ส่งต่อไปยัง</th><th>สถานะ</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+}
+function refreshDash(){var d=$('#dash'); if(d) d.innerHTML=dashHTML();}
+ 
+/* ---------- views ---------- */
+function viewHome(){
+  var tiles=SECTORS.map(function(s){
+    return '<a class="tile" href="#/agencies?sector='+s.id+'" style="'+sty(s.id)+'"><span class="tile-badge" aria-hidden="true">'+s.emoji+'</span><span class="tile-name">'+esc(s.name).replace('ท้องถิ่น','<span style="white-space:nowrap">ท้องถิ่น</span>')+'</span><span class="tile-sub">'+esc(s.sub)+'</span></a>';
+  }).join('');
+  var pop=POPULAR.map(svcRow).join('');
+  var secOpts='<option value="all">ทุกประเภทหน่วยงาน</option>'+SECTORS.map(function(s){return '<option value="'+s.id+'">'+esc(s.name)+'</option>';}).join('');
+  var news=NEWS.map(function(n){return '<li><time>'+esc(n.date)+'</time><div><h3>'+esc(n.t)+'<span class="tag">ตัวอย่าง</span></h3><p>'+esc(n.d)+'</p></div></li>';}).join('');
+  var quick=['หนังสือเดินทาง','ว่างงาน','บัตรทอง','ทุนการศึกษา'].map(function(q){return '<button type="button" class="chip" data-act="quick" data-q="'+esc(q)+'">'+esc(q)+'</button>';}).join('');
+  var html='<div class="wrap"><section class="hero"><div>'
+   +'<h1 class="hero-h">ศูนย์บริการภาครัฐแบบเบ็ดเสร็จ<span class="en">(One Stop Service)</span></h1>'
+   +'<p class="lede">เชื่อมต่อทุกภาคส่วน เพื่อให้ประชาชนเข้าถึงบริการได้ง่าย สะดวก รวดเร็ว และครบจบในที่เดียว</p>'
+   +'<p class="muted small" style="margin-top:10px">ริเริ่มโดย <a href="#/about" style="text-decoration:underline">องค์กรพหุพัฒนา</a> · ชุมชนนิมนต์หนองยิ้ม</p>'
+   +'<div class="searchbar" role="search"><input id="heroq" type="search" placeholder="ค้นหาบริการ / หน่วยงาน / เรื่องที่ต้องการ" aria-label="ค้นหาบริการ หน่วยงาน หรือเรื่องที่ต้องการ"><button type="button" data-act="hero-search">'+ICON.search+' ค้นหา</button></div>'
+   +'<div class="quick"><span>ลองค้นหา:</span>'+quick+'</div>'
+   +'</div><aside class="triage" id="triage">'+triageHTML()+'</aside></section></div>'
+   +'<section class="section"><div class="wrap"><div class="sec-h"><h2>เชื่อมต่อทุกภาคส่วน</h2><p>เลือกภาคส่วนเพื่อดูหน่วยงานที่เกี่ยวข้อง แต่ละกล่องพาไปยังหน้ารวมหน่วยงานของภาคส่วนนั้น</p></div><div class="tiles">'+tiles+'</div></div></section>'
+   +'<section class="section" style="padding-top:8px"><div class="wrap"><div class="sec-h"><h2>บริการยอดนิยม</h2><p>กดแล้วไปที่หน่วยงานเจ้าของบริการโดยตรง</p></div><ul class="rows two">'+pop+'</ul></div></section>'
+   +'<section class="band"><div class="wrap"><div><h2>ไม่รู้ว่าต้องติดต่อใคร?</h2><p>เราช่วยค้นหาหน่วยงานที่เกี่ยวข้องให้คุณ</p></div><div class="finder"><select id="fsec" aria-label="เลือกประเภทหน่วยงาน">'+secOpts+'</select><input id="fq" type="search" placeholder="ชื่อหน่วยงาน" aria-label="ค้นหาชื่อหน่วยงาน"><button type="button" class="btn" data-act="finder">ค้นหา</button></div></div></section>'
+   +'<section class="section"><div class="wrap"><div class="sec-h"><h2>ข่าวสารและประกาศ</h2></div><ul class="news">'+news+'</ul><p style="margin-top:16px"><a class="btn btn-ghost" href="#/knowledge">ดูข่าวสารและความรู้ทั้งหมด '+ICON.arrow+'</a></p></div></section>';
+  return {title:'หน้าแรก',html:html};
+}
+ 
+function viewAbout(){
+  var html='<div class="wrap">'
+   +'<div class="about-hero">'
+     +'<h1>ระบบหลักประกันสู่การมีงานทำอย่างเท่าเทียม</h1>'
+     +'<p>เพราะเราเชื่อว่าการพัฒนาที่ยั่งยืน คือการไม่มีใครถูกทิ้งไว้ข้างหลัง</p>'
+   +'</div>'
+   +'<section class="about-sec">'
+     +'<div class="sec-h"><h2>เกี่ยวกับเรา</h2></div>'
+     +'<p style="max-width:70ch">องค์กรพหุพัฒนา จัดตั้งโดยชุมชนนิมนต์หนองยิ้ม เราไม่ใช่แค่ศูนย์บริการ แต่เราคือ “ระบบนิเวศ” ที่เชื่อมโยงการศึกษา การพัฒนาทักษะ และการจ้างงานเข้าด้วยกัน เพื่อช่วยเหลือผู้ที่หลุดออกจากระบบให้กลับมายืนหยัดได้ด้วยตัวเอง</p>'
+   +'</section>'
+   +'<section class="about-sec">'
+     +'<div class="sec-h"><h2>ปัญหาที่เรามองเห็น</h2><p>ความเหลื่อมล้ำเชิงโครงสร้างที่คนหลายกลุ่มในชุมชนต้องเผชิญพร้อมกัน</p></div>'
+     +'<p style="max-width:70ch">เราเห็นบัณฑิตว่างงานที่แบกหนี้ กยศ. พนักงานที่ขาดสวัสดิการรองรับ กลุ่มความหลากหลายทางเพศที่ถูกเลือกปฏิบัติ คุณแม่วัยใสที่ต้องทิ้งการเรียน และผู้พิการที่ขาดโอกาส</p>'
+     +'<div class="stats">'
+       +'<div class="stat"><b>1.02 ล้านคน</b><span>เด็กหลุดจากระบบการศึกษา (ปี 2562–2567)</span></div>'
+       +'<div class="stat"><b>3.5 แสน + 2,000 คน</b><span>นักเรียนพิการทางร่างกาย และพิการทางสายตาที่ขาดแคลนอุปกรณ์</span></div>'
+       +'<div class="stat"><b>174,000 คน</b><span>ผู้ว่างงาน (ปี 2568)</span></div>'
+     +'</div>'
+   +'</section>'
+   +'<section class="about-sec">'
+     +'<div class="sec-h"><h2>บริการและกลไกของเรา</h2><p>เราไม่แยกส่วนปัญหา แต่บูรณาการการทำงานของหลายภาคส่วนเข้าไว้ด้วยกัน</p></div>'
+     +'<ul class="solutions">'
+       +'<li class="solution"><span class="e" aria-hidden="true">🧭</span><div><h3>บริการแบบ One Stop Service</h3><p>บูรณาการการทำงานของกระทรวงต่าง ๆ — ศึกษาธิการ, อว., พม., สาธารณสุข และแรงงาน — ไว้ในจุดเดียว</p></div></li>'
+       +'<li class="solution"><span class="e" aria-hidden="true">🤝</span><div><h3>Case Manager ประจำตัว</h3><p>เจ้าหน้าที่ 1 คนดูแล 1 เคสแบบครบวงจร ตั้งแต่ประเมินปัญหา ประสานงาน ไปจนถึงติดตามผลการจ้างงานหรือการกลับเข้าสู่การศึกษา</p></div></li>'
+       +'<li class="solution"><span class="e" aria-hidden="true">🧠</span><div><h3>ระบบ AI คัดกรองอัจฉริยะ</h3><p>วิเคราะห์และประเมินปัญหาอย่างแม่นยำเพื่อส่งต่อหน่วยงานที่เกี่ยวข้อง เช่น กรณีเยาวชนอายุไม่ถึงวัยทำงาน ระบบจะแนะนำให้ประสาน พม. และดึงกลับเข้าสู่ระบบการศึกษาแทนการหางาน</p></div></li>'
+       +'<li class="solution"><span class="e" aria-hidden="true">💻</span><div><h3>บริการออนไลน์</h3><p>เข้าถึงบริการได้ง่าย ๆ ผ่านเว็บไซต์ ลดข้อจำกัดเรื่องการเดินทาง</p></div></li>'
+     +'</ul>'
+     +'<p class="hint" style="margin-top:16px">ดูขั้นตอนการทำงานแบบเต็มได้ที่หน้า <a href="#/system" style="text-decoration:underline">ระบบการทำงาน</a></p>'
+   +'</section>'
+   +'<section class="about-sec">'
+     +'<div class="sec-h"><h2>เป้าหมายของเรา</h2></div>'
+     +'<ul class="goals">'
+       +'<li><span class="dot2" aria-hidden="true"></span><p>ผลักดัน พ.ร.บ. ส่งเสริมการจ้างงานข้ามภาคส่วน เพื่อให้เกิดการทำงานร่วมกันอย่างเป็นรูปธรรม</p></li>'
+       +'<li><span class="dot2" aria-hidden="true"></span><p>สร้างความมั่นคงในชีวิต การศึกษา และหน้าที่การงานให้กับคนในชุมชน</p></li>'
+       +'<li><span class="dot2" aria-hidden="true"></span><p>ตอบสนองต่อเป้าหมายการพัฒนาที่ยั่งยืน (SDGs) ด้วยการไม่ทิ้งใครไว้ข้างหลัง</p></li>'
+     +'</ul>'
+   +'</section>'
+   +'<section class="about-sec">'
+     +'<div class="sec-h"><h2>ที่ทำการศูนย์นำร่อง</h2><p>ชุมชนนิมนต์หนองยิ้ม</p></div>'
+     +'<ul class="channels" style="margin-top:0">'
+       +'<li><span class="e">📍</span><div><b>ที่อยู่</b><br>อาคารศูนย์พหุพัฒนา ชุมชนนิมนต์หนองยิ้ม เลขที่ 99/9 ซอยร่วมใจ ถนนพัฒนาสังคม ตำบลหนองยิ้ม อำเภอเมือง จังหวัดสมมติ 99999</div></li>'
+       +'<li><span class="e">☎️</span><div><b>โทรศัพท์ส่วนกลาง</b><br>02-123-4567</div></li>'
+       +'<li><span class="e">📱</span><div><b>สายด่วน Case Manager</b><br>089-999-9999</div></li>'
+       +'<li><span class="e">✉️</span><div><b>อีเมล</b><br>contact@pahupattana-nongyim.org</div></li>'
+       +'<li><span class="e">🌐</span><div><b>เว็บไซต์</b><br>www.pahupattana-nongyim.org</div></li>'
+       +'<li><span class="e">💬</span><div><b>LINE Official</b><br>@PahuPattana_Center</div></li>'
+       +'<li><span class="e">📘</span><div><b>Facebook Page</b><br>องค์กรพหุพัฒนา ชุมชนนิมนต์หนองยิ้ม</div></li>'
+       +'<li><span class="e">🕗</span><div><b>เวลาทำการ</b><br>วันจันทร์–วันศุกร์ 08:30–17:00 น. (ปิดทำการวันเสาร์–อาทิตย์ และวันหยุดนักขัตฤกษ์)</div></li>'
+     +'</ul>'
+     +'<div class="btnrow"><a class="btn" href="#/help">เล่าเรื่องของคุณให้เราฟัง</a><a class="btn btn-ghost" href="#/contact">ช่องทางติดต่อทั้งหมด</a></div>'
+   +'</section>'
+   +'</div>';
+  return {title:'เกี่ยวกับเรา',html:html};
+}
+ 
+function viewServices(){
+  var toc=SERVICES.map(function(c){return '<button type="button" class="chip" data-act="toc" data-target="svc-'+c.id+'">'+c.emoji+' '+esc(c.title)+'</button>';}).join('');
+  var secs=SERVICES.map(function(c){
+    return '<section class="svc-sec" id="svc-'+c.id+'"><div class="sec-h"><h2>'+c.emoji+' '+esc(c.title)+'</h2><p>'+esc(c.intro)+'</p></div><ul class="rows">'+c.items.map(svcRow).join('')+'</ul>'+(c.id==='work'?moocBlock():'')+'</section>';
+  }).join('');
+  return {title:'บริการทั้งหมด',html:'<div class="wrap"><div class="pagehead"><h1>บริการทั้งหมด</h1><p>รวมบริการที่พบบ่อย แยกตามหมวด กดที่รายการเพื่อไปยังหน่วยงานเจ้าของบริการ หรือกดสารบัญเพื่อข้ามไปยังหมวดที่ต้องการ</p><div class="filters" role="group" aria-label="สารบัญ">'+toc+'</div></div>'+secs+'</div>'};
+}
+ 
+function agListHTML(){
+  var q=ag.q.trim().toLowerCase();
+  var groups=SECTORS.filter(function(s){return ag.sector==='all'||ag.sector===s.id;}).map(function(s){
+    var list=AGENCIES.filter(function(a){
+      if(a.s!==s.id) return false;
+      if(!q) return true;
+      return (a.n+' '+a.sn+' '+a.d).toLowerCase().indexOf(q)>-1;
+    });
+    if(!list.length) return '';
+    var items=list.map(function(a){
+      return '<li class="ag" style="'+sty(a.s)+'"><span class="dot" aria-hidden="true"></span><div><h3>'+esc(a.n)+(a.flag?'<span class="tag">'+esc(a.flag)+'</span>':'')+'</h3><p>'+esc(a.d)+'</p></div>'+(a.u?'<a class="go" href="'+esc(a.u)+'" target="_blank" rel="noopener noreferrer">เว็บไซต์ '+ICON.ext+'</a>':'<span class="nolink">ยังไม่ใส่ลิงก์</span>')+'</li>';
+    }).join('');
+    var note=s.id==='pri'?'<div class="note">รายชื่อภาคเอกชนเป็นข้อเสนอสำหรับต้นแบบ ยังไม่ได้ลงนาม MoU และควรตรวจสอบนโยบายจากแหล่งข้อมูลของแต่ละบริษัทก่อนอ้างอิง</div>':'';
+    return '<section class="aggroup" style="'+sty(s.id)+'"><h2><span class="dot" aria-hidden="true"></span>'+s.emoji+' '+esc(s.name)+'</h2><p class="muted small" style="margin-top:8px">'+esc(s.intro)+'</p>'+note+'<ul class="aglist">'+items+'</ul></section>';
+  }).join('');
+  if(!groups) return '<p class="empty">ไม่พบหน่วยงานที่ตรงกับคำค้น ลองเปลี่ยนภาคส่วนหรือคำค้นหา หรือ <a href="#/help">เล่าเรื่องให้เจ้าหน้าที่</a> ช่วยหาหน่วยงานให้</p>';
+  return groups;
+}
+function viewAgencies(params){
+  ag.sector=params.get('sector')||'all'; if(ag.sector!=='all'&&!SEC[ag.sector]) ag.sector='all';
+  ag.q=params.get('q')||'';
+  var chips='<a class="chip'+(ag.sector==='all'?' on':'')+'" href="#/agencies">ทั้งหมด</a>'+SECTORS.map(function(s){return '<a class="chip'+(ag.sector===s.id?' on':'')+'" href="#/agencies?sector='+s.id+'"'+(ag.sector===s.id?' aria-current="true"':'')+'>'+s.emoji+' '+esc(s.name)+'</a>';}).join('');
+  return {title:'หน่วยงานที่เกี่ยวข้อง',html:'<div class="wrap"><div class="pagehead"><h1>หน่วยงานที่เกี่ยวข้อง</h1><p>ไม่รู้ว่าต้องติดต่อใคร? เลือกประเภทหน่วยงานหรือพิมพ์ชื่อเพื่อค้นหา</p></div><div class="filters" role="group" aria-label="กรองตามภาคส่วน">'+chips+'</div><div class="agsearch"><input id="agq" type="search" value="'+esc(ag.q)+'" placeholder="ค้นหาชื่อหน่วยงาน" aria-label="ค้นหาชื่อหน่วยงาน"></div><div id="aglist" aria-live="polite">'+agListHTML()+'</div></div>'};
+}
+ 
+function viewHelp(params){
+  var pre=params.get('topic')||'';
+  var side='<aside class="side"><h2>เล่าปัญหาครั้งเดียว</h2><p class="muted">เจ้าหน้าที่จะช่วยคัดกรองและส่งต่อไปยังหน่วยงานที่เกี่ยวข้อง โดยไม่ต้องเล่าซ้ำหลายที่</p><ul><li>ข้อความที่พิมพ์ในต้นแบบนี้ไม่ถูกบันทึกและไม่ถูกส่งออก ใช้เพื่อจัดหมวดเท่านั้น</li><li>ไม่ต้องใส่ชื่อ เลขบัตร หรือข้อมูลส่วนตัวจริง</li></ul><div class="emerg"><b>กรณีฉุกเฉิน</b><ul><li>🚓 <a href="tel:191">191</a> แจ้งเหตุด่วนเหตุร้าย</li><li>🚑 <a href="tel:1669">1669</a> การแพทย์ฉุกเฉิน</li><li>💙 <a href="tel:1323">1323</a> สายด่วนสุขภาพจิต</li><li>🤝 <a href="tel:1300">1300</a> ศูนย์ช่วยเหลือสังคม</li></ul></div></aside>';
+  var main;
+  if(lastCase){
+    var c=lastCase, t=TOPIC[c.topic];
+    main='<div class="formbox done"><h2>รับเรื่องแล้ว</h2><p>รหัสเรื่องของคุณ</p><span class="code">'+esc(c.id)+'</span><p class="muted small">ด้าน: '+t.emoji+' '+esc(t.label)+'</p><p style="margin-top:14px" class="strong">ระบบคัดกรองเบื้องต้นแนะนำให้ส่งต่อไปยัง</p>'+routeList(c.routed)+'<p class="hint">ในการใช้งานจริง เจ้าหน้าที่จะตรวจสอบอีกครั้งก่อนส่งต่อ ต้นแบบนี้ยังไม่ส่งข้อมูลไปที่หน่วยงานใด</p><div class="btnrow"><a class="btn" href="#/system?focus=dash">ดูแดชบอร์ดเจ้าหน้าที่ '+ICON.arrow+'</a><button type="button" class="btn btn-ghost" data-act="new-help">ส่งเรื่องใหม่</button></div></div>';
+  }else{
+    var opts='<option value="">— เลือกด้านที่ต้องการ —</option>'+TOPICS.map(function(t){return '<option value="'+t.id+'"'+(pre===t.id?' selected':'')+'>'+esc(t.label)+'</option>';}).join('');
+    main='<div class="formbox"><div id="hf-err" role="alert"></div>'
+     +'<div class="field"><label for="hf-topic">ท่านต้องการความช่วยเหลือด้านใดเป็นหลัก?</label><select id="hf-topic">'+opts+'</select></div>'
+     +'<div class="field"><label for="hf-story">เล่าปัญหาของท่านให้เราฟัง</label><textarea id="hf-story" placeholder="เล่าสั้น ๆ ว่าเกิดอะไรขึ้น และอยากให้ช่วยเรื่องอะไร"></textarea><span class="hint">ไม่ต้องใส่ข้อมูลส่วนตัวจริง ข้อความนี้ไม่ถูกบันทึก</span></div>'
+     +'<fieldset class="field"><legend>ช่องทางที่ท่านสะดวกให้เจ้าหน้าที่ติดต่อกลับ</legend><div class="checks"><label><input type="checkbox" name="ch" value="phone"> โทรศัพท์</label><label><input type="checkbox" name="ch" value="chat"> แชท</label><label><input type="checkbox" name="ch" value="walkin"> นัดหมาย Walk-in</label></div></fieldset>'
+     +'<button type="button" class="btn btn-lg" data-act="submit-help">ส่งเรื่อง</button></div>';
+  }
+  return {title:'ขอความช่วยเหลือ',html:'<div class="wrap"><div class="pagehead"><h1>ขอความช่วยเหลือ</h1><p>เล่าปัญหาครั้งเดียว แล้วให้เจ้าหน้าที่ช่วยส่งต่อไปยังหน่วยงานที่เกี่ยวข้อง</p></div><div class="split">'+main+side+'</div></div>'};
+}
+ 
+function viewSystem(params){
+  var steps=[
+    {t:'ประชาชนเล่าเรื่องครั้งเดียว',d:'กรอกแบบฟอร์ม เลือกด้านที่ต้องการ และช่องทางติดต่อกลับ',w:'โดย: ประชาชน'},
+    {t:'คัดกรองเบื้องต้น',d:'จัดหมวดเรื่องและเสนอหน่วยงานที่เกี่ยวข้อง',w:'โดย: ระบบ (AI ช่วยจัดหมวด)'},
+    {t:'เจ้าหน้าที่ตรวจสอบ',d:'ยืนยันหมวดและประเมินความเร่งด่วน',w:'โดย: เจ้าหน้าที่'},
+    {t:'ส่งต่อหน่วยงาน',d:'ส่งเรื่องไปยังหน่วยงานภาครัฐหรือท้องถิ่นที่เกี่ยวข้อง',w:'โดย: เจ้าหน้าที่ และหน่วยงานปลายทาง'},
+    {t:'ติดตามผลและแจ้งกลับ',d:'อัปเดตสถานะและแจ้งผู้ขอรับความช่วยเหลือ',w:'โดย: ระบบ และเจ้าหน้าที่'}
+  ].map(function(s){return '<li><h3>'+esc(s.t)+'</h3><p>'+esc(s.d)+'</p><span class="who">'+esc(s.w)+'</span></li>';}).join('');
+  var html='<div class="wrap"><div class="pagehead"><h1>ระบบการทำงาน</h1><p>มนุษย์และระบบอัตโนมัติทำงานร่วมกันอย่างไร ตั้งแต่ประชาชนเล่าเรื่องจนถึงการส่งต่อ</p></div>'
+   +'<section class="section" style="padding-top:20px"><ol class="flow">'+steps+'</ol><p class="note">หมายเหตุ: ต้นแบบนี้จำลองขั้นตอนที่ 2 ด้วยกติกาคีย์เวิร์ดที่กำหนดไว้ล่วงหน้า ยังไม่ได้ใช้ AI จริง</p></section>'
+   +'<section class="section" style="padding-top:8px" id="dash-sec"><div class="dashhead"><div class="sec-h" style="margin:0"><h2>ตัวอย่างแดชบอร์ดสำหรับเจ้าหน้าที่</h2><p>สถิติผู้ขอรับความช่วยเหลือ — ส่งแบบฟอร์มในหน้า "ขอความช่วยเหลือ" แล้วกลับมาดู ตัวเลขและกราฟจะเปลี่ยนทันที</p></div><div class="btnrow" style="margin:0"><a class="btn" href="#/help">ไปกรอกแบบฟอร์ม</a><button type="button" class="btn btn-ghost" data-act="reset-demo">รีเซ็ตข้อมูลตัวอย่าง</button></div></div><div class="dash" id="dash">'+dashHTML()+'</div><p class="hint" style="margin-top:14px">รายการที่มีป้าย "ตัวอย่าง" เป็นข้อมูลสมมติ ข้อมูลเก็บเฉพาะในเบราว์เซอร์นี้</p></section></div>';
+  return {title:'ระบบการทำงาน',html:html,after:function(){ if(params.get('focus')==='dash'){var el=$('#dash-sec'); if(el) el.scrollIntoView(); else window.scrollTo(0,0);} else window.scrollTo(0,0);},noscroll:true};
+}
+ 
+function viewKnowledge(){
+  var kb=KNOWLEDGE.map(function(k){return '<a href="'+esc(k.u)+'" target="_blank" rel="noopener noreferrer"><h3>'+esc(k.t)+'</h3><p>'+esc(k.d)+'</p><span class="src">'+esc(k.a)+' '+ICON.ext+'</span></a>';}).join('');
+  var news=NEWS.map(function(n){return '<li><time>'+esc(n.date)+'</time><div><h3>'+esc(n.t)+'<span class="tag">ตัวอย่าง</span></h3><p>'+esc(n.d)+'</p></div></li>';}).join('');
+  return {title:'ข่าวสารและความรู้',html:'<div class="wrap"><div class="pagehead"><h1>ข่าวสารและความรู้</h1><p>ความรู้เรื่องสิทธิที่ควรรู้ และประกาศจากศูนย์บริการ</p></div><section class="section"><div class="sec-h"><h2>ความรู้และสิทธิ</h2><p>กดแล้วไปอ่านต่อที่เว็บไซต์ของหน่วยงานเจ้าของข้อมูล</p></div><div class="kb">'+kb+'</div></section><section class="section" style="padding-top:8px"><div class="sec-h"><h2>ข่าวสารและประกาศ</h2></div><ul class="news">'+news+'</ul></section></div>'};
+}
+ 
+function viewFaq(){
+  var f=FAQS.map(function(x){return '<details class="faq"><summary>'+esc(x.q)+'</summary><p>'+esc(x.a)+'</p></details>';}).join('');
+  return {title:'คำถามที่พบบ่อย',html:'<div class="wrap"><div class="pagehead"><h1>คำถามที่พบบ่อย</h1><p>คำตอบสั้น ๆ เกี่ยวกับการใช้งานศูนย์บริการ</p></div><div class="faqs" style="margin-bottom:40px">'+f+'</div></div>'};
+}
+ 
+function viewContact(){
+  return {title:'ติดต่อเรา',html:'<div class="wrap"><div class="pagehead"><h1>ติดต่อเรา</h1><p>ช่องทางติดต่อศูนย์ประสานงาน ข้อมูลในหน้านี้เป็นตัวอย่างสำหรับต้นแบบ</p></div><div class="split"><ul class="channels" style="margin-top:0">'
+   +'<li><span class="e">☎️</span><div><b>Hotline</b><br>1XXX <span class="tag">เบอร์สมมติ</span></div></li>'
+   +'<li><span class="e">✉️</span><div><b>Email</b><br>contact@onestop.example <span class="tag">ตัวอย่าง</span></div></li>'
+   +'<li><span class="e">💬</span><div><b>Chat / Line OA</b><br>@onestop-demo <span class="tag">ตัวอย่าง</span></div></li>'
+   +'<li><span class="e">📍</span><div><b>ที่ตั้ง</b><br>ศูนย์ประสานงาน (ตัวอย่างที่ตั้ง) — เมื่อนำไปใช้จริงให้ปักหมุดที่ตั้งจริงบน Google Maps</div></li>'
+   +'<li><span class="e">🌐</span><div><b>Social Media</b><br>Facebook · Instagram · YouTube <span class="tag">ตัวอย่าง</span></div></li>'
+   +'</ul><aside class="side"><div class="emerg"><b>กรณีฉุกเฉิน</b><p class="small muted">ศูนย์บริการนี้ไม่ใช่ช่องทางฉุกเฉิน</p><ul><li>🚓 <a href="tel:191">191</a> แจ้งเหตุด่วนเหตุร้าย</li><li>🚑 <a href="tel:1669">1669</a> การแพทย์ฉุกเฉิน</li><li>💙 <a href="tel:1323">1323</a> สายด่วนสุขภาพจิต</li><li>🤝 <a href="tel:1300">1300</a> ศูนย์ช่วยเหลือสังคม</li></ul></div></aside></div></div>'};
+}
+ 
+/* search */
+function searchIndex(){
+  var idx=[];
+  SERVICES.forEach(function(c){c.items.forEach(function(it){idx.push({type:'บริการ',t:it.t,d:it.d,to:it.to,u:it.u,h:(it.t+' '+it.d+' '+(it.k||'')+' '+c.title)});});});
+  AGENCIES.forEach(function(a){idx.push({type:'หน่วยงาน',t:a.n,d:a.d,to:'#/agencies?sector='+a.s+'&q='+encodeURIComponent(a.sn),h:(a.n+' '+a.sn+' '+a.d+' '+SEC[a.s].name)});});
+  KNOWLEDGE.forEach(function(k){idx.push({type:'ความรู้',t:k.t,d:k.d,u:k.u,h:(k.t+' '+k.d+' '+(k.k||''))});});
+  FAQS.forEach(function(f){idx.push({type:'คำถามที่พบบ่อย',t:f.q,d:f.a,to:'#/faq',h:(f.q+' '+f.a)});});
+  return idx;
+}
+var SIDX=null;
+function searchHTML(q){
+  q=(q||'').trim().toLowerCase();
+  if(!q) return '<p class="empty">พิมพ์คำที่ต้องการค้นหา เช่น หนังสือเดินทาง ว่างงาน บัตรทอง</p>';
+  if(!SIDX) SIDX=searchIndex();
+  var toks=q.split(/\s+/);
+  var hits=SIDX.filter(function(it){var h=it.h.toLowerCase(); return toks.every(function(t){return h.indexOf(t)>-1;});});
+  if(!hits.length) return '<p class="empty">ไม่พบผลลัพธ์สำหรับ "'+esc(q)+'" ลองใช้คำอื่น หรือ <a href="#/help">ขอความช่วยเหลือ</a> ให้เจ้าหน้าที่ช่วยหา</p>';
+  return '<p class="muted small" style="margin:8px 0">พบ '+hits.length+' รายการ</p><ul class="res">'+hits.slice(0,30).map(function(it){
+    var link=it.to?'<a href="'+esc(it.to)+'">'+esc(it.t)+'</a>':'<a href="'+esc(it.u)+'" target="_blank" rel="noopener noreferrer">'+esc(it.t)+' '+ICON.ext+'</a>';
+    return '<li>'+link+'<span class="tag">'+esc(it.type)+'</span><p>'+esc(it.d)+'</p></li>';
+  }).join('')+'</ul>';
+}
+function viewSearch(params){
+  var q=params.get('q')||'';
+  return {title:'ค้นหา',html:'<div class="wrap"><div class="pagehead"><h1>ค้นหา</h1><p>ค้นหาบริการ หน่วยงาน ความรู้ และคำถามที่พบบ่อย</p></div><div class="sbox" role="search"><input id="sq" type="search" value="'+esc(q)+'" placeholder="ค้นหาบริการ / หน่วยงาน / เรื่องที่ต้องการ" aria-label="ค้นหา"></div><div id="sr" aria-live="polite" style="margin-bottom:40px">'+searchHTML(q)+'</div></div>',after:function(){var i=$('#sq'); if(i&&!q) i.focus(); window.scrollTo(0,0);},noscroll:true};
+}
+ 
+/* ---------- router ---------- */
+var VIEWS={home:viewHome,about:viewAbout,services:viewServices,agencies:viewAgencies,help:viewHelp,system:viewSystem,knowledge:viewKnowledge,faq:viewFaq,contact:viewContact,search:viewSearch};
+var app=$('#app');
+function parseHash(){
+  var h=location.hash.replace(/^#\/?/,'');
+  var i=h.indexOf('?');
+  var path=i>-1?h.slice(0,i):h;
+  var qs=i>-1?h.slice(i+1):'';
+  var params;
+  try{params=new URLSearchParams(qs);}catch(e){params={get:function(){return null;}};}
+  return {path:path||'home',params:params};
+}
+function render(){
+  var r=parseHash(), key=VIEWS[r.path]?r.path:'home';
+  if(key!=='help') lastCase=null;
+  var v=VIEWS[key](r.params);
+  app.innerHTML=v.html;
+  document.title=v.title+' · องค์กรพหุพัฒนา';
+  $$('[data-nav]').forEach(function(a){ if(a.getAttribute('data-nav')===key) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); });
+  closeMenu();
+  if(v.after) v.after(); else window.scrollTo(0,0);
+}
+function closeMenu(){var n=$('#nav'); if(n) n.classList.remove('open'); var b=$('#menu-btn'); if(b) b.setAttribute('aria-expanded','false');}
+function toggleMenu(){var n=$('#nav'), b=$('#menu-btn'); var open=n.classList.toggle('open'); b.setAttribute('aria-expanded',open?'true':'false');}
+function goSearch(q){location.hash='#/search'+(q&&q.trim()?'?q='+encodeURIComponent(q.trim()):'');}
+ 
+/* ---------- help form ---------- */
+function routeFor(topicId,story){
+  var ids=TOPIC[topicId].routes.slice();
+  KEYWORDS.forEach(function(k){ if(k.re.test(story)) k.add.forEach(function(id){ if(AG[id]&&ids.indexOf(id)<0) ids.push(id); }); });
+  return ids.slice(0,6);
+}
+function nextId(){
+  var max=0; cases.forEach(function(c){var m=/(\d+)$/.exec(c.id); if(m) max=Math.max(max,parseInt(m[1],10));});
+  return 'PP-2569-'+String(max+1).padStart(4,'0');
+}
+function submitHelp(){
+  var topic=$('#hf-topic').value, story=$('#hf-story').value.trim();
+  var ch=$$('input[name="ch"]:checked').map(function(i){return i.value;});
+  var errs=[];
+  if(!topic) errs.push('เลือกด้านที่ต้องการความช่วยเหลือ');
+  if(story.length<10) errs.push('เล่าปัญหาสั้น ๆ อย่างน้อย 10 ตัวอักษร');
+  if(!ch.length) errs.push('เลือกช่องทางติดต่อกลับอย่างน้อย 1 ช่องทาง');
+  var box=$('#hf-err');
+  if(errs.length){
+    box.innerHTML='<p class="err">'+errs.map(esc).join('<br>')+'</p>';
+    return;
+  }
+  var now=new Date(), pad=function(n){return String(n).padStart(2,'0');};
+  var c={id:nextId(),ts:now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate())+'T'+pad(now.getHours())+':'+pad(now.getMinutes()),topic:topic,status:'new',routed:routeFor(topic,story),channels:ch,sample:false};
+  cases.push(c); save(); lastCase=c; newId=c.id;
+  render();
+}
+ 
+/* ---------- events ---------- */
+var loginDlg=$('#login');
+function openLogin(){ if(loginDlg&&loginDlg.showModal){loginDlg.showModal();} else {location.hash='#/help';} }
+function closeLogin(){ if(loginDlg&&loginDlg.open) loginDlg.close(); }
+ 
+document.addEventListener('click',function(e){
+  var el=e.target.closest('[data-act]'); if(!el) return;
+  var act=el.getAttribute('data-act');
+  switch(act){
+    case 'skip': app.focus(); break;
+    case 'menu': toggleMenu(); break;
+    case 'open-login': closeMenu(); openLogin(); break;
+    case 'close-login': closeLogin(); break;
+    case 'login-citizen': closeLogin(); lastCase=null; location.hash='#/help'; render(); break;
+    case 'login-staff': closeLogin(); location.hash='#/system?focus=dash'; break;
+    case 'triage':
+      var tp=el.getAttribute('data-topic'); triage=(triage===tp)?null:tp;
+      $('#triage').innerHTML=triageHTML();
+      var b=$('#triage [data-topic="'+tp+'"]'); if(b) b.focus();
+      break;
+    case 'hero-search': goSearch($('#heroq').value); break;
+    case 'quick': goSearch(el.getAttribute('data-q')); break;
+    case 'finder':
+      var sec=$('#fsec').value, fq=$('#fq').value.trim();
+      location.hash='#/agencies?sector='+encodeURIComponent(sec)+(fq?'&q='+encodeURIComponent(fq):'');
+      break;
+    case 'toc':
+      var t=document.getElementById(el.getAttribute('data-target')); if(t) t.scrollIntoView();
+      break;
+    case 'submit-help': submitHelp(); break;
+    case 'new-help': lastCase=null; newId=null; render(); break;
+    case 'reset-demo': cases=seed(); newId=null; save(); refreshDash(); break;
+  }
+});
+document.addEventListener('change',function(e){
+  var s=e.target.closest&&e.target.closest('select[data-case]'); if(!s) return;
+  var id=s.getAttribute('data-case');
+  cases.forEach(function(c){ if(c.id===id) c.status=s.value; });
+  save(); newId=null; refreshDash();
+});
+document.addEventListener('input',function(e){
+  if(e.target.id==='agq'){ ag.q=e.target.value; var l=$('#aglist'); if(l) l.innerHTML=agListHTML(); }
+  if(e.target.id==='sq'){ var r=$('#sr'); if(r) r.innerHTML=searchHTML(e.target.value); }
+});
+document.addEventListener('keydown',function(e){
+  if(e.key==='Enter'){
+    if(e.target.id==='heroq'){ e.preventDefault(); goSearch(e.target.value); }
+    if(e.target.id==='fq'){ e.preventDefault(); var sec=$('#fsec').value, fq=e.target.value.trim(); location.hash='#/agencies?sector='+encodeURIComponent(sec)+(fq?'&q='+encodeURIComponent(fq):''); }
+  }
+  if(e.key==='Escape') closeMenu();
+});
+if(loginDlg){ loginDlg.addEventListener('click',function(e){ if(e.target===loginDlg) closeLogin(); }); }
+window.addEventListener('hashchange',function(){ render(); });
+ 
+render();
+})();
+</script>
+</body>
+</html>
+ 

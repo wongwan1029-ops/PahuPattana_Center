@@ -1,6 +1,6 @@
 
 
-Site · HTML
+Oss pahupattana · HTML
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -456,9 +456,11 @@ var AGENCIES=[
   {id:'nfe',s:'gov',n:'กระทรวงศึกษาธิการ / กรมส่งเสริมการเรียนรู้ (สกร.)',sn:'สกร. / ศธ.',d:'สนับสนุนผู้ที่หลุดจากระบบการศึกษาให้กลับมาเรียนต่อ (กศน.)',u:'https://www.moe.go.th'},
   {id:'mhesi',s:'gov',n:'กระทรวงการอุดมศึกษา วิทยาศาสตร์ วิจัยและนวัตกรรม (อว.)',sn:'อว.',d:'โครงการ Reskill / Upskill ของมหาวิทยาลัยสำหรับวัยแรงงาน',u:'https://www.mhesi.go.th'},
   {id:'dep',s:'gov',n:'กรมส่งเสริมและพัฒนาคุณภาพชีวิตคนพิการ (พก.)',sn:'พก.',d:'สิทธิและการส่งเสริมคุณภาพชีวิตคนพิการ',u:'https://www.dep.go.th'},
+  {id:'moph',s:'gov',n:'กระทรวงสาธารณสุข (สธ.)',sn:'สธ.',d:'ดูแลระบบบริการสาธารณสุข อนามัยแม่และเด็ก และงานส่งเสริมสุขภาพในพื้นที่',u:'https://www.moph.go.th'},
   {id:'consular',s:'gov',n:'กรมการกงสุล (กระทรวงการต่างประเทศ)',sn:'กรมการกงสุล',d:'หนังสือเดินทางและงานบริการด้านกงสุล',u:'https://www.consular.go.th'},
   {id:'dopa',s:'gov',n:'กรมการปกครอง (กระทรวงมหาดไทย)',sn:'กรมการปกครอง',d:'บัตรประจำตัวประชาชนและงานทะเบียนราษฎร',u:'https://www.dopa.go.th'},
   {id:'dol',s:'gov',n:'กรมที่ดิน',sn:'กรมที่ดิน',d:'งานเอกสารสิทธิ์และการดำเนินการเกี่ยวกับที่ดิน',u:'https://www.dol.go.th'},
+  {id:'studentloan',s:'gov',n:'กองทุนเงินให้กู้ยืมเพื่อการศึกษา (กยศ.)',sn:'กยศ.',d:'เงื่อนไขการกู้ยืม การผ่อนชำระ และการปรับโครงสร้างหนี้เพื่อการศึกษา',u:'https://www.studentloan.or.th'},
  
   {id:'bma',s:'loc',n:'กรุงเทพมหานคร (กทม.)',sn:'กทม.',d:'คลินิกความหลากหลายทางเพศ (BKK Pride Clinic) และศูนย์ฝึกอาชีพ กทม.',u:'https://www.bangkok.go.th'},
   {id:'dla',s:'loc',n:'กรมส่งเสริมการปกครองท้องถิ่น (สถ.)',sn:'สถ.',d:'กำกับดูแลและประสานงาน อบจ. เทศบาล และ อบต. ทั่วประเทศ',u:'https://www.dla.go.th'},
@@ -475,7 +477,12 @@ var TOPICS=[
   {id:'work',label:'ว่างงาน / ฝึกอาชีพ',emoji:'💼',chip:'ตกงาน / อยากเปลี่ยนสายงาน',routes:['doe','dsd','mhesi']},
   {id:'welfare',label:'สวัสดิการ',emoji:'🏥',chip:'ต้องการสวัสดิการหรือสิทธิรักษา',routes:['mso','front']},
   {id:'lgbtq',label:'สิทธิ LGBTQ+',emoji:'🏳️‍🌈',chip:'ถูกเลือกปฏิบัติเพราะเพศสภาพ',routes:['bma','mso','doe']},
-  {id:'disab',label:'ผู้พิการ',emoji:'♿',chip:'สิทธิและการจ้างงานคนพิการ',routes:['dep','mso','doe']}
+  {id:'disab',label:'ผู้พิการ',emoji:'♿',chip:'สิทธิและการจ้างงานคนพิการ',routes:['dep','mso','doe']},
+  {id:'youngmom',label:'คุณแม่วัยใส',emoji:'🤱',chip:'ตั้งครรภ์ในวัยเรียน / คุณแม่วัยใส',routes:['mso','nfe','front']},
+  {id:'debt',label:'หนี้เพื่อการศึกษา',emoji:'💳',chip:'แบกหนี้ กยศ. / ตกงานแล้วผ่อนไม่ไหว',routes:['studentloan','doe']},
+  {id:'reskill',label:'ทักษะเดียว / อยากพัฒนาทักษะ',emoji:'📈',chip:'มีอาชีพอยู่แล้วแต่อยากเพิ่มทักษะให้มั่นคง',routes:['dsd','mhesi']},
+  {id:'housing',label:'ที่อยู่อาศัย / ไร้บ้าน',emoji:'🏚️',chip:'ไม่มีที่อยู่อาศัยที่มั่นคง',routes:['mso','front']},
+  {id:'other',label:'อื่นๆ (โปรดระบุเอง)',emoji:'✏️',chip:'เรื่องอื่นๆ ที่ไม่ตรงกับหัวข้อข้างต้น',routes:['front']}
 ];
 var TOPIC={}; TOPICS.forEach(function(t){TOPIC[t.id]=t;});
  
@@ -484,7 +491,10 @@ var KEYWORDS=[
   {re:/(เรียน|กศน|หลุด)/,add:['nfe']},
   {re:/(พิการ)/,add:['dep']},
   {re:/(ข้ามเพศ|เพศสภาพ|LGBT)/i,add:['bma']},
-  {re:/(ไร้บ้าน|ที่อยู่อาศัย|ไม่มีบ้าน)/,add:['mso']}
+  {re:/(ไร้บ้าน|ที่อยู่อาศัย|ไม่มีบ้าน)/,add:['mso']},
+  {re:/(ตั้งครรภ์|ท้องในวัยเรียน|แม่วัยใส|คุณแม่วัยใส)/,add:['mso','nfe']},
+  {re:/(กยศ|หนี้การศึกษา|หนี้เพื่อการศึกษา|ผ่อนไม่ไหว)/,add:['studentloan']},
+  {re:/(ทักษะเดียว|พัฒนาทักษะ|เพิ่มทักษะ|อัพสกิล|รีสกิล)/i,add:['dsd','mhesi']}
 ];
  
 var POPULAR=[
@@ -566,7 +576,12 @@ function seed(){
     ['PP-2569-0009','2026-09-15T15:25','lgbtq','new',['mso','bma']],
     ['PP-2569-0010','2026-09-16T09:45','welfare','routed',['mso','front']],
     ['PP-2569-0011','2026-09-17T11:30','edu','routed',['nfe','front']],
-    ['PP-2569-0012','2026-09-18T14:40','work','new',['doe','mhesi']]
+    ['PP-2569-0012','2026-09-18T14:40','work','new',['doe','mhesi']],
+    ['PP-2569-0013','2026-09-19T10:20','youngmom','routed',['mso','nfe']],
+    ['PP-2569-0014','2026-09-20T09:15','debt','new',['studentloan','doe']],
+    ['PP-2569-0015','2026-09-21T14:30','reskill','routed',['dsd','mhesi']],
+    ['PP-2569-0016','2026-09-22T11:00','housing','new',['mso','front']],
+    ['PP-2569-0017','2026-09-23T15:40','other','new',['front']]
   ];
   return rows.map(function(r){return {id:r[0],ts:r[1],topic:r[2],status:r[3],routed:r[4],channels:['phone'],sample:true};});
 }
@@ -616,6 +631,11 @@ function moocBlock(){
 function fmtTime(ts){
   try{return new Date(ts).toLocaleString('th-TH',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});}
   catch(e){return String(ts);}
+}
+function storyPlaceholder(topicId){
+  return topicId==='other'
+    ? 'เรื่องของท่านไม่ตรงกับหัวข้อที่มีอยู่ กรุณาอธิบายรายละเอียดด้วยตัวท่านเองให้มากที่สุด เช่น เกิดอะไรขึ้น เกี่ยวข้องกับใคร และอยากให้ช่วยเรื่องอะไร เพื่อให้เจ้าหน้าที่พิจารณาส่งต่อได้ตรงจุด'
+    : 'เล่าสั้น ๆ ว่าเกิดอะไรขึ้น และอยากให้ช่วยเรื่องอะไร';
 }
  
 /* ---------- dashboard ---------- */
@@ -777,7 +797,7 @@ function viewHelp(params){
     var opts='<option value="">— เลือกด้านที่ต้องการ —</option>'+TOPICS.map(function(t){return '<option value="'+t.id+'"'+(pre===t.id?' selected':'')+'>'+esc(t.label)+'</option>';}).join('');
     main='<div class="formbox"><div id="hf-err" role="alert"></div>'
      +'<div class="field"><label for="hf-topic">ท่านต้องการความช่วยเหลือด้านใดเป็นหลัก?</label><select id="hf-topic">'+opts+'</select></div>'
-     +'<div class="field"><label for="hf-story">เล่าปัญหาของท่านให้เราฟัง</label><textarea id="hf-story" placeholder="เล่าสั้น ๆ ว่าเกิดอะไรขึ้น และอยากให้ช่วยเรื่องอะไร"></textarea><span class="hint">ไม่ต้องใส่ข้อมูลส่วนตัวจริง ข้อความนี้ไม่ถูกบันทึก</span></div>'
+     +'<div class="field"><label for="hf-story">เล่าปัญหาของท่านให้เราฟัง</label><textarea id="hf-story" placeholder="'+esc(storyPlaceholder(pre))+'"></textarea><span class="hint">ไม่ต้องใส่ข้อมูลส่วนตัวจริง ข้อความนี้ไม่ถูกบันทึก</span></div>'
      +'<fieldset class="field"><legend>ช่องทางที่ท่านสะดวกให้เจ้าหน้าที่ติดต่อกลับ</legend><div class="checks"><label><input type="checkbox" name="ch" value="phone"> โทรศัพท์</label><label><input type="checkbox" name="ch" value="chat"> แชท</label><label><input type="checkbox" name="ch" value="walkin"> นัดหมาย Walk-in</label></div></fieldset>'
      +'<button type="button" class="btn btn-lg" data-act="submit-help">ส่งเรื่อง</button></div>';
   }
@@ -935,6 +955,10 @@ document.addEventListener('click',function(e){
   }
 });
 document.addEventListener('change',function(e){
+  if(e.target.id==='hf-topic'){
+    var ta=$('#hf-story'); if(ta) ta.setAttribute('placeholder',storyPlaceholder(e.target.value));
+    return;
+  }
   var s=e.target.closest&&e.target.closest('select[data-case]'); if(!s) return;
   var id=s.getAttribute('data-case');
   cases.forEach(function(c){ if(c.id===id) c.status=s.value; });
@@ -960,3 +984,6 @@ render();
 </body>
 </html>
  
+
+
+

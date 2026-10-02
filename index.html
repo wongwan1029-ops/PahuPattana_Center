@@ -84,6 +84,14 @@ header.site{position:sticky;top:0;z-index:20;background:var(--surface);border-bo
 .nav a:hover{background:var(--surface-2)}
 .nav a[aria-current="page"]{color:var(--ink);background:var(--surface-2);font-weight:600}
 .nav .nav-login{display:none}
+.navmore{position:relative}
+.navmore>button{display:inline-flex;align-items:center;gap:4px;padding:8px 12px;border-radius:10px;border:0;background:transparent;color:var(--ink-2);font:500 .95rem var(--font-head);cursor:pointer}
+.navmore>button:hover{background:var(--surface-2)}
+.navmore-panel{display:none;position:absolute;top:100%;right:0;margin-top:4px;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 28px rgba(18,40,63,.16);padding:6px;min-width:200px;z-index:30}
+.navmore.open .navmore-panel{display:flex;flex-direction:column}
+.navmore-panel a{padding:10px 12px;border-radius:8px;color:var(--ink-2);text-decoration:none;font-family:var(--font-head);font-weight:500;font-size:.95rem;white-space:nowrap}
+.navmore-panel a:hover{background:var(--surface-2)}
+.navmore-panel a[aria-current="page"]{color:var(--ink);background:var(--surface-2);font-weight:600}
 .actions{display:flex;align-items:center;gap:8px;flex:none}
 .iconbtn{display:inline-grid;place-items:center;width:42px;height:42px;border-radius:50%;border:1.5px solid var(--line-strong);background:transparent;color:var(--ink);cursor:pointer;text-decoration:none}
 .iconbtn:hover{background:var(--surface-2)}
@@ -99,6 +107,9 @@ header.site{position:sticky;top:0;z-index:20;background:var(--surface);border-bo
   .nav.open{display:flex}
   .nav a{padding:12px 8px;border-radius:8px}
   .actions{margin-left:auto}
+  .navmore>button{width:100%;justify-content:space-between;padding:12px 8px}
+  .navmore-panel{position:static;display:none;box-shadow:none;border:0;background:transparent;padding:0 0 4px 12px;margin-top:0;min-width:0}
+  .navmore.open .navmore-panel{display:flex}
 }
 @media (max-width:640px){
   .brand-t small{display:none}
@@ -387,14 +398,19 @@ dialog .stack{display:grid;gap:10px}
     </a>
     <nav id="nav" class="nav" aria-label="เมนูหลัก">
       <a href="#/home" data-nav="home">หน้าแรก</a>
-      <a href="#/about" data-nav="about">เกี่ยวกับเรา</a>
       <a href="#/services" data-nav="services">บริการทั้งหมด</a>
       <a href="#/skills" data-nav="skills">จับคู่ทักษะ</a>
-      <a href="#/budget" data-nav="budget">งบประมาณ</a>
       <a href="#/agencies" data-nav="agencies">หน่วยงานที่เกี่ยวข้อง</a>
-      <a href="#/knowledge" data-nav="knowledge">ข่าวสาร</a>
-      <a href="#/faq" data-nav="faq">คำถามที่พบบ่อย</a>
-      <a href="#/contact" data-nav="contact">ติดต่อเรา</a>
+      <div class="navmore">
+        <button type="button" data-act="toggle-more" aria-haspopup="true" aria-expanded="false">เพิ่มเติม <span aria-hidden="true">▾</span></button>
+        <div class="navmore-panel" role="menu">
+          <a href="#/about" data-nav="about" role="menuitem">เกี่ยวกับเรา</a>
+          <a href="#/budget" data-nav="budget" role="menuitem">งบประมาณ</a>
+          <a href="#/knowledge" data-nav="knowledge" role="menuitem">ข่าวสาร</a>
+          <a href="#/faq" data-nav="faq" role="menuitem">คำถามที่พบบ่อย</a>
+          <a href="#/contact" data-nav="contact" role="menuitem">ติดต่อเรา</a>
+        </div>
+      </div>
       <button type="button" class="nav-login" data-act="open-login">เข้าสู่ระบบ</button>
     </nav>
     <div class="actions">
@@ -1053,7 +1069,10 @@ function render(){
   closeMenu();
   if(v.after) v.after(); else window.scrollTo(0,0);
 }
-function closeMenu(){var n=$('#nav'); if(n) n.classList.remove('open'); var b=$('#menu-btn'); if(b) b.setAttribute('aria-expanded','false');}
+function closeMenu(){
+  var n=$('#nav'); if(n) n.classList.remove('open'); var b=$('#menu-btn'); if(b) b.setAttribute('aria-expanded','false');
+  var nm=$('.navmore'); if(nm){ nm.classList.remove('open'); var mb=nm.querySelector('button'); if(mb) mb.setAttribute('aria-expanded','false'); }
+}
 function toggleMenu(){var n=$('#nav'), b=$('#menu-btn'); var open=n.classList.toggle('open'); b.setAttribute('aria-expanded',open?'true':'false');}
 function goSearch(q){location.hash='#/search'+(q&&q.trim()?'?q='+encodeURIComponent(q.trim()):'');}
  
@@ -1111,11 +1130,20 @@ function openLogin(){ if(loginDlg&&loginDlg.showModal){loginDlg.showModal();} el
 function closeLogin(){ if(loginDlg&&loginDlg.open) loginDlg.close(); }
  
 document.addEventListener('click',function(e){
+  var nm=$('.navmore');
+  if(nm && nm.classList.contains('open') && !e.target.closest('.navmore')){
+    nm.classList.remove('open');
+    var mb=nm.querySelector('button'); if(mb) mb.setAttribute('aria-expanded','false');
+  }
   var el=e.target.closest('[data-act]'); if(!el) return;
   var act=el.getAttribute('data-act');
   switch(act){
     case 'skip': app.focus(); break;
     case 'menu': toggleMenu(); break;
+    case 'toggle-more':
+      var navEl=$('.navmore'); var openNow=navEl.classList.toggle('open');
+      el.setAttribute('aria-expanded', openNow?'true':'false');
+      break;
     case 'open-login': closeMenu(); openLogin(); break;
     case 'close-login': closeLogin(); break;
     case 'login-citizen': closeLogin(); lastCase=null; location.hash='#/help'; render(); break;

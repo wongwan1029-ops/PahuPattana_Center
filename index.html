@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>องค์กรพหุพัฒนา · ระบบหลักประกันสู่การมีงานทำอย่างเท่าเทียม</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,7 +23,11 @@
   --spe:#0C7F8C; --spe-s:#D9EFF1;
   --font-head:'Anuphan','Noto Sans Thai','Sarabun',Tahoma,sans-serif;
   --font-body:'IBM Plex Sans Thai','Noto Sans Thai','Sarabun',Tahoma,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
 }
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --ink:#E8EEF5; --ink-2:#B9C6D6; --muted:#93A3B6;
@@ -69,10 +73,10 @@ button,input,select,textarea{font:inherit;color:inherit}
 .strong{font-weight:600}
 .skip{position:absolute;left:-9999px;top:8px;background:var(--brand);color:var(--on-brand);padding:8px 14px;border-radius:8px;border:0;z-index:50}
 .skip:focus{left:8px}
- 
+
 /* prototype strip + header */
 .strip{background:var(--surface-2);color:var(--ink-2);font-size:.85rem;text-align:center;padding:6px 16px;line-height:1.5}
-header.site{position:sticky;top:0;z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
+header.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
 .bar{display:flex;align-items:center;gap:20px;min-height:72px}
 .brand{display:flex;align-items:center;gap:12px;color:var(--ink);text-decoration:none;flex:none}
 .brand svg{width:40px;height:40px;flex:none}
@@ -118,7 +122,7 @@ header.site{position:sticky;top:0;z-index:20;background:var(--surface);border-bo
   .bar{gap:10px}
   .actions .btn{padding:8px 14px;font-size:.9rem}
 }
- 
+
 /* layout blocks */
 main{display:block;outline:0}
 .section{padding:48px 0}
@@ -128,7 +132,7 @@ main{display:block;outline:0}
 .pagehead{padding:44px 0 8px}
 .pagehead h1{font-size:clamp(1.8rem,4vw,2.6rem)}
 .pagehead p{color:var(--ink-2);margin-top:10px;max-width:64ch}
- 
+
 /* hero */
 .hero{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:48px;align-items:start;padding:56px 0 36px}
 .hero-h{font-size:clamp(2rem,4.4vw,3.3rem);line-height:1.3}
@@ -153,7 +157,7 @@ main{display:block;outline:0}
 .route .sec{font-size:.8rem;color:var(--muted);margin-left:auto}
 .dot{width:12px;height:12px;border-radius:50%;background:var(--c);flex:none}
 @media (max-width:900px){.hero{grid-template-columns:1fr;gap:28px;padding-top:36px}}
- 
+
 /* sector tiles */
 .tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
 .tile{display:flex;flex-direction:column;gap:4px;padding:22px 22px 18px;border-radius:20px;background:var(--cs);border:2px solid var(--c);text-decoration:none}
@@ -162,7 +166,7 @@ main{display:block;outline:0}
 .tile-name{font:700 1.2rem/1.4 var(--font-head)}
 .tile-sub{color:var(--ink-2);font-size:.95rem}
 @media (max-width:560px){.tiles{grid-template-columns:1fr}}
- 
+
 /* rows (services) */
 .rows{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
 .rows.two{display:grid;grid-template-columns:1fr 1fr;column-gap:36px}
@@ -174,7 +178,7 @@ main{display:block;outline:0}
 .svc-t span{color:var(--muted);font-size:.92rem}
 .svc-go{display:flex;align-items:center;gap:6px;color:var(--ink-2);font-size:.88rem;text-align:right}
 @media (max-width:820px){.rows.two{grid-template-columns:1fr}.svc-go span.a{display:none}}
- 
+
 /* finder band */
 .band{background:var(--band);color:var(--on-band)}
 .band .wrap{display:grid;grid-template-columns:1fr 1.4fr;gap:40px;align-items:center;padding-top:44px;padding-bottom:44px}
@@ -184,7 +188,7 @@ main{display:block;outline:0}
 .finder select,.finder input{height:52px;border-radius:14px;border:2px solid transparent;background:var(--surface);color:var(--ink);padding:0 14px;min-width:0}
 .finder .btn{background:var(--on-band);color:var(--band);border-color:var(--on-band);height:52px}
 @media (max-width:900px){.band .wrap{grid-template-columns:1fr;gap:22px}.finder{grid-template-columns:1fr}}
- 
+
 /* news + knowledge */
 .news{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
 .news li{display:grid;grid-template-columns:120px 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
@@ -199,7 +203,7 @@ main{display:block;outline:0}
 .kb p{color:var(--ink-2);font-size:.95rem}
 .kb .src{color:var(--muted);font-size:.85rem;display:flex;align-items:center;gap:6px;margin-top:auto}
 @media (max-width:820px){.kb{grid-template-columns:1fr}.kb a{border-right:0;margin-right:0;border-bottom:1px solid var(--line)}.news li{grid-template-columns:1fr;gap:2px}}
- 
+
 /* agencies */
 .filters{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 14px}
 .filters a{text-decoration:none}
@@ -216,7 +220,7 @@ main{display:block;outline:0}
 .ag .nolink{font-size:.85rem;color:var(--muted);margin-top:2px}
 .note{border:1.5px dashed var(--line-strong);background:var(--surface-2);border-radius:14px;padding:12px 16px;font-size:.92rem;color:var(--ink-2);margin-top:14px}
 .empty{padding:28px 0;color:var(--muted)}
- 
+
 /* services */
 .svc-sec{padding:34px 0 8px;scroll-margin-top:90px}
 .svc-sec .sec-h{margin-bottom:12px}
@@ -228,7 +232,7 @@ main{display:block;outline:0}
 .mooc h4{font-size:1.05rem}
 .mooc p{font-size:.93rem;color:var(--ink-2)}
 @media (max-width:700px){.mooc{flex-direction:column;align-items:flex-start}}
- 
+
 /* help form */
 .split{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:48px;align-items:start;padding-top:12px}
 .formbox{background:var(--surface);border:1.5px solid var(--line);border-radius:20px;padding:28px}
@@ -251,7 +255,7 @@ fieldset.field{border:0;padding:0;margin:0 0 20px}
 .code{display:inline-block;font:600 1.1rem var(--font-head);background:var(--surface-2);border-radius:10px;padding:2px 14px;margin:8px 0}
 .btnrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
 @media (max-width:900px){.split{grid-template-columns:1fr;gap:28px}}
- 
+
 /* flow + dashboard */
 .flow{list-style:none;margin:8px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);counter-reset:s}
 .flow li{position:relative;padding:46px 18px 0 0}
@@ -289,7 +293,7 @@ tr.is-new td{background:var(--surface-2)}
 .pill{display:inline-flex;align-items:center;gap:6px;margin:0 8px 4px 0;font-size:.85rem;white-space:nowrap}
 .tablewrap select{border:1.5px solid var(--line-strong);border-radius:8px;background:var(--surface);padding:4px 8px}
 .dashhead{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;justify-content:space-between}
- 
+
 /* about */
 .about-hero{padding:52px 0 8px;max-width:76ch}
 .about-hero h1{font-size:clamp(2rem,4.6vw,3rem)}
@@ -312,7 +316,7 @@ tr.is-new td{background:var(--surface-2)}
 .goals li:first-child{border-top:1px solid var(--line)}
 .goals .dot2{flex:none;width:8px;height:8px;border-radius:50%;background:var(--ink);margin-top:11px}
 @media (max-width:820px){.stats{grid-template-columns:1fr}.stat{border-right:0;margin-right:0;border-bottom:1px solid var(--line)}.solutions{grid-template-columns:1fr}}
- 
+
 /* faq / contact / search */
 .faq{border-bottom:1px solid var(--line)}
 .faq summary{cursor:pointer;padding:18px 4px;font:600 1.05rem var(--font-head);list-style-position:outside}
@@ -328,7 +332,7 @@ tr.is-new td{background:var(--surface-2)}
 .res a{font:600 1.05rem var(--font-head);text-decoration:none}
 .res a:hover{text-decoration:underline}
 .res p{color:var(--muted);font-size:.93rem}
- 
+
 /* footer */
 footer.site{background:var(--surface);border-top:1px solid var(--line);margin-top:24px}
 .foot{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px;padding-top:40px;padding-bottom:40px}
@@ -338,14 +342,14 @@ footer.site{background:var(--surface);border-top:1px solid var(--line);margin-to
 .foot a:hover{text-decoration:underline}
 .foot .fine{color:var(--muted);font-size:.88rem;margin-top:10px}
 @media (max-width:820px){.foot{grid-template-columns:1fr}}
- 
+
 /* login dialog */
 dialog{border:1.5px solid var(--line);border-radius:20px;background:var(--surface);color:var(--ink);padding:28px;max-width:440px;width:calc(100% - 32px)}
 dialog::backdrop{background:rgba(10,20,32,.55)}
 dialog h2{font-size:1.3rem}
 dialog p{color:var(--ink-2);margin:8px 0 18px}
 dialog .stack{display:grid;gap:10px}
- 
+
 /* skill matching */
 .matchnote{background:var(--surface);border:2px solid var(--focus);border-radius:16px;padding:16px 20px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:18px 0}
 .matchnote b{font-family:var(--font-head)}
@@ -366,8 +370,11 @@ dialog .stack{display:grid;gap:10px}
 .radiorow{display:flex;flex-wrap:wrap;gap:10px}
 .radiorow label{display:flex;align-items:center;gap:8px;border:1.5px solid var(--line-strong);border-radius:12px;padding:8px 14px;cursor:pointer;font-size:.95rem}
 .radiorow input{width:16px;height:16px;min-height:0;margin:0;accent-color:var(--brand)}
+.matchrow{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:10px}
+.matchrow select{flex:1;min-width:160px;border:1.5px solid var(--line-strong);border-radius:10px;background:var(--surface);padding:8px 10px}
+.matchrow span{color:var(--muted)}
 @media (max-width:820px){.skilltabs{grid-template-columns:1fr}}
- 
+
 /* budget */
 .bphase{margin-bottom:22px}
 .bphase-h{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:6px}
@@ -381,7 +388,7 @@ dialog .stack{display:grid;gap:10px}
 <body>
 <button type="button" class="skip" data-act="skip">ข้ามไปยังเนื้อหาหลัก</button>
 <div class="strip">ต้นแบบเพื่อการนำเสนอ — ยังไม่ได้เชื่อมต่อกับหน่วยงานจริง ข้อมูลที่กรอกไม่ถูกส่งออกจากเบราว์เซอร์นี้</div>
- 
+
 <header class="site">
   <div class="wrap bar">
     <a class="brand" href="#/home" aria-label="องค์กรพหุพัฒนา หน้าแรก">
@@ -421,9 +428,9 @@ dialog .stack{display:grid;gap:10px}
     </div>
   </div>
 </header>
- 
+
 <main id="app" tabindex="-1"></main>
- 
+
 <footer class="site">
   <div class="wrap foot">
     <div>
@@ -458,7 +465,7 @@ dialog .stack{display:grid;gap:10px}
     </div>
   </div>
 </footer>
- 
+
 <dialog id="login" aria-labelledby="login-h">
   <h2 id="login-h">เข้าสู่ระบบ (ต้นแบบ)</h2>
   <p>ต้นแบบนี้ไม่มีการยืนยันตัวตนจริง เลือกมุมมองที่ต้องการดู</p>
@@ -468,13 +475,13 @@ dialog .stack{display:grid;gap:10px}
     <button type="button" class="btn btn-ghost" data-act="close-login">ปิด</button>
   </div>
 </dialog>
- 
+
 <noscript><div class="wrap section">หน้าเว็บนี้ต้องเปิดใช้งาน JavaScript</div></noscript>
- 
+
 <script>
 (function(){
 'use strict';
- 
+
 /* ---------- helpers ---------- */
 var $ = function(s,el){return (el||document).querySelector(s);};
 var $$ = function(s,el){return Array.prototype.slice.call((el||document).querySelectorAll(s));};
@@ -488,7 +495,7 @@ var ICON={
 };
 $('#hdr-search').innerHTML=ICON.search;
 $('#menu-btn').innerHTML=ICON.menu;
- 
+
 /* ---------- data ---------- */
 var SECTORS=[
   {id:'gov',name:'ภาครัฐ',emoji:'🏛️',sub:'กระทรวง / กรม / หน่วยงานรัฐ',intro:'กระทรวง กรม และหน่วยงานรัฐที่เป็นเจ้าของบริการโดยตรง'},
@@ -496,7 +503,7 @@ var SECTORS=[
 ];
 var SEC={}; SECTORS.forEach(function(s){SEC[s.id]=s;});
 function sty(id){return '--c:var(--'+id+');--cs:var(--'+id+'-s)';}
- 
+
 var AGENCIES=[
   {id:'mso',s:'gov',n:'กระทรวงการพัฒนาสังคมและความมั่นคงของมนุษย์ (พม.)',sn:'พม.',d:'ดูแลสวัสดิการ บัตรคนพิการ และเงินอุดหนุนกลุ่มเปราะบาง',u:'https://www.m-society.go.th'},
   {id:'doe',s:'gov',n:'กรมการจัดหางาน (กระทรวงแรงงาน)',sn:'กรมการจัดหางาน',d:'ตำแหน่งงานว่างและการขึ้นทะเบียนผู้ว่างงาน',u:'https://www.doe.go.th'},
@@ -509,17 +516,13 @@ var AGENCIES=[
   {id:'dopa',s:'gov',n:'กรมการปกครอง (กระทรวงมหาดไทย)',sn:'กรมการปกครอง',d:'บัตรประจำตัวประชาชนและงานทะเบียนราษฎร',u:'https://www.dopa.go.th'},
   {id:'dol',s:'gov',n:'กรมที่ดิน',sn:'กรมที่ดิน',d:'งานเอกสารสิทธิ์และการดำเนินการเกี่ยวกับที่ดิน',u:'https://www.dol.go.th'},
   {id:'studentloan',s:'gov',n:'กองทุนเงินให้กู้ยืมเพื่อการศึกษา (กยศ.)',sn:'กยศ.',d:'เงื่อนไขการกู้ยืม การผ่อนชำระ และการปรับโครงสร้างหนี้เพื่อการศึกษา',u:'https://www.studentloan.or.th'},
- 
+
   {id:'bma',s:'loc',n:'กรุงเทพมหานคร (กทม.)',sn:'กทม.',d:'คลินิกความหลากหลายทางเพศ (BKK Pride Clinic) และศูนย์ฝึกอาชีพ กทม.',u:'https://www.bangkok.go.th'},
   {id:'dla',s:'loc',n:'กรมส่งเสริมการปกครองท้องถิ่น (สถ.)',sn:'สถ.',d:'กำกับดูแลและประสานงาน อบจ. เทศบาล และ อบต. ทั่วประเทศ',u:'https://www.dla.go.th'},
-  {id:'front',s:'loc',n:'เทศบาล / อบจ. / อบต. ในพื้นที่ของคุณ',sn:'อปท. ในพื้นที่',d:'ด่านหน้าระดับพื้นที่ในการเยี่ยมบ้านและประเมินเคส (บทบาทตามแบบจำลองของโครงการ)',u:''},
- 
- 
- 
- 
+  {id:'front',s:'loc',n:'เทศบาล / อบจ. / อบต. ในพื้นที่ของคุณ',sn:'อปท. ในพื้นที่',d:'ด่านหน้าระดับพื้นที่ในการเยี่ยมบ้านและประเมินเคส (บทบาทตามแบบจำลองของโครงการ)',u:''}
 ];
 var AG={}; AGENCIES.forEach(function(a){AG[a.id]=a;});
- 
+
 var TOPICS=[
   {id:'edu',label:'การศึกษา',emoji:'🎓',chip:'หลุดจากระบบการศึกษา / อยากเรียนต่อ',routes:['nfe','front']},
   {id:'work',label:'ว่างงาน / ฝึกอาชีพ',emoji:'💼',chip:'ตกงาน / อยากเปลี่ยนสายงาน',routes:['doe','dsd','mhesi']},
@@ -533,7 +536,7 @@ var TOPICS=[
   {id:'other',label:'อื่นๆ (โปรดระบุเอง)',emoji:'✏️',chip:'เรื่องอื่นๆ ที่ไม่ตรงกับหัวข้อข้างต้น',routes:['front']}
 ];
 var TOPIC={}; TOPICS.forEach(function(t){TOPIC[t.id]=t;});
- 
+
 var KEYWORDS=[
   {re:/(ตกงาน|เลิกจ้าง|ว่างงาน|สมัครงาน|ปฏิเสธ)/,add:['doe','dsd']},
   {re:/(เรียน|กศน|หลุด)/,add:['nfe']},
@@ -544,7 +547,7 @@ var KEYWORDS=[
   {re:/(กยศ|หนี้การศึกษา|หนี้เพื่อการศึกษา|ผ่อนไม่ไหว)/,add:['studentloan']},
   {re:/(ทักษะเดียว|พัฒนาทักษะ|เพิ่มทักษะ|อัพสกิล|รีสกิล)/i,add:['dsd','mhesi']}
 ];
- 
+
 var POPULAR=[
   {e:'📄',t:'ขอหนังสือเดินทาง',a:'กรมการกงสุล',u:'https://www.consular.go.th'},
   {e:'🪪',t:'ทำบัตรประชาชน',a:'กรมการปกครอง',u:'https://www.dopa.go.th'},
@@ -553,7 +556,7 @@ var POPULAR=[
   {e:'🏥',t:'ตรวจสอบสิทธิการรักษา',a:'สปสช.',u:'https://www.nhso.go.th'},
   {e:'🏠',t:'ขออนุญาตก่อสร้าง / ที่ดิน',a:'กรมที่ดิน',u:'https://www.dol.go.th'}
 ];
- 
+
 var SERVICES=[
   {id:'docs',emoji:'📄',title:'เอกสารและใบอนุญาต',intro:'บริการยอดนิยมที่พาไปยังหน่วยงานเจ้าของบริการโดยตรง',items:[
     {e:'📄',t:'ขอหนังสือเดินทาง',d:'ยื่นคำร้องและตรวจสอบขั้นตอนกับกรมการกงสุล',a:'กรมการกงสุล',u:'https://www.consular.go.th',k:'passport พาสปอร์ต หนังสือเดินทาง'},
@@ -575,10 +578,10 @@ var SERVICES=[
     {e:'🩺',t:'บริการสุขภาพที่เป็นมิตรกับความหลากหลายทางเพศ',d:'BKK Pride Clinic ของกรุงเทพมหานคร',a:'กทม.',u:'https://www.bangkok.go.th',k:'คลินิก ความหลากหลายทางเพศ pride lgbtq'}
   ]},
   {id:'equal',emoji:'🏳️‍🌈',title:'ความเท่าเทียม',intro:'เรื่องการเลือกปฏิบัติและสิทธิที่ควรรู้',items:[
-    {e:'📣',t:'แจ้งเรื่องการเลือกปฏิบัติ',d:'เล่าเรื่องผ่านแบบฟอร์มของโครงการ (ต้นแบบยังไม่ส่งต่อหน่วยงานจริง)',a:'แบบฟอร์ม',to:'#/help?topic=lgbtq',k:'เลือกปฏิบัติ ร้องเรียน lgbtq'},
+    {e:'📣',t:'แจ้งเรื่องการเลือกปฏิบัติ',d:'เล่าเรื่องผ่านแบบฟอร์มของโครงการ (ต้นแบบยังไม่ส่งต่อหน่วยงานจริง)',a:'แบบฟอร์ม',to:'#/help?topic=lgbtq',k:'เลือกปฏิบัติ ร้องเรียน lgbtq'}
   ]}
 ];
- 
+
 var MOOCS=[
   {e:'🌐',n:'Thai MOOC',d:'ศูนย์รวมคอร์สเรียนออนไลน์จากมหาวิทยาลัยทั่วประเทศ ภายใต้ อว.',t:'ทักษะดิจิทัลพื้นฐาน, การเริ่มต้นธุรกิจออนไลน์, ภาษาเพื่ออาชีพ',b:'ค้นหาคอร์สบน Thai MOOC',u:'https://thaimooc.org/'},
   {e:'🩷',n:'CHULA MOOC (จุฬาลงกรณ์มหาวิทยาลัย)',d:'คอร์สด้านธุรกิจ ไอที ภาษา และการจัดการ',t:'ภาษาอังกฤษเพื่อการสื่อสารเบื้องต้น, การจัดการเงินส่วนบุคคล',b:'ดูคอร์สของ CHULA MOOC',u:'https://mooc.chula.ac.th/'},
@@ -586,7 +589,7 @@ var MOOCS=[
   {e:'💜',n:'CMU MOOC (มหาวิทยาลัยเชียงใหม่)',d:'คอร์สทักษะยุคใหม่และการใช้ชีวิต ตั้งแต่วัยเรียนถึงวัยทำงาน',t:'การสร้างสรรค์สื่อดิจิทัลเบื้องต้น',b:'ดูหลักสูตรของ CMU MOOC',u:'https://mooc.cmu.ac.th/'},
   {e:'🧡',n:'KMITL (สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง)',d:'คอร์สออนไลน์และแพลตฟอร์ม KLIX ด้านเทคโนโลยีดิจิทัล',t:'ทักษะดิจิทัลพื้นฐาน, พื้นฐาน AI และโค้ดดิ้ง',b:'ดูคอร์สออนไลน์ของ สจล.',u:'https://kmitl.ac.th/article/online-course'}
 ];
- 
+
 var BUDGET_TOTAL=5000000;
 var BUDGET_LEAD='องค์กรปกครองส่วนท้องถิ่น (อปท.) ในพื้นที่ ร่วมกับสถาบันพหุพัฒนา';
 var BUDGET_PARTNERS=['กระทรวงศึกษาธิการ','กระทรวงการอุดมศึกษา วิทยาศาสตร์ วิจัยและนวัตกรรม (อว.)','กระทรวงการพัฒนาสังคมและความมั่นคงของมนุษย์ (พม.)','กระทรวงแรงงาน','กระทรวงสาธารณสุข'];
@@ -604,7 +607,7 @@ var BUDGET_PHASES=[
     'บังคับใช้มาตรการไม่เลือกปฏิบัติ พร้อมมาตรการลงโทษและสิทธิประโยชน์ทางภาษี และขยายสถาบัน One Stop Service ไปทั่วประเทศ'
   ]}
 ];
- 
+
 var SKILL_CATS=[
   {id:'digital',label:'ดิจิทัล / คอมพิวเตอร์',emoji:'💻'},
   {id:'language',label:'ภาษา',emoji:'🗣️'},
@@ -616,20 +619,20 @@ var SKILL_CATS=[
 ];
 var SCAT={}; SKILL_CATS.forEach(function(c){SCAT[c.id]=c;});
 var FORMATS={online:'ออนไลน์',onsite:'พบหน้ากัน',both:'ได้ทั้งสองแบบ'};
+var SK_STATUS={open:'รอจับคู่',matched:'จับคู่แล้ว',done:'เรียนเสร็จแล้ว'};
 
- 
 var KNOWLEDGE=[
   {t:'กฎหมายสมรสเท่าเทียม',d:'ทำความเข้าใจสิทธิของคู่สมรสตามกฎหมายที่แก้ไขให้ไม่จำกัดเพศ ตรวจข้อมูลล่าสุดจากเว็บไซต์ พม.',a:'กระทรวง พม.',u:'https://www.m-society.go.th',k:'สมรสเท่าเทียม กฎหมาย คู่สมรส lgbtq'},
   {t:'สิทธิคนพิการตาม พ.ร.บ. ส่งเสริมและพัฒนาคุณภาพชีวิตคนพิการ',d:'สรุปสิทธิด้านการศึกษา การจ้างงาน และสวัสดิการ จากหน่วยงานที่ดูแลโดยตรง',a:'กรมส่งเสริมและพัฒนาคุณภาพชีวิตคนพิการ',u:'https://www.dep.go.th',k:'สิทธิคนพิการ พ.ร.บ. จ้างงาน'},
   {t:'วิธีเช็กสิทธิบัตรทองด้วยตัวเอง',d:'ตรวจสอบสิทธิการรักษาและหน่วยบริการประจำของคุณผ่านเว็บไซต์ สปสช.',a:'สปสช.',u:'https://www.nhso.go.th',k:'บัตรทอง สิทธิ สปสช เช็กสิทธิ'}
 ];
- 
+
 var NEWS=[
   {date:'15 ก.ย. 2569',t:'เปิดทดลองระบบรับเรื่องเบื้องต้น',d:'ทดลองส่งเรื่องผ่านแบบฟอร์ม "ขอความช่วยเหลือ" และดูผลการส่งต่อบนแดชบอร์ดเจ้าหน้าที่'},
   {date:'10 ก.ย. 2569',t:'รวมแหล่งเรียนรู้ทักษะใหม่จาก MOOC ของมหาวิทยาลัยชั้นนำ',d:'Thai MOOC, CHULA MOOC, MUx, CMU MOOC และ สจล. อยู่ในหน้าบริการทั้งหมดแล้ว'},
   {date:'5 ก.ย. 2569',t:'แนวทางคุ้มครองข้อมูลผู้ขอรับความช่วยเหลือ',d:'ต้นแบบนี้ไม่บันทึกข้อความที่พิมพ์ในช่องเล่าปัญหา ใช้เพื่อจัดหมวดเท่านั้น'}
 ];
- 
+
 var FAQS=[
   {q:'One Stop Service คืออะไร',a:'เป็นจุดเดียวสำหรับค้นหาบริการและหน่วยงาน และส่งเรื่องขอความช่วยเหลือครั้งเดียว เพื่อให้ระบบช่วยส่งต่อไปยังหน่วยงานภาครัฐและท้องถิ่นที่เกี่ยวข้อง'},
   {q:'ต้องเล่าปัญหาซ้ำหลายหน่วยงานหรือไม่',a:'แนวคิดของระบบคือไม่ต้อง ประชาชนเล่าเรื่องครั้งเดียวผ่านแบบฟอร์ม เจ้าหน้าที่ตรวจสอบและส่งต่อไปยังหน่วยงานที่เหมาะสม เพื่อลดการเดินทางและการเล่าซ้ำ'},
@@ -638,7 +641,7 @@ var FAQS=[
   {q:'ไม่รู้ว่าต้องติดต่อหน่วยงานไหน ทำอย่างไร',a:'เลือกสถานการณ์ที่ใกล้เคียงในหน้าแรก หรือไปที่หน้า "หน่วยงานที่เกี่ยวข้อง" เพื่อค้นหาตามประเภทและชื่อ หากยังไม่แน่ใจ ให้ส่งเรื่องผ่านแบบฟอร์ม "ขอความช่วยเหลือ"'},
   {q:'ถ้าอยู่ในสถานการณ์ฉุกเฉินควรทำอย่างไร',a:'เว็บไซต์นี้ไม่ใช่ช่องทางฉุกเฉิน หากมีอันตรายให้โทร 191 (แจ้งเหตุด่วนเหตุร้าย) หรือ 1669 (การแพทย์ฉุกเฉิน) หากต้องการปรึกษาด้านสุขภาพใจโทร 1323 และหากต้องการความช่วยเหลือทางสังคมโทร 1300'}
 ];
- 
+
 /* ---------- state ---------- */
 var KEY='oss-demo-cases-v2';
 var STATUS={new:'รอคัดกรอง',routed:'ส่งต่อแล้ว',closed:'ปิดเคส'};
@@ -673,19 +676,19 @@ function load(){
 }
 var cases=load();
 function save(){try{localStorage.setItem(KEY,JSON.stringify(cases));}catch(e){}}
- 
+
 var SKEY='oss-demo-skills-v1';
 function seedSkills(){
   var rows=[
-    ['SK-0001','offer','health','นวดแผนไทยเพื่อสุขภาพ','สอนพื้นฐานการนวดแผนไทยให้ผู้สนใจในพื้นที่','onsite','2026-09-10T10:00'],
-    ['SK-0002','offer','career','การเขียนเรซูเม่และเตรียมสัมภาษณ์งาน','ช่วยรีวิวเรซูเม่และฝึกสัมภาษณ์งานแบบออนไลน์','online','2026-09-11T14:00'],
-    ['SK-0003','offer','craft','ตัดเย็บและซ่อมแซมเสื้อผ้าเบื้องต้น','สอนเทคนิคการเย็บง่าย ๆ ที่บ้าน','onsite','2026-09-12T09:30'],
-    ['SK-0004','offer','digital','ทักษะดิจิทัลพื้นฐาน ใช้สมาร์ตโฟนขายของออนไลน์','เคยผ่านคอร์ส Thai MOOC มาแล้ว อยากส่งต่อความรู้','both','2026-09-13T13:00'],
-    ['SK-0005','want','digital','อยากเรียนทักษะดิจิทัลพื้นฐาน / ขายของออนไลน์','ต้องการปรับตัวเข้าสู่งานที่ทำได้จากบ้าน','both','2026-09-14T11:15'],
-    ['SK-0006','want','language','อยากเรียนภาษาอังกฤษเพื่อการสื่อสารในที่ทำงาน','ต้องการเปลี่ยนสายงานหรือขยายโอกาส','online','2026-09-15T16:20'],
-    ['SK-0007','want','cooking','อยากหัดทำขนม/อาหารเพื่อขายเสริมรายได้','อยากมีอาชีพเสริมจากที่บ้าน','onsite','2026-09-16T10:40']
+    ['SK-0001','offer','health','นวดแผนไทยเพื่อสุขภาพ','สอนพื้นฐานการนวดแผนไทยให้ผู้สนใจในพื้นที่','onsite','2026-09-10T10:00','open',null],
+    ['SK-0002','offer','career','การเขียนเรซูเม่และเตรียมสัมภาษณ์งาน','ช่วยรีวิวเรซูเม่และฝึกสัมภาษณ์งานแบบออนไลน์','online','2026-09-11T14:00','open',null],
+    ['SK-0003','offer','craft','ตัดเย็บและซ่อมแซมเสื้อผ้าเบื้องต้น','สอนเทคนิคการเย็บง่าย ๆ ที่บ้าน','onsite','2026-09-12T09:30','open',null],
+    ['SK-0004','offer','digital','ทักษะดิจิทัลพื้นฐาน ใช้สมาร์ตโฟนขายของออนไลน์','เคยผ่านคอร์ส Thai MOOC มาแล้ว อยากส่งต่อความรู้','both','2026-09-13T13:00','matched','SK-0005'],
+    ['SK-0005','want','digital','อยากเรียนทักษะดิจิทัลพื้นฐาน / ขายของออนไลน์','ต้องการปรับตัวเข้าสู่งานที่ทำได้จากบ้าน','both','2026-09-14T11:15','matched','SK-0004'],
+    ['SK-0006','want','language','อยากเรียนภาษาอังกฤษเพื่อการสื่อสารในที่ทำงาน','ต้องการเปลี่ยนสายงานหรือขยายโอกาส','online','2026-09-15T16:20','open',null],
+    ['SK-0007','want','cooking','อยากหัดทำขนม/อาหารเพื่อขายเสริมรายได้','อยากมีอาชีพเสริมจากที่บ้าน','onsite','2026-09-16T10:40','open',null]
   ];
-  return rows.map(function(r){return {id:r[0],type:r[1],cat:r[2],title:r[3],note:r[4],format:r[5],ts:r[6],sample:true};});
+  return rows.map(function(r){return {id:r[0],type:r[1],cat:r[2],title:r[3],note:r[4],format:r[5],ts:r[6],status:r[7],matchId:r[8],sample:true};});
 }
 function loadSkills(){
   try{
@@ -697,7 +700,7 @@ function loadSkills(){
 var skills=loadSkills();
 function saveSkills(){try{localStorage.setItem(SKEY,JSON.stringify(skills));}catch(e){}}
 var triage=null, lastCase=null, newId=null, ag={sector:'all',q:''};
- 
+
 /* ---------- small renderers ---------- */
 function agLink(a){
   if(a.u) return '<a href="'+esc(a.u)+'" target="_blank" rel="noopener noreferrer">'+esc(a.n)+'</a>';
@@ -739,7 +742,7 @@ function storyPlaceholder(topicId){
     ? 'เรื่องของท่านไม่ตรงกับหัวข้อที่มีอยู่ กรุณาอธิบายรายละเอียดด้วยตัวท่านเองให้มากที่สุด เช่น เกิดอะไรขึ้น เกี่ยวข้องกับใคร และอยากให้ช่วยเรื่องอะไร เพื่อให้เจ้าหน้าที่พิจารณาส่งต่อได้ตรงจุด'
     : 'เล่าสั้น ๆ ว่าเกิดอะไรขึ้น และอยากให้ช่วยเรื่องอะไร';
 }
- 
+
 /* ---------- dashboard ---------- */
 function stats(){
   var byTopic={}, bySector={}, byStatus={new:0,routed:0,closed:0};
@@ -776,7 +779,7 @@ function dashHTML(){
    +'<div class="tablewrap"><table><thead><tr><th>รหัสเรื่อง</th><th>เวลา</th><th>ด้าน</th><th>ส่งต่อไปยัง</th><th>สถานะ</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
 }
 function refreshDash(){var d=$('#dash'); if(d) d.innerHTML=dashHTML();}
- 
+
 /* ---------- views ---------- */
 function viewHome(){
   var tiles=SECTORS.map(function(s){
@@ -799,7 +802,7 @@ function viewHome(){
    +'<section class="section"><div class="wrap"><div class="sec-h"><h2>ข่าวสารและประกาศ</h2></div><ul class="news">'+news+'</ul><p style="margin-top:16px"><a class="btn btn-ghost" href="#/knowledge">ดูข่าวสารและความรู้ทั้งหมด '+ICON.arrow+'</a></p></div></section>';
   return {title:'หน้าแรก',html:html};
 }
- 
+
 function viewAbout(){
   var html='<div class="wrap">'
    +'<div class="about-hero">'
@@ -854,7 +857,7 @@ function viewAbout(){
    +'</div>';
   return {title:'เกี่ยวกับเรา',html:html};
 }
- 
+
 function viewServices(){
   var toc=SERVICES.map(function(c){return '<button type="button" class="chip" data-act="toc" data-target="svc-'+c.id+'">'+c.emoji+' '+esc(c.title)+'</button>';}).join('');
   var secs=SERVICES.map(function(c){
@@ -862,7 +865,7 @@ function viewServices(){
   }).join('');
   return {title:'บริการทั้งหมด',html:'<div class="wrap"><div class="pagehead"><h1>บริการทั้งหมด</h1><p>รวมบริการที่พบบ่อย แยกตามหมวด กดที่รายการเพื่อไปยังหน่วยงานเจ้าของบริการ หรือกดสารบัญเพื่อข้ามไปยังหมวดที่ต้องการ</p><div class="filters" role="group" aria-label="สารบัญ">'+toc+'</div></div>'+secs+'</div>'};
 }
- 
+
 function agListHTML(){
   var q=ag.q.trim().toLowerCase();
   var groups=SECTORS.filter(function(s){return ag.sector==='all'||ag.sector===s.id;}).map(function(s){
@@ -887,7 +890,7 @@ function viewAgencies(params){
   var chips='<a class="chip'+(ag.sector==='all'?' on':'')+'" href="#/agencies">ทั้งหมด</a>'+SECTORS.map(function(s){return '<a class="chip'+(ag.sector===s.id?' on':'')+'" href="#/agencies?sector='+s.id+'"'+(ag.sector===s.id?' aria-current="true"':'')+'>'+s.emoji+' '+esc(s.name)+'</a>';}).join('');
   return {title:'หน่วยงานที่เกี่ยวข้อง',html:'<div class="wrap"><div class="pagehead"><h1>หน่วยงานที่เกี่ยวข้อง</h1><p>ไม่รู้ว่าต้องติดต่อใคร? เลือกประเภทหน่วยงานหรือพิมพ์ชื่อเพื่อค้นหา</p></div><div class="filters" role="group" aria-label="กรองตามภาคส่วน">'+chips+'</div><div class="agsearch"><input id="agq" type="search" value="'+esc(ag.q)+'" placeholder="ค้นหาชื่อหน่วยงาน" aria-label="ค้นหาชื่อหน่วยงาน"></div><div id="aglist" aria-live="polite">'+agListHTML()+'</div></div>'};
 }
- 
+
 function viewHelp(params){
   var pre=params.get('topic')||'';
   var side='<aside class="side"><h2>เล่าปัญหาครั้งเดียว</h2><p class="muted">เจ้าหน้าที่จะช่วยคัดกรองและส่งต่อไปยังหน่วยงานที่เกี่ยวข้อง โดยไม่ต้องเล่าซ้ำหลายที่</p><ul><li>ข้อความที่พิมพ์ในต้นแบบนี้ไม่ถูกบันทึกและไม่ถูกส่งออก ใช้เพื่อจัดหมวดเท่านั้น</li><li>ไม่ต้องใส่ชื่อ เลขบัตร หรือข้อมูลส่วนตัวจริง</li></ul><div class="emerg"><b>กรณีฉุกเฉิน</b><ul><li>🚓 <a href="tel:191">191</a> แจ้งเหตุด่วนเหตุร้าย</li><li>🚑 <a href="tel:1669">1669</a> การแพทย์ฉุกเฉิน</li><li>💙 <a href="tel:1323">1323</a> สายด่วนสุขภาพจิต</li><li>🤝 <a href="tel:1300">1300</a> ศูนย์ช่วยเหลือสังคม</li></ul></div></aside>';
@@ -905,7 +908,7 @@ function viewHelp(params){
   }
   return {title:'ขอความช่วยเหลือ',html:'<div class="wrap"><div class="pagehead"><h1>ขอความช่วยเหลือ</h1><p>เล่าปัญหาครั้งเดียว แล้วให้เจ้าหน้าที่ช่วยส่งต่อไปยังหน่วยงานที่เกี่ยวข้อง</p></div><div class="split">'+main+side+'</div></div>'};
 }
- 
+
 function viewSystem(params){
   var steps=[
     {t:'ประชาชนเล่าเรื่องครั้งเดียว',d:'กรอกแบบฟอร์ม เลือกด้านที่ต้องการ และช่องทางติดต่อกลับ',w:'โดย: ประชาชน'},
@@ -916,10 +919,16 @@ function viewSystem(params){
   ].map(function(s){return '<li><h3>'+esc(s.t)+'</h3><p>'+esc(s.d)+'</p><span class="who">'+esc(s.w)+'</span></li>';}).join('');
   var html='<div class="wrap"><div class="pagehead"><h1>ระบบการทำงาน</h1><p>มนุษย์และระบบอัตโนมัติทำงานร่วมกันอย่างไร ตั้งแต่ประชาชนเล่าเรื่องจนถึงการส่งต่อ</p></div>'
    +'<section class="section" style="padding-top:20px"><ol class="flow">'+steps+'</ol><p class="note">หมายเหตุ: ต้นแบบนี้จำลองขั้นตอนที่ 2 ด้วยกติกาคีย์เวิร์ดที่กำหนดไว้ล่วงหน้า ยังไม่ได้ใช้ AI จริง</p></section>'
-   +'<section class="section" style="padding-top:8px" id="dash-sec"><div class="dashhead"><div class="sec-h" style="margin:0"><h2>ตัวอย่างแดชบอร์ดสำหรับเจ้าหน้าที่</h2><p>สถิติผู้ขอรับความช่วยเหลือ — ส่งแบบฟอร์มในหน้า "ขอความช่วยเหลือ" แล้วกลับมาดู ตัวเลขและกราฟจะเปลี่ยนทันที</p></div><div class="btnrow" style="margin:0"><a class="btn" href="#/help">ไปกรอกแบบฟอร์ม</a><button type="button" class="btn btn-ghost" data-act="reset-demo">รีเซ็ตข้อมูลตัวอย่าง</button></div></div><div class="dash" id="dash">'+dashHTML()+'</div><p class="hint" style="margin-top:14px">รายการที่มีป้าย "ตัวอย่าง" เป็นข้อมูลสมมติ ข้อมูลเก็บเฉพาะในเบราว์เซอร์นี้</p></section></div>';
-  return {title:'ระบบการทำงาน',html:html,after:function(){ if(params.get('focus')==='dash'){var el=$('#dash-sec'); if(el) el.scrollIntoView(); else window.scrollTo(0,0);} else window.scrollTo(0,0);},noscroll:true};
+   +'<section class="section" style="padding-top:8px" id="dash-sec"><div class="dashhead"><div class="sec-h" style="margin:0"><h2>ตัวอย่างแดชบอร์ดสำหรับเจ้าหน้าที่</h2><p>สถิติผู้ขอรับความช่วยเหลือ — ส่งแบบฟอร์มในหน้า "ขอความช่วยเหลือ" แล้วกลับมาดู ตัวเลขและกราฟจะเปลี่ยนทันที</p></div><div class="btnrow" style="margin:0"><a class="btn" href="#/help">ไปกรอกแบบฟอร์ม</a><button type="button" class="btn btn-ghost" data-act="reset-demo">รีเซ็ตข้อมูลตัวอย่าง</button></div></div><div class="dash" id="dash">'+dashHTML()+'</div><p class="hint" style="margin-top:14px">รายการที่มีป้าย "ตัวอย่าง" เป็นข้อมูลสมมติ ข้อมูลเก็บเฉพาะในเบราว์เซอร์นี้</p></section>'
+   +'<section class="section" style="padding-top:8px" id="skilldash-sec"><div class="dashhead"><div class="sec-h" style="margin:0"><h2>แดชบอร์ดจับคู่ทักษะ</h2><p>ดูภาพรวมผู้ลงทะเบียนในหน้า "จับคู่ทักษะ" จับคู่ผู้ที่ยังว่างในหมวดเดียวกัน แล้วติดตามสถานะจนถึงเรียนเสร็จ</p></div><div class="btnrow" style="margin:0"><a class="btn" href="#/skills">ไปหน้าจับคู่ทักษะ</a><button type="button" class="btn btn-ghost" data-act="reset-skill-demo">รีเซ็ตข้อมูลตัวอย่าง</button></div></div><div class="dash" id="skilldash">'+skillDashHTML()+'</div><p class="hint" style="margin-top:14px">ข้อมูลเก็บเฉพาะในเบราว์เซอร์นี้เช่นเดียวกับแดชบอร์ดด้านบน</p></section></div>';
+  return {title:'ระบบการทำงาน',html:html,after:function(){
+    var foc=params.get('focus');
+    if(foc==='skilldash'){ var el2=$('#skilldash-sec'); if(el2) el2.scrollIntoView(); else window.scrollTo(0,0); }
+    else if(foc==='dash'){ var el=$('#dash-sec'); if(el) el.scrollIntoView(); else window.scrollTo(0,0); }
+    else window.scrollTo(0,0);
+  },noscroll:true};
 }
- 
+
 function viewBudget(){
   var spentTotal=BUDGET_PHASES.reduce(function(s,p){return s+p.spent;},0);
   var kpis='<div class="kpis">'
@@ -948,7 +957,7 @@ function viewBudget(){
    +'</section></div>';
   return {title:'งบประมาณโครงการ',html:html};
 }
- 
+
 function skillFmtBadge(fmt){ return '<span class="fmt '+esc(fmt)+'">'+esc(FORMATS[fmt]||fmt)+'</span>'; }
 function skillCard(s){
   var c=SCAT[s.cat]||{emoji:'🧩',label:s.cat};
@@ -957,24 +966,81 @@ function skillCard(s){
     +'<p class="muted small" style="margin-top:8px">หมวด: '+esc(c.label)+(s.sample?' <span class="tag">ตัวอย่าง</span>':' <span class="tag">ใหม่</span>')+'</p></li>';
 }
 function skillsHTML(){
-  var offers=skills.filter(function(s){return s.type==='offer';});
-  var wants=skills.filter(function(s){return s.type==='want';});
+  var offers=skills.filter(function(s){return s.type==='offer'&&s.status==='open';});
+  var wants=skills.filter(function(s){return s.type==='want'&&s.status==='open';});
   var offerCats={}, wantCats={};
   offers.forEach(function(s){offerCats[s.cat]=(offerCats[s.cat]||0)+1;});
   wants.forEach(function(s){wantCats[s.cat]=(wantCats[s.cat]||0)+1;});
   var matched=SKILL_CATS.filter(function(c){return offerCats[c.id]&&wantCats[c.id];});
   var matchHTML=matched.length
-    ? '<div class="matchnote">🔗 <b>พร้อมจับคู่ได้เลย:</b> '+matched.map(function(c){return c.emoji+' '+esc(c.label);}).join(', ')+' — มีทั้งผู้เสนอสอนและผู้ต้องการเรียนในหมวดเดียวกัน เจ้าหน้าที่จะช่วยประสานให้นัดวันเวลากันได้</div>'
+    ? '<div class="matchnote">🔗 <b>พร้อมจับคู่ได้เลย:</b> '+matched.map(function(c){return c.emoji+' '+esc(c.label);}).join(', ')+' — มีทั้งผู้เสนอสอนและผู้ต้องการเรียนในหมวดเดียวกัน เจ้าหน้าที่จะช่วยจับคู่และประสานนัดวันเวลาให้</div>'
     : '<div class="matchnote">ยังไม่มีหมวดที่จับคู่ได้พอดีในตอนนี้ ลองเพิ่มรายการของท่านด้านล่าง เพื่อรอผู้ที่ตรงกัน</div>';
-  var offerList=offers.length?('<ul class="skillcards">'+offers.map(skillCard).join('')+'</ul>'):'<p class="empty">ยังไม่มีผู้ลงทะเบียนสอนในตอนนี้</p>';
-  var wantList=wants.length?('<ul class="skillcards">'+wants.map(skillCard).join('')+'</ul>'):'<p class="empty">ยังไม่มีผู้ลงทะเบียนต้องการเรียนในตอนนี้</p>';
+  var offerList=offers.length?('<ul class="skillcards">'+offers.map(skillCard).join('')+'</ul>'):'<p class="empty">ยังไม่มีผู้ลงทะเบียนสอนที่ว่างอยู่ในตอนนี้</p>';
+  var wantList=wants.length?('<ul class="skillcards">'+wants.map(skillCard).join('')+'</ul>'):'<p class="empty">ยังไม่มีผู้ลงทะเบียนต้องการเรียนที่ว่างอยู่ในตอนนี้</p>';
   return matchHTML+'<div class="skilltabs"><div class="skillcol"><h3>🙋 ผู้มีทักษะ อยากแบ่งปัน/สอน ('+offers.length+')</h3>'+offerList+'</div>'
     +'<div class="skillcol"><h3>🎯 ผู้ต้องการเรียนรู้ ('+wants.length+')</h3>'+wantList+'</div></div>';
 }
 function refreshSkills(){var el=$('#skill-list'); if(el) el.innerHTML=skillsHTML();}
+
+function skillStats(){
+  var byCatOffer={}, byCatWant={};
+  SKILL_CATS.forEach(function(c){byCatOffer[c.id]=0; byCatWant[c.id]=0;});
+  skills.forEach(function(s){
+    if(s.type==='offer') byCatOffer[s.cat]=(byCatOffer[s.cat]||0)+1;
+    else byCatWant[s.cat]=(byCatWant[s.cat]||0)+1;
+  });
+  var pairs=skills.filter(function(s){return s.type==='offer'&&s.matchId;}).length;
+  return {byCatOffer:byCatOffer,byCatWant:byCatWant,pairs:pairs};
+}
+function openSkillsFor(type,cat){
+  return skills.filter(function(s){return s.type===type&&s.cat===cat&&s.status==='open';});
+}
+function matchPanelHTML(){
+  var openOfferCats={}, openWantCats={};
+  skills.forEach(function(s){
+    if(s.status!=='open') return;
+    if(s.type==='offer') openOfferCats[s.cat]=true; else openWantCats[s.cat]=true;
+  });
+  var readyCats=SKILL_CATS.filter(function(c){return openOfferCats[c.id]&&openWantCats[c.id];});
+  if(!readyCats.length) return '<p class="empty">ไม่มีหมวดที่พร้อมจับคู่ในตอนนี้ — ต้องมีทั้งผู้เสนอสอนและผู้ต้องการเรียนที่ยังว่างอยู่ในหมวดเดียวกัน</p>';
+  return readyCats.map(function(c){
+    var offers=openSkillsFor('offer',c.id), wants=openSkillsFor('want',c.id);
+    var offerOpts=offers.map(function(s){return '<option value="'+esc(s.id)+'">'+esc(s.title)+'</option>';}).join('');
+    var wantOpts=wants.map(function(s){return '<option value="'+esc(s.id)+'">'+esc(s.title)+'</option>';}).join('');
+    return '<div class="bphase"><div class="bphase-h"><b>'+c.emoji+' '+esc(c.label)+'</b><span class="bphase-amt">ผู้เสนอสอน '+offers.length+' · ผู้ต้องการเรียน '+wants.length+'</span></div>'
+      +'<div class="matchrow"><select data-mcat="'+c.id+'" data-mrole="offer">'+offerOpts+'</select><span aria-hidden="true">↔</span><select data-mcat="'+c.id+'" data-mrole="want">'+wantOpts+'</select>'
+      +'<button type="button" class="btn" data-act="match-skill" data-cat="'+c.id+'">จับคู่</button></div></div>';
+  }).join('');
+}
+function pairRowsHTML(){
+  var rows=skills.filter(function(s){return s.type==='offer'&&s.matchId;}).map(function(o){
+    var w=skills.filter(function(s){return s.id===o.matchId;})[0];
+    if(!w) return '';
+    var c=SCAT[o.cat]||{emoji:'🧩',label:o.cat};
+    var opts=Object.keys(SK_STATUS).filter(function(k){return k!=='open';}).map(function(k){return '<option value="'+k+'"'+(o.status===k?' selected':'')+'>'+SK_STATUS[k]+'</option>';}).join('');
+    return '<tr><td>'+c.emoji+' '+esc(c.label)+'</td><td>'+esc(o.title)+'</td><td>'+esc(w.title)+'</td><td>'+esc(FORMATS[o.format]||o.format)+'</td><td><select data-pair="'+esc(o.id)+'" aria-label="สถานะคู่ '+esc(o.id)+'">'+opts+'</select></td><td><button type="button" class="btn btn-ghost" data-act="unmatch-skill" data-id="'+esc(o.id)+'">ยกเลิกจับคู่</button></td></tr>';
+  }).join('');
+  if(!rows) return '<p class="empty">ยังไม่มีคู่ที่จับคู่สำเร็จ</p>';
+  return '<div class="tablewrap"><table><thead><tr><th>หมวด</th><th>ผู้สอน</th><th>ผู้เรียน</th><th>รูปแบบ</th><th>สถานะ</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+}
+function skillDashHTML(){
+  var st=skillStats();
+  var totalOffer=skills.filter(function(s){return s.type==='offer';}).length;
+  var totalWant=skills.filter(function(s){return s.type==='want';}).length;
+  var kpis='<div class="kpis"><div class="kpi"><b>'+skills.length+'</b><span>รายการทั้งหมด</span></div><div class="kpi"><b>'+totalOffer+'</b><span>ผู้มีทักษะ</span></div><div class="kpi"><b>'+totalWant+'</b><span>ผู้ต้องการเรียน</span></div><div class="kpi"><b>'+st.pairs+'</b><span>จับคู่สำเร็จแล้ว</span></div></div>';
+  var offerItems=SKILL_CATS.map(function(c){return {label:c.emoji+' '+esc(c.label),n:st.byCatOffer[c.id]};});
+  var wantItems=SKILL_CATS.map(function(c){return {label:c.emoji+' '+esc(c.label),n:st.byCatWant[c.id]};});
+  var max1=Math.max.apply(null,offerItems.map(function(x){return x.n;}).concat([1]));
+  var max2=Math.max.apply(null,wantItems.map(function(x){return x.n;}).concat([1]));
+  return kpis
+    +'<div class="charts"><div><h3>ผู้มีทักษะ ตามหมวด</h3>'+barRows(offerItems,max1)+'</div><div><h3>ผู้ต้องการเรียน ตามหมวด</h3>'+barRows(wantItems,max2)+'</div></div>'
+    +'<h3 style="margin-top:30px;font-size:1.05rem">จับคู่ผู้ที่ยังรอ</h3>'+matchPanelHTML()
+    +'<h3 style="margin-top:30px;font-size:1.05rem">คู่ที่จับคู่แล้ว</h3>'+pairRowsHTML();
+}
+function refreshSkillDash(){var el=$('#skilldash'); if(el) el.innerHTML=skillDashHTML();}
 function viewSkills(){
   var catOpts=SKILL_CATS.map(function(c){return '<option value="'+c.id+'">'+c.emoji+' '+esc(c.label)+'</option>';}).join('');
-  var html='<div class="wrap"><div class="pagehead"><h1>จับคู่ทักษะในชุมชน</h1><p>ให้คนในชุมชนที่มีทักษะมาสอน จับคู่กับคนที่อยากเรียนรู้ทักษะนั้น จัดการเรียนการสอนได้ทั้งแบบออนไลน์และพบหน้ากัน เสริมจากคอร์สออนไลน์ของมหาวิทยาลัยในหน้า "บริการทั้งหมด" ด้วยการเรียนรู้แบบเพื่อนสอนเพื่อนในพื้นที่จริง</p></div>'
+  var html='<div class="wrap"><div class="pagehead"><h1>จับคู่ทักษะในชุมชน</h1><p>ให้คนในชุมชนที่มีทักษะมาสอน จับคู่กับคนที่อยากเรียนรู้ทักษะนั้น จัดการเรียนการสอนได้ทั้งแบบออนไลน์และพบหน้ากัน เสริมจากคอร์สออนไลน์ของมหาวิทยาลัยในหน้า "บริการทั้งหมด" ด้วยการเรียนรู้แบบเพื่อนสอนเพื่อนในพื้นที่จริง</p><p class="hint" style="margin-top:10px">เจ้าหน้าที่ดูภาพรวมและทำการจับคู่ได้ที่ <a href="#/system?focus=skilldash" style="text-decoration:underline">แดชบอร์ดจับคู่ทักษะ</a></p></div>'
    +'<section class="section" style="padding-top:8px"><div id="skill-list">'+skillsHTML()+'</div>'
    +'<div class="formbox skillform"><h2 style="font-size:1.15rem">เพิ่มรายการของท่าน</h2>'
      +'<div id="sk-err" role="alert"></div>'
@@ -996,18 +1062,18 @@ function viewSkills(){
    +'</section></div>';
   return {title:'จับคู่ทักษะในชุมชน',html:html};
 }
- 
+
 function viewKnowledge(){
   var kb=KNOWLEDGE.map(function(k){return '<a href="'+esc(k.u)+'" target="_blank" rel="noopener noreferrer"><h3>'+esc(k.t)+'</h3><p>'+esc(k.d)+'</p><span class="src">'+esc(k.a)+' '+ICON.ext+'</span></a>';}).join('');
   var news=NEWS.map(function(n){return '<li><time>'+esc(n.date)+'</time><div><h3>'+esc(n.t)+'<span class="tag">ตัวอย่าง</span></h3><p>'+esc(n.d)+'</p></div></li>';}).join('');
   return {title:'ข่าวสารและความรู้',html:'<div class="wrap"><div class="pagehead"><h1>ข่าวสารและความรู้</h1><p>ความรู้เรื่องสิทธิที่ควรรู้ และประกาศจากศูนย์บริการ</p></div><section class="section"><div class="sec-h"><h2>ความรู้และสิทธิ</h2><p>กดแล้วไปอ่านต่อที่เว็บไซต์ของหน่วยงานเจ้าของข้อมูล</p></div><div class="kb">'+kb+'</div></section><section class="section" style="padding-top:8px"><div class="sec-h"><h2>ข่าวสารและประกาศ</h2></div><ul class="news">'+news+'</ul></section></div>'};
 }
- 
+
 function viewFaq(){
   var f=FAQS.map(function(x){return '<details class="faq"><summary>'+esc(x.q)+'</summary><p>'+esc(x.a)+'</p></details>';}).join('');
   return {title:'คำถามที่พบบ่อย',html:'<div class="wrap"><div class="pagehead"><h1>คำถามที่พบบ่อย</h1><p>คำตอบสั้น ๆ เกี่ยวกับการใช้งานศูนย์บริการ</p></div><div class="faqs" style="margin-bottom:40px">'+f+'</div></div>'};
 }
- 
+
 function viewContact(){
   return {title:'ติดต่อเรา',html:'<div class="wrap"><div class="pagehead"><h1>ติดต่อเรา</h1><p>ช่องทางติดต่อศูนย์ประสานงาน ข้อมูลในหน้านี้เป็นตัวอย่างสำหรับต้นแบบ</p></div><div class="split"><ul class="channels" style="margin-top:0">'
    +'<li><span class="e">☎️</span><div><b>Hotline</b><br>1XXX <span class="tag">เบอร์สมมติ</span></div></li>'
@@ -1017,7 +1083,7 @@ function viewContact(){
    +'<li><span class="e">🌐</span><div><b>Social Media</b><br>Facebook · Instagram · YouTube <span class="tag">ตัวอย่าง</span></div></li>'
    +'</ul><aside class="side"><div class="emerg"><b>กรณีฉุกเฉิน</b><p class="small muted">ศูนย์บริการนี้ไม่ใช่ช่องทางฉุกเฉิน</p><ul><li>🚓 <a href="tel:191">191</a> แจ้งเหตุด่วนเหตุร้าย</li><li>🚑 <a href="tel:1669">1669</a> การแพทย์ฉุกเฉิน</li><li>💙 <a href="tel:1323">1323</a> สายด่วนสุขภาพจิต</li><li>🤝 <a href="tel:1300">1300</a> ศูนย์ช่วยเหลือสังคม</li></ul></div></aside></div></div>'};
 }
- 
+
 /* search */
 function searchIndex(){
   var idx=[];
@@ -1046,7 +1112,7 @@ function viewSearch(params){
   var q=params.get('q')||'';
   return {title:'ค้นหา',html:'<div class="wrap"><div class="pagehead"><h1>ค้นหา</h1><p>ค้นหาบริการ หน่วยงาน ความรู้ และคำถามที่พบบ่อย</p></div><div class="sbox" role="search"><input id="sq" type="search" value="'+esc(q)+'" placeholder="ค้นหาบริการ / หน่วยงาน / เรื่องที่ต้องการ" aria-label="ค้นหา"></div><div id="sr" aria-live="polite" style="margin-bottom:40px">'+searchHTML(q)+'</div></div>',after:function(){var i=$('#sq'); if(i&&!q) i.focus(); window.scrollTo(0,0);},noscroll:true};
 }
- 
+
 /* ---------- router ---------- */
 var VIEWS={home:viewHome,about:viewAbout,services:viewServices,agencies:viewAgencies,help:viewHelp,system:viewSystem,skills:viewSkills,budget:viewBudget,knowledge:viewKnowledge,faq:viewFaq,contact:viewContact,search:viewSearch};
 var app=$('#app');
@@ -1075,7 +1141,7 @@ function closeMenu(){
 }
 function toggleMenu(){var n=$('#nav'), b=$('#menu-btn'); var open=n.classList.toggle('open'); b.setAttribute('aria-expanded',open?'true':'false');}
 function goSearch(q){location.hash='#/search'+(q&&q.trim()?'?q='+encodeURIComponent(q.trim()):'');}
- 
+
 /* ---------- help form ---------- */
 function routeFor(topicId,story){
   var ids=TOPIC[topicId].routes.slice();
@@ -1103,7 +1169,7 @@ function submitHelp(){
   cases.push(c); save(); lastCase=c; newId=c.id;
   render();
 }
- 
+
 function nextSkillId(){
   var max=0; skills.forEach(function(s){var m=/(\d+)$/.exec(s.id); if(m) max=Math.max(max,parseInt(m[1],10));});
   return 'SK-'+String(max+1).padStart(4,'0');
@@ -1118,17 +1184,17 @@ function submitSkill(){
   if(errs.length){ box.innerHTML='<p class="err">'+errs.map(esc).join('<br>')+'</p>'; return; }
   box.innerHTML='';
   var now=new Date(), pad=function(n){return String(n).padStart(2,'0');};
-  var s={id:nextSkillId(),type:type,cat:cat,title:title,note:note,format:format,ts:now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate())+'T'+pad(now.getHours())+':'+pad(now.getMinutes()),sample:false};
+  var s={id:nextSkillId(),type:type,cat:cat,title:title,note:note,format:format,ts:now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate())+'T'+pad(now.getHours())+':'+pad(now.getMinutes()),status:'open',matchId:null,sample:false};
   skills.push(s); saveSkills();
   var ti=$('#sk-title'), no=$('#sk-note'); if(ti) ti.value=''; if(no) no.value='';
-  refreshSkills();
+  refreshSkills(); refreshSkillDash();
 }
- 
+
 /* ---------- events ---------- */
 var loginDlg=$('#login');
 function openLogin(){ if(loginDlg&&loginDlg.showModal){loginDlg.showModal();} else {location.hash='#/help';} }
 function closeLogin(){ if(loginDlg&&loginDlg.open) loginDlg.close(); }
- 
+
 document.addEventListener('click',function(e){
   var nm=$('.navmore');
   if(nm && nm.classList.contains('open') && !e.target.closest('.navmore')){
@@ -1166,11 +1232,47 @@ document.addEventListener('click',function(e){
     case 'submit-skill': submitSkill(); break;
     case 'new-help': lastCase=null; newId=null; render(); break;
     case 'reset-demo': cases=seed(); newId=null; save(); refreshDash(); break;
+    case 'match-skill':
+      var mcat=el.getAttribute('data-cat');
+      var offerSel=$('select[data-mcat="'+mcat+'"][data-mrole="offer"]');
+      var wantSel=$('select[data-mcat="'+mcat+'"][data-mrole="want"]');
+      if(offerSel && wantSel && offerSel.value && wantSel.value){
+        var oId=offerSel.value, wId=wantSel.value;
+        skills.forEach(function(s){
+          if(s.id===oId){ s.status='matched'; s.matchId=wId; }
+          if(s.id===wId){ s.status='matched'; s.matchId=oId; }
+        });
+        saveSkills(); refreshSkillDash();
+      }
+      break;
+    case 'unmatch-skill':
+      var unId=el.getAttribute('data-id');
+      skills.forEach(function(s){
+        if(s.id===unId){
+          var mid=s.matchId; s.status='open'; s.matchId=null;
+          skills.forEach(function(s2){ if(s2.id===mid){ s2.status='open'; s2.matchId=null; } });
+        }
+      });
+      saveSkills(); refreshSkillDash();
+      break;
+    case 'reset-skill-demo': skills=seedSkills(); saveSkills(); refreshSkillDash(); break;
   }
 });
 document.addEventListener('change',function(e){
   if(e.target.id==='hf-topic'){
     var ta=$('#hf-story'); if(ta) ta.setAttribute('placeholder',storyPlaceholder(e.target.value));
+    return;
+  }
+  var ps=e.target.closest&&e.target.closest('select[data-pair]');
+  if(ps){
+    var pid=ps.getAttribute('data-pair'), newStatus=ps.value;
+    var target=skills.filter(function(s){return s.id===pid;})[0];
+    if(target){
+      target.status=newStatus;
+      var partner=skills.filter(function(s){return s.id===target.matchId;})[0];
+      if(partner) partner.status=newStatus;
+    }
+    saveSkills(); refreshSkillDash();
     return;
   }
   var s=e.target.closest&&e.target.closest('select[data-case]'); if(!s) return;
@@ -1191,7 +1293,7 @@ document.addEventListener('keydown',function(e){
 });
 if(loginDlg){ loginDlg.addEventListener('click',function(e){ if(e.target===loginDlg) closeLogin(); }); }
 window.addEventListener('hashchange',function(){ render(); });
- 
+
 render();
 })();
 </script>

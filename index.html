@@ -375,6 +375,38 @@ dialog .stack{display:grid;gap:10px}
 .matchrow span{color:var(--muted)}
 @media (max-width:820px){.skilltabs{grid-template-columns:1fr}}
 
+/* reviews */
+.rvsum{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px}
+.stars{color:var(--pri);letter-spacing:2px;font-size:1.05rem;white-space:nowrap}
+.rvtags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.rvtag{font-size:.78rem;border-radius:999px;padding:1px 10px;background:var(--surface-2);color:var(--ink-2)}
+.rvlist{margin-top:10px;border-top:1px dashed var(--line-strong);padding-top:8px}
+.rvlist summary{cursor:pointer;font:600 .9rem var(--font-head);padding:4px 0}
+.rvlist ul{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:10px}
+.rvlist li{background:var(--surface-2);border-radius:12px;padding:10px 14px}
+.rvlist li p{margin:4px 0 0;color:var(--ink-2);font-size:.92rem}
+.sortrow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px;font-size:.9rem;color:var(--muted)}
+.sortrow select{border:1.5px solid var(--line-strong);border-radius:10px;background:var(--surface);padding:6px 10px}
+.rvform{margin-top:26px}
+.rvok{color:var(--loc);border:1.5px solid var(--loc);border-radius:12px;padding:10px 14px;margin:0 0 14px;font-size:.92rem}
+/* v3 additions */
+.vbadge{display:inline-block;font-size:.78rem;border-radius:999px;padding:2px 10px;background:var(--surface-2);color:var(--ink-2)}
+.vbadge.ok{background:var(--loc-s);color:var(--loc);font-weight:600}
+.safebox{border:2px solid var(--loc);background:var(--loc-s);border-radius:16px;padding:16px 20px;margin:18px 0}
+.safebox ul{margin:8px 0 0;padding-left:20px;color:var(--ink-2);font-size:.93rem}
+.linkbtn{border:0;background:transparent;color:var(--muted);font-size:.82rem;text-decoration:underline;cursor:pointer;padding:6px 0 0}
+.rvreply{margin-top:8px;border-left:3px solid var(--focus);padding:4px 12px;font-size:.9rem;color:var(--ink-2)}
+.tl{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:14px}
+.tl li{display:grid;grid-template-columns:34px 1fr;gap:12px}
+.tl .mk{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--line-strong);font:600 .85rem var(--font-head)}
+.tl .done .mk{background:var(--loc);border-color:var(--loc);color:#fff}
+.tl .cur .mk{border-color:var(--focus);color:var(--focus)}
+.tl p{font-size:.92rem;color:var(--muted)}
+.cert{border:6px double var(--ink);padding:28px 20px;text-align:center;background:var(--surface)}
+.cert h2{font-size:1.5rem;margin-bottom:10px}
+.cert p{margin:6px 0;color:var(--ink)}
+.field.inline{margin:14px 0 0}
+@media print{body>*:not(#certdlg){display:none!important}#certdlg{position:static;border:0;max-width:none;width:100%;padding:0}#certdlg .noprint{display:none!important}}
 /* budget */
 .bphase{margin-bottom:22px}
 .bphase-h{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:6px}
@@ -413,6 +445,7 @@ dialog .stack{display:grid;gap:10px}
         <div class="navmore-panel" role="menu">
           <a href="#/about" data-nav="about" role="menuitem">เกี่ยวกับเรา</a>
           <a href="#/budget" data-nav="budget" role="menuitem">งบประมาณ</a>
+          <a href="#/track" data-nav="track" role="menuitem">ตรวจสอบสถานะเรื่อง</a>
           <a href="#/knowledge" data-nav="knowledge" role="menuitem">ข่าวสาร</a>
           <a href="#/faq" data-nav="faq" role="menuitem">คำถามที่พบบ่อย</a>
           <a href="#/contact" data-nav="contact" role="menuitem">ติดต่อเรา</a>
@@ -455,6 +488,8 @@ dialog .stack{display:grid;gap:10px}
         <li><a href="#/budget">งบประมาณโครงการ</a></li>
         <li><a href="#/agencies">หน่วยงานที่เกี่ยวข้อง</a></li>
         <li><a href="#/system">ระบบการทำงาน และแดชบอร์ดเจ้าหน้าที่</a></li>
+        <li><a href="#/track">ตรวจสอบสถานะเรื่อง</a></li>
+        <li><a href="#/privacy">ประกาศความเป็นส่วนตัว (PDPA)</a></li>
         <li><a href="#/faq">คำถามที่พบบ่อย</a></li>
       </ul>
     </div>
@@ -476,6 +511,11 @@ dialog .stack{display:grid;gap:10px}
   </div>
 </dialog>
 
+<dialog id="reportdlg" aria-labelledby="rp-h"><div id="rp-body"></div></dialog>
+<dialog id="certdlg" aria-labelledby="cert-h"><div id="cert-body"></div>
+  <div class="field inline noprint"><label for="cert-name">ชื่อผู้รับเกียรติบัตร (ไม่ถูกบันทึก)</label><input id="cert-name" type="text" placeholder="พิมพ์ชื่อเพื่อแสดงบนเกียรติบัตร"></div>
+  <div class="stack noprint" style="margin-top:14px"><button type="button" class="btn" data-act="print-cert">พิมพ์ / บันทึกเป็น PDF</button><button type="button" class="btn btn-ghost" data-act="close-cert">ปิด</button></div>
+</dialog>
 <noscript><div class="wrap section">หน้าเว็บนี้ต้องเปิดใช้งาน JavaScript</div></noscript>
 
 <script>
@@ -677,7 +717,7 @@ function load(){
 var cases=load();
 function save(){try{localStorage.setItem(KEY,JSON.stringify(cases));}catch(e){}}
 
-var SKEY='oss-demo-skills-v1';
+var SKEY='oss-demo-skills-v2';
 function seedSkills(){
   var rows=[
     ['SK-0001','offer','health','นวดแผนไทยเพื่อสุขภาพ','สอนพื้นฐานการนวดแผนไทยให้ผู้สนใจในพื้นที่','onsite','2026-09-10T10:00','open',null],
@@ -686,9 +726,12 @@ function seedSkills(){
     ['SK-0004','offer','digital','ทักษะดิจิทัลพื้นฐาน ใช้สมาร์ตโฟนขายของออนไลน์','เคยผ่านคอร์ส Thai MOOC มาแล้ว อยากส่งต่อความรู้','both','2026-09-13T13:00','matched','SK-0005'],
     ['SK-0005','want','digital','อยากเรียนทักษะดิจิทัลพื้นฐาน / ขายของออนไลน์','ต้องการปรับตัวเข้าสู่งานที่ทำได้จากบ้าน','both','2026-09-14T11:15','matched','SK-0004'],
     ['SK-0006','want','language','อยากเรียนภาษาอังกฤษเพื่อการสื่อสารในที่ทำงาน','ต้องการเปลี่ยนสายงานหรือขยายโอกาส','online','2026-09-15T16:20','open',null],
+    ['SK-0008','offer','language','ภาษาอังกฤษพื้นฐานเพื่อการทำงาน','สอนบทสนทนาที่ใช้ในที่ทำงานและการสมัครงาน','online','2026-09-08T10:00','done','SK-0009'],
+    ['SK-0009','want','language','อยากฝึกภาษาอังกฤษเพื่อสมัครงานบริการ','ต้องการสื่อสารกับลูกค้าต่างชาติ','online','2026-09-08T12:00','done','SK-0008'],
     ['SK-0007','want','cooking','อยากหัดทำขนม/อาหารเพื่อขายเสริมรายได้','อยากมีอาชีพเสริมจากที่บ้าน','onsite','2026-09-16T10:40','open',null]
   ];
-  return rows.map(function(r){return {id:r[0],type:r[1],cat:r[2],title:r[3],note:r[4],format:r[5],ts:r[6],status:r[7],matchId:r[8],sample:true};});
+  var EX={'SK-0001':{s:['wkendam'],a:['wheel'],v:1},'SK-0002':{s:['wkdayeve','flex'],a:['visual','hearing'],v:1},'SK-0003':{s:['wkendpm'],a:[],v:0},'SK-0004':{s:['wkdayeve','wkendam'],a:['visual'],v:1},'SK-0008':{s:['wkdayeve'],a:['hearing'],v:1,h:6}};
+  return rows.map(function(r){var x=EX[r[0]]||{}; return {id:r[0],type:r[1],cat:r[2],title:r[3],note:r[4],format:r[5],ts:r[6],status:r[7],matchId:r[8],sample:true,slots:x.s||[],access:x.a||[],verified:!!x.v,suspended:false,hours:x.h||0};});
 }
 function loadSkills(){
   try{
@@ -699,6 +742,101 @@ function loadSkills(){
 }
 var skills=loadSkills();
 function saveSkills(){try{localStorage.setItem(SKEY,JSON.stringify(skills));}catch(e){}}
+
+var RKEY='oss-demo-reviews-v2';
+var RV_TAGS=['อธิบายเข้าใจง่าย','ตรงเวลา','ใจเย็น','นำไปใช้ได้จริง','ตรงตามที่แจ้งไว้'];
+function seedReviews(){
+  var rows=[
+    ['RV-0001','SK-0001',5,'สอนละเอียด ใจเย็น ได้ลองทำจริงทุกท่า กลับไปนวดให้คนที่บ้านได้เลย',[0,2,3],'2026-09-14T10:00'],
+    ['RV-0002','SK-0001',4,'เนื้อหาดี แต่ที่เรียนค่อนข้างเล็ก ควรนัดล่วงหน้า',[0,4],'2026-09-16T15:30'],
+    ['RV-0003','SK-0002',5,'รีวิวเรซูเม่ละเอียดมาก ซ้อมสัมภาษณ์แล้วมั่นใจขึ้นเยอะ',[0,3],'2026-09-15T11:20'],
+    ['RV-0004','SK-0002',4,'ให้คำแนะนำตรงจุด แต่ช่วงเวลาที่ว่างค่อนข้างจำกัด',[1],'2026-09-17T09:40'],
+    ['RV-0005','SK-0003',3,'สอนเทคนิคพื้นฐานได้ดี แต่ช่วงแรกอธิบายเร็วไปหน่อย',[3],'2026-09-18T13:10'],
+    ['RV-0007','SK-0008',5,'อธิบายประโยคที่ใช้สมัครงานจริง ฝึกพูดทุกครั้ง ตอนนี้ไปสัมภาษณ์ได้มั่นใจขึ้น',[0,3],'2026-09-22T10:00'],
+    ['RV-0006','SK-0004',5,'สอนถ่ายรูปสินค้าและลงขายจริงด้วยมือถือ ตามทันง่าย',[0,2,3],'2026-09-19T14:00']
+  ];
+  var RX={'RV-0001':{o:'income',r:'ขอบคุณที่มาเรียนนะคะ ยินดีให้คำปรึกษาเพิ่มเติมถ้ามีข้อสงสัย'},'RV-0003':{o:'job'},'RV-0006':{o:'income'},'RV-0007':{o:'job'}};
+  return rows.map(function(r){var x=RX[r[0]]||{}; return {id:r[0],teacher:r[1],rating:r[2],text:r[3],tags:r[4].map(function(i){return RV_TAGS[i];}),ts:r[5],sample:true,outcome:x.o||'',reply:x.r||'',hidden:false};});
+}
+function loadReviews(){
+  try{
+    var raw=localStorage.getItem(RKEY);
+    if(raw){var a=JSON.parse(raw); if(Array.isArray(a)&&a.length) return a;}
+  }catch(e){}
+  return seedReviews();
+}
+var SLOTS={wkdayeve:'เย็นวันธรรมดา',wkendam:'เสาร์–อาทิตย์ช่วงเช้า',wkendpm:'เสาร์–อาทิตย์ช่วงบ่าย',flex:'ยืดหยุ่น นัดกันได้'};
+var ACCESS={wheel:'รถเข็นเข้าถึงได้',visual:'มีสื่อสำหรับผู้บกพร่องทางการมองเห็น',hearing:'มีล่ามภาษามือ/คำบรรยาย'};
+var OUTCOMES={job:'ได้งานหรือเปลี่ยนงาน',income:'มีรายได้เสริม',study:'กลับเข้าสู่การเรียน',skill:'ได้ทักษะ แต่ยังไม่เห็นผลลัพธ์'};
+var REPORT_REASONS=['ข้อมูลไม่ตรงความจริง','พฤติกรรมไม่เหมาะสม / ไม่ปลอดภัย','เรียกเก็บเงินหรือผลประโยชน์','ข้อความรีวิวไม่เหมาะสม','อื่น ๆ'];
+function loadReports(){
+  try{var raw=localStorage.getItem('oss-demo-reports-v1'); if(raw){var a=JSON.parse(raw); if(Array.isArray(a)) return a;}}catch(e){}
+  return [{id:'RP-0001',kind:'review',target:'RV-0005',reason:'ข้อความรีวิวไม่เหมาะสม',detail:'(ตัวอย่าง) ผู้ใช้แจ้งว่ารีวิวมีถ้อยคำเกินจริง',status:'open',ts:'2026-09-24T09:30',sample:true}];
+}
+function saveReports(){try{localStorage.setItem('oss-demo-reports-v1',JSON.stringify(reports));}catch(e){}}
+function skById(id){return skills.filter(function(s){return s.id===id;})[0];}
+var reviews=loadReviews(), skSort='default', skSlot='all', skAcc='all', skVer=false, reports=loadReports(), reportCtx=null;
+function saveReviews(){try{localStorage.setItem(RKEY,JSON.stringify(reviews));}catch(e){}}
+function reviewsFor(id){return reviews.filter(function(r){return r.teacher===id&&!r.hidden;});}
+function avgRating(id){var l=reviewsFor(id); if(!l.length) return 0; return l.reduce(function(a,r){return a+r.rating;},0)/l.length;}
+function starsHTML(n){var f=Math.round(n),o=''; for(var i=1;i<=5;i++) o+=i<=f?'★':'☆'; return o;}
+function teacherReviewHTML(id){
+  var list=reviewsFor(id);
+  if(!list.length) return '<div class="rvsum"><span class="stars" aria-hidden="true">☆☆☆☆☆</span><span class="muted small">ยังไม่มีรีวิว</span></div>';
+  var a=avgRating(id), counts={}, oc={};
+  list.forEach(function(r){(r.tags||[]).forEach(function(t){counts[t]=(counts[t]||0)+1;}); if(r.outcome) oc[r.outcome]=(oc[r.outcome]||0)+1;});
+  var top=Object.keys(counts).sort(function(x,y){return counts[y]-counts[x];}).slice(0,3);
+  var nOut=Object.keys(oc).reduce(function(x,k){return x+oc[k];},0);
+  var items=list.slice().sort(function(x,y){return x.ts<y.ts?1:-1;}).map(function(r){
+    var reply=r.reply?'<div class="rvreply"><b>ผู้สอนตอบกลับ:</b> '+esc(r.reply)+'</div>':'<details class="rvlist" style="border:0;margin-top:6px;padding-top:0"><summary>ตอบกลับ (สำหรับผู้สอน)</summary><textarea data-rvreply="'+esc(r.id)+'" style="width:100%;min-height:70px;border:2px solid var(--line-strong);border-radius:10px;background:var(--surface);padding:8px 10px" placeholder="ขอบคุณหรือชี้แจงสั้น ๆ ไม่ต้องใส่ข้อมูลส่วนตัว"></textarea><button type="button" class="btn btn-ghost" style="margin-top:6px;padding:6px 14px" data-act="reply-review" data-id="'+esc(r.id)+'">ส่งคำตอบ</button></details>';
+    return '<li><div class="rvsum" style="margin-top:0"><span class="stars" aria-label="'+r.rating+' จาก 5 ดาว">'+starsHTML(r.rating)+'</span><span class="muted small">'+esc(fmtTime(r.ts))+'</span>'+(r.sample?'<span class="tag">ตัวอย่าง</span>':'<span class="tag">ใหม่</span>')+'</div><p>'+esc(r.text)+'</p>'
+      +((r.tags&&r.tags.length)?'<div class="rvtags">'+r.tags.map(function(t){return '<span class="rvtag">'+esc(t)+'</span>';}).join('')+'</div>':'')
+      +(r.outcome?'<div class="rvtags"><span class="rvtag">🎯 '+esc(OUTCOMES[r.outcome]||r.outcome)+'</span></div>':'')
+      +reply+'<button type="button" class="linkbtn" data-act="report" data-kind="review" data-id="'+esc(r.id)+'">⚑ รายงานรีวิวนี้</button></li>';
+  }).join('');
+  return '<div class="rvsum"><span class="stars" aria-label="คะแนนเฉลี่ย '+a.toFixed(1)+' จาก 5">'+starsHTML(a)+'</span><b>'+a.toFixed(1)+'</b><span class="muted small">('+list.length+' รีวิว)</span></div>'
+    +(top.length?'<div class="rvtags">'+top.map(function(t){return '<span class="rvtag">'+esc(t)+' · '+counts[t]+'</span>';}).join('')+'</div>':'')
+    +(nOut?'<p class="small muted" style="margin-top:6px">🎯 ผู้เรียน '+nOut+' คนแจ้งผลลัพธ์หลังเรียน</p>':'')
+    +'<details class="rvlist"><summary>ดูรีวิวทั้งหมด ('+list.length+')</summary><ul>'+items+'</ul><p class="hint" style="margin-top:8px">ต้นแบบยังไม่ยืนยันตัวตนผู้สอนที่ตอบกลับ</p></details>';
+}
+function reviewFormHTML(){
+  var offers=skills.filter(function(s){return s.type==='offer'&&s.status==='done'&&!s.suspended;});
+  var opts='<option value="">— เลือกผู้สอนที่เรียนเสร็จแล้ว —</option>'+offers.map(function(s){return '<option value="'+esc(s.id)+'">'+esc(s.title)+'</option>';}).join('');
+  var rate=[5,4,3,2,1].map(function(n){return '<label><input type="radio" name="rvrate" value="'+n+'"> '+starsHTML(n)+' ('+n+')</label>';}).join('');
+  var tags=RV_TAGS.map(function(t){return '<label><input type="checkbox" name="rvtag" value="'+esc(t)+'"> '+esc(t)+'</label>';}).join('');
+  var oc='<option value="">— ไม่ระบุ —</option>'+Object.keys(OUTCOMES).map(function(k){return '<option value="'+k+'">'+esc(OUTCOMES[k])+'</option>';}).join('');
+  return '<div class="formbox rvform"><h2 style="font-size:1.15rem">⭐ รีวิวผู้สอน</h2><p class="muted small" style="margin:6px 0 16px">รีวิวได้เฉพาะผู้สอนที่เจ้าหน้าที่ปิดการเรียนเป็น "เรียนเสร็จแล้ว" เพื่อให้คะแนนมาจากผู้เรียนจริง</p>'
+   +'<div id="rv-msg" role="alert"></div>'
+   +(offers.length?'':'<p class="note" style="margin:0 0 16px">ยังไม่มีผู้สอนที่เรียนเสร็จแล้วในตอนนี้</p>')
+   +'<div class="field"><label for="rv-teacher">ผู้สอนที่ท่านต้องการรีวิว</label><select id="rv-teacher">'+opts+'</select></div>'
+   +'<fieldset class="field"><legend>ความพึงพอใจโดยรวม</legend><div class="radiorow">'+rate+'</div></fieldset>'
+   +'<fieldset class="field"><legend>จุดเด่นของผู้สอน (เลือกได้หลายข้อ)</legend><div class="checks">'+tags+'</div></fieldset>'
+   +'<div class="field"><label for="rv-outcome">หลังเรียนแล้วเกิดอะไรขึ้น (ไม่บังคับ)</label><select id="rv-outcome">'+oc+'</select><span class="hint">ใช้สรุปผลลัพธ์ของโครงการบนแดชบอร์ด โดยไม่ระบุตัวตน</span></div>'
+   +'<div class="field"><label for="rv-text">เล่าประสบการณ์การเรียน</label><textarea id="rv-text" style="min-height:110px" placeholder="เช่น สอนเข้าใจง่ายไหม เหมาะกับใคร เวลาและสถานที่สะดวกหรือไม่"></textarea><span class="hint">ไม่ต้องใส่ชื่อ-นามสกุลหรือข้อมูลติดต่อของท่านหรือผู้สอน</span></div>'
+   +'<button type="button" class="btn btn-lg" data-act="submit-review">ส่งรีวิว</button>'
+   +'<p class="hint" style="margin-top:12px">ต้นแบบนี้ไม่ผูกรีวิวกับบัญชีผู้เรียนรายบุคคล หากพัฒนาเป็นระบบจริง ควรผูกกับคู่เรียนที่เสร็จแล้วหนึ่งรีวิวต่อหนึ่งคู่</p></div>';
+}
+function nextReviewId(){
+  var max=0; reviews.forEach(function(r){var m=/(\d+)$/.exec(r.id); if(m) max=Math.max(max,parseInt(m[1],10));});
+  return 'RV-'+String(max+1).padStart(4,'0');
+}
+function submitReview(){
+  var teacher=$('#rv-teacher').value, text=$('#rv-text').value.trim(), outcome=$('#rv-outcome').value;
+  var rEl=$$('input[name="rvrate"]:checked')[0], tags=$$('input[name="rvtag"]:checked').map(function(i){return i.value;});
+  var errs=[], t=teacher?skById(teacher):null;
+  if(!teacher||!t||t.status!=='done') errs.push('เลือกผู้สอนที่เรียนเสร็จแล้ว');
+  if(!rEl) errs.push('เลือกคะแนนความพึงพอใจ');
+  if(text.length<10) errs.push('เล่าประสบการณ์อย่างน้อย 10 ตัวอักษร');
+  var box=$('#rv-msg');
+  if(errs.length){ box.innerHTML='<p class="err">'+errs.map(esc).join('<br>')+'</p>'; return; }
+  var now=new Date(), pad=function(n){return String(n).padStart(2,'0');};
+  reviews.push({id:nextReviewId(),teacher:teacher,rating:parseInt(rEl.value,10),text:text,tags:tags,outcome:outcome,reply:'',hidden:false,ts:now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate())+'T'+pad(now.getHours())+':'+pad(now.getMinutes()),sample:false});
+  saveReviews();
+  $('#rv-text').value=''; $('#rv-teacher').value=''; $('#rv-outcome').value='';
+  $$('input[name="rvrate"],input[name="rvtag"]').forEach(function(i){i.checked=false;});
+  box.innerHTML='<p class="rvok">ขอบคุณสำหรับรีวิว ระบบอัปเดตคะแนนและสรุปผลลัพธ์แล้ว</p>';
+  refreshSkills();
+}
 var triage=null, lastCase=null, newId=null, ag={sector:'all',q:''};
 
 /* ---------- small renderers ---------- */
@@ -897,13 +1035,14 @@ function viewHelp(params){
   var main;
   if(lastCase){
     var c=lastCase, t=TOPIC[c.topic];
-    main='<div class="formbox done"><h2>รับเรื่องแล้ว</h2><p>รหัสเรื่องของคุณ</p><span class="code">'+esc(c.id)+'</span><p class="muted small">ด้าน: '+t.emoji+' '+esc(t.label)+'</p><p style="margin-top:14px" class="strong">ระบบคัดกรองเบื้องต้นแนะนำให้ส่งต่อไปยัง</p>'+routeList(c.routed)+'<p class="hint">ในการใช้งานจริง เจ้าหน้าที่จะตรวจสอบอีกครั้งก่อนส่งต่อ ต้นแบบนี้ยังไม่ส่งข้อมูลไปที่หน่วยงานใด</p><div class="btnrow"><a class="btn" href="#/system?focus=dash">ดูแดชบอร์ดเจ้าหน้าที่ '+ICON.arrow+'</a><button type="button" class="btn btn-ghost" data-act="new-help">ส่งเรื่องใหม่</button></div></div>';
+    main='<div class="formbox done"><h2>รับเรื่องแล้ว</h2><p>รหัสเรื่องของคุณ</p><span class="code">'+esc(c.id)+'</span><p class="muted small">ด้าน: '+t.emoji+' '+esc(t.label)+'</p><p style="margin-top:14px" class="strong">ระบบคัดกรองเบื้องต้นแนะนำให้ส่งต่อไปยัง</p>'+routeList(c.routed)+'<p class="hint">ในการใช้งานจริง เจ้าหน้าที่จะตรวจสอบอีกครั้งก่อนส่งต่อ ต้นแบบนี้ยังไม่ส่งข้อมูลไปที่หน่วยงานใด</p><div class="btnrow"><a class="btn" href="#/track?id='+esc(c.id)+'">ตรวจสอบสถานะเรื่อง '+ICON.arrow+'</a><a class="btn btn-ghost" href="#/system?focus=dash">ดูแดชบอร์ดเจ้าหน้าที่</a><button type="button" class="btn btn-ghost" data-act="new-help">ส่งเรื่องใหม่</button></div></div>';
   }else{
     var opts='<option value="">— เลือกด้านที่ต้องการ —</option>'+TOPICS.map(function(t){return '<option value="'+t.id+'"'+(pre===t.id?' selected':'')+'>'+esc(t.label)+'</option>';}).join('');
     main='<div class="formbox"><div id="hf-err" role="alert"></div>'
      +'<div class="field"><label for="hf-topic">ท่านต้องการความช่วยเหลือด้านใดเป็นหลัก?</label><select id="hf-topic">'+opts+'</select></div>'
      +'<div class="field"><label for="hf-story">เล่าปัญหาของท่านให้เราฟัง</label><textarea id="hf-story" placeholder="'+esc(storyPlaceholder(pre))+'"></textarea><span class="hint">ไม่ต้องใส่ข้อมูลส่วนตัวจริง ข้อความนี้ไม่ถูกบันทึก</span></div>'
      +'<fieldset class="field"><legend>ช่องทางที่ท่านสะดวกให้เจ้าหน้าที่ติดต่อกลับ</legend><div class="checks"><label><input type="checkbox" name="ch" value="phone"> โทรศัพท์</label><label><input type="checkbox" name="ch" value="chat"> แชท</label><label><input type="checkbox" name="ch" value="walkin"> นัดหมาย Walk-in</label></div></fieldset>'
+     +'<div class="checks" style="margin-bottom:18px"><label><input type="checkbox" id="hf-consent"> ข้าพเจ้ายินยอมให้เก็บ ใช้ และส่งต่อข้อมูลเท่าที่จำเป็นเพื่อการช่วยเหลือ ตาม <a href="#/privacy" style="text-decoration:underline">ประกาศความเป็นส่วนตัว (PDPA)</a></label></div>'
      +'<button type="button" class="btn btn-lg" data-act="submit-help">ส่งเรื่อง</button></div>';
   }
   return {title:'ขอความช่วยเหลือ',html:'<div class="wrap"><div class="pagehead"><h1>ขอความช่วยเหลือ</h1><p>เล่าปัญหาครั้งเดียว แล้วให้เจ้าหน้าที่ช่วยส่งต่อไปยังหน่วยงานที่เกี่ยวข้อง</p></div><div class="split">'+main+side+'</div></div>'};
@@ -960,25 +1099,45 @@ function viewBudget(){
 
 function skillFmtBadge(fmt){ return '<span class="fmt '+esc(fmt)+'">'+esc(FORMATS[fmt]||fmt)+'</span>'; }
 function skillCard(s){
-  var c=SCAT[s.cat]||{emoji:'🧩',label:s.cat};
-  return '<li class="skillcard"><div class="skillcard-h"><h4>'+c.emoji+' '+esc(s.title)+'</h4>'+skillFmtBadge(s.format)+'</div>'
-    +(s.note?'<p>'+esc(s.note)+'</p>':'')
-    +'<p class="muted small" style="margin-top:8px">หมวด: '+esc(c.label)+(s.sample?' <span class="tag">ตัวอย่าง</span>':' <span class="tag">ใหม่</span>')+'</p></li>';
+  var c=SCAT[s.cat]||{emoji:'🧩',label:s.cat}, off=s.type==='offer';
+  var badge=off?'<div style="margin-top:6px">'+(s.verified?'<span class="vbadge ok">✔ Case Manager ตรวจสอบแล้ว</span>':'<span class="vbadge">⏳ รอตรวจสอบผู้สอน</span>')+'</div>':'';
+  var slots=(s.slots&&s.slots.length)?'<p class="small muted" style="margin-top:8px">🕒 สะดวก: '+s.slots.map(function(k){return esc(SLOTS[k]||k);}).join(' · ')+'</p>':'';
+  var acc=(s.access&&s.access.length)?'<div class="rvtags">'+s.access.map(function(k){return '<span class="rvtag">♿ '+esc(ACCESS[k]||k)+'</span>';}).join('')+'</div>':'';
+  return '<li class="skillcard"><div class="skillcard-h"><h4>'+c.emoji+' '+esc(s.title)+'</h4>'+skillFmtBadge(s.format)+'</div>'+badge
+    +(s.note?'<p>'+esc(s.note)+'</p>':'')+slots+acc
+    +(off?teacherReviewHTML(s.id):'')
+    +'<p class="muted small" style="margin-top:8px">หมวด: '+esc(c.label)+(s.sample?' <span class="tag">ตัวอย่าง</span>':' <span class="tag">ใหม่</span>')+'</p>'
+    +(off?'<button type="button" class="linkbtn" data-act="report" data-kind="teacher" data-id="'+esc(s.id)+'">⚑ รายงานผู้สอนรายนี้</button>':'')+'</li>';
 }
 function skillsHTML(){
-  var offers=skills.filter(function(s){return s.type==='offer'&&s.status==='open';});
+  var allOffers=skills.filter(function(s){return s.type==='offer'&&s.status==='open'&&!s.suspended;});
+  var offers=allOffers.filter(function(s){
+    if(skSlot!=='all'&&(s.slots||[]).indexOf(skSlot)<0) return false;
+    if(skAcc!=='all'&&(s.access||[]).indexOf(skAcc)<0) return false;
+    if(skVer&&!s.verified) return false;
+    return true;
+  });
+  if(skSort==='rating') offers.sort(function(a,b){return (avgRating(b.id)-avgRating(a.id))||(reviewsFor(b.id).length-reviewsFor(a.id).length);});
+  if(skSort==='count') offers.sort(function(a,b){return reviewsFor(b.id).length-reviewsFor(a.id).length;});
   var wants=skills.filter(function(s){return s.type==='want'&&s.status==='open';});
   var offerCats={}, wantCats={};
-  offers.forEach(function(s){offerCats[s.cat]=(offerCats[s.cat]||0)+1;});
+  allOffers.forEach(function(s){offerCats[s.cat]=(offerCats[s.cat]||0)+1;});
   wants.forEach(function(s){wantCats[s.cat]=(wantCats[s.cat]||0)+1;});
   var matched=SKILL_CATS.filter(function(c){return offerCats[c.id]&&wantCats[c.id];});
   var matchHTML=matched.length
-    ? '<div class="matchnote">🔗 <b>พร้อมจับคู่ได้เลย:</b> '+matched.map(function(c){return c.emoji+' '+esc(c.label);}).join(', ')+' — มีทั้งผู้เสนอสอนและผู้ต้องการเรียนในหมวดเดียวกัน เจ้าหน้าที่จะช่วยจับคู่และประสานนัดวันเวลาให้</div>'
+    ? '<div class="matchnote">🔗 <b>พร้อมจับคู่ได้เลย:</b> '+matched.map(function(c){return c.emoji+' '+esc(c.label);}).join(', ')+' — มีทั้งผู้เสนอสอนและผู้ต้องการเรียนในหมวดเดียวกัน เจ้าหน้าที่จะจับคู่เฉพาะผู้สอนที่ตรวจสอบแล้ว</div>'
     : '<div class="matchnote">ยังไม่มีหมวดที่จับคู่ได้พอดีในตอนนี้ ลองเพิ่มรายการของท่านด้านล่าง เพื่อรอผู้ที่ตรงกัน</div>';
-  var offerList=offers.length?('<ul class="skillcards">'+offers.map(skillCard).join('')+'</ul>'):'<p class="empty">ยังไม่มีผู้ลงทะเบียนสอนที่ว่างอยู่ในตอนนี้</p>';
+  var opt=function(map,cur,allLabel){return '<option value="all"'+(cur==='all'?' selected':'')+'>'+allLabel+'</option>'+Object.keys(map).map(function(k){return '<option value="'+k+'"'+(cur===k?' selected':'')+'>'+esc(map[k])+'</option>';}).join('');};
+  var ctrl='<div class="sortrow"><label for="sk-sort">เรียงตาม</label><select id="sk-sort"><option value="default"'+(skSort==='default'?' selected':'')+'>ลงทะเบียนล่าสุด</option><option value="rating"'+(skSort==='rating'?' selected':'')+'>คะแนนรีวิวสูงสุด</option><option value="count"'+(skSort==='count'?' selected':'')+'>จำนวนรีวิวมากที่สุด</option></select>'
+    +'<label for="sk-slot">ช่วงเวลา</label><select id="sk-slot">'+opt(SLOTS,skSlot,'ทุกช่วงเวลา')+'</select>'
+    +'<label for="sk-acc">การเข้าถึง</label><select id="sk-acc">'+opt(ACCESS,skAcc,'ทั้งหมด')+'</select>'
+    +'<label><input type="checkbox" id="sk-ver"'+(skVer?' checked':'')+'> เฉพาะผู้สอนที่ตรวจสอบแล้ว</label></div>';
+  var offerList=offers.length?('<ul class="skillcards">'+offers.map(skillCard).join('')+'</ul>'):'<p class="empty">ไม่พบผู้สอนที่ตรงกับตัวกรองในตอนนี้</p>';
   var wantList=wants.length?('<ul class="skillcards">'+wants.map(skillCard).join('')+'</ul>'):'<p class="empty">ยังไม่มีผู้ลงทะเบียนต้องการเรียนที่ว่างอยู่ในตอนนี้</p>';
-  return matchHTML+'<div class="skilltabs"><div class="skillcol"><h3>🙋 ผู้มีทักษะ อยากแบ่งปัน/สอน ('+offers.length+')</h3>'+offerList+'</div>'
-    +'<div class="skillcol"><h3>🎯 ผู้ต้องการเรียนรู้ ('+wants.length+')</h3>'+wantList+'</div></div>';
+  var doneOffers=skills.filter(function(s){return s.type==='offer'&&s.status==='done'&&!s.suspended;});
+  var doneBlock=doneOffers.length?'<h3 style="margin-top:34px;font-size:1.1rem">🏅 ผู้สอนที่เคยสอนจนเรียนจบแล้ว (ดูรีวิวประกอบการตัดสินใจ)</h3><ul class="skillcards">'+doneOffers.map(skillCard).join('')+'</ul>':'';
+  return matchHTML+'<div class="skilltabs"><div class="skillcol"><h3>🙋 ผู้มีทักษะ อยากแบ่งปัน/สอน ('+offers.length+')</h3>'+ctrl+offerList+'</div>'
+    +'<div class="skillcol"><h3>🎯 ผู้ต้องการเรียนรู้ ('+wants.length+')</h3>'+wantList+'</div></div>'+doneBlock;
 }
 function refreshSkills(){var el=$('#skill-list'); if(el) el.innerHTML=skillsHTML();}
 
@@ -996,16 +1155,13 @@ function openSkillsFor(type,cat){
   return skills.filter(function(s){return s.type===type&&s.cat===cat&&s.status==='open';});
 }
 function matchPanelHTML(){
-  var openOfferCats={}, openWantCats={};
-  skills.forEach(function(s){
-    if(s.status!=='open') return;
-    if(s.type==='offer') openOfferCats[s.cat]=true; else openWantCats[s.cat]=true;
-  });
-  var readyCats=SKILL_CATS.filter(function(c){return openOfferCats[c.id]&&openWantCats[c.id];});
-  if(!readyCats.length) return '<p class="empty">ไม่มีหมวดที่พร้อมจับคู่ในตอนนี้ — ต้องมีทั้งผู้เสนอสอนและผู้ต้องการเรียนที่ยังว่างอยู่ในหมวดเดียวกัน</p>';
+  var okOffers=skills.filter(function(s){return s.type==='offer'&&s.status==='open'&&s.verified&&!s.suspended;});
+  var openWants=skills.filter(function(s){return s.type==='want'&&s.status==='open';});
+  var readyCats=SKILL_CATS.filter(function(c){return okOffers.some(function(o){return o.cat===c.id;})&&openWants.some(function(w){return w.cat===c.id;});});
+  if(!readyCats.length) return '<p class="empty">ไม่มีหมวดที่พร้อมจับคู่ในตอนนี้ — ต้องมีผู้สอนที่ผ่านการตรวจสอบและผู้ต้องการเรียนที่ยังว่างในหมวดเดียวกัน</p>';
   return readyCats.map(function(c){
-    var offers=openSkillsFor('offer',c.id), wants=openSkillsFor('want',c.id);
-    var offerOpts=offers.map(function(s){return '<option value="'+esc(s.id)+'">'+esc(s.title)+'</option>';}).join('');
+    var offers=okOffers.filter(function(o){return o.cat===c.id;}), wants=openWants.filter(function(w){return w.cat===c.id;});
+    var offerOpts=offers.map(function(s){var n=reviewsFor(s.id).length; return '<option value="'+esc(s.id)+'">'+esc(s.title)+(n?' · ★ '+avgRating(s.id).toFixed(1)+' ('+n+')':' · ยังไม่มีรีวิว')+'</option>';}).join('');
     var wantOpts=wants.map(function(s){return '<option value="'+esc(s.id)+'">'+esc(s.title)+'</option>';}).join('');
     return '<div class="bphase"><div class="bphase-h"><b>'+c.emoji+' '+esc(c.label)+'</b><span class="bphase-amt">ผู้เสนอสอน '+offers.length+' · ผู้ต้องการเรียน '+wants.length+'</span></div>'
       +'<div class="matchrow"><select data-mcat="'+c.id+'" data-mrole="offer">'+offerOpts+'</select><span aria-hidden="true">↔</span><select data-mcat="'+c.id+'" data-mrole="want">'+wantOpts+'</select>'
@@ -1014,33 +1170,74 @@ function matchPanelHTML(){
 }
 function pairRowsHTML(){
   var rows=skills.filter(function(s){return s.type==='offer'&&s.matchId;}).map(function(o){
-    var w=skills.filter(function(s){return s.id===o.matchId;})[0];
+    var w=skById(o.matchId);
     if(!w) return '';
     var c=SCAT[o.cat]||{emoji:'🧩',label:o.cat};
     var opts=Object.keys(SK_STATUS).filter(function(k){return k!=='open';}).map(function(k){return '<option value="'+k+'"'+(o.status===k?' selected':'')+'>'+SK_STATUS[k]+'</option>';}).join('');
-    return '<tr><td>'+c.emoji+' '+esc(c.label)+'</td><td>'+esc(o.title)+'</td><td>'+esc(w.title)+'</td><td>'+esc(FORMATS[o.format]||o.format)+'</td><td><select data-pair="'+esc(o.id)+'" aria-label="สถานะคู่ '+esc(o.id)+'">'+opts+'</select></td><td><button type="button" class="btn btn-ghost" data-act="unmatch-skill" data-id="'+esc(o.id)+'">ยกเลิกจับคู่</button></td></tr>';
+    var isDone=o.status==='done';
+    var hrs=isDone?'<input type="number" min="0" max="999" data-hours="'+esc(o.id)+'" value="'+(o.hours||0)+'" aria-label="ชั่วโมงสอนของ '+esc(o.id)+'" style="width:72px;border:1.5px solid var(--line-strong);border-radius:8px;background:var(--surface);padding:4px 8px"> ชม.':'<span class="muted">—</span>';
+    var cert=(isDone&&o.hours>0)?'<button type="button" class="btn" style="padding:6px 14px" data-act="cert" data-id="'+esc(o.id)+'">🎖️ เกียรติบัตร</button> ':'';
+    return '<tr><td>'+c.emoji+' '+esc(c.label)+'</td><td>'+esc(o.title)+'</td><td>'+esc(w.title)+'</td><td>'+esc(FORMATS[o.format]||o.format)+'</td><td><select data-pair="'+esc(o.id)+'" aria-label="สถานะคู่ '+esc(o.id)+'">'+opts+'</select></td><td>'+hrs+'</td><td>'+cert+'<button type="button" class="btn btn-ghost" style="padding:6px 14px" data-act="unmatch-skill" data-id="'+esc(o.id)+'">ยกเลิกจับคู่</button></td></tr>';
   }).join('');
   if(!rows) return '<p class="empty">ยังไม่มีคู่ที่จับคู่สำเร็จ</p>';
-  return '<div class="tablewrap"><table><thead><tr><th>หมวด</th><th>ผู้สอน</th><th>ผู้เรียน</th><th>รูปแบบ</th><th>สถานะ</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+  return '<div class="tablewrap"><table><thead><tr><th>หมวด</th><th>ผู้สอน</th><th>ผู้เรียน</th><th>รูปแบบ</th><th>สถานะ</th><th>ชั่วโมงสอน</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div><p class="hint" style="margin-top:8px">เมื่อสถานะเป็น "เรียนเสร็จแล้ว" กรอกชั่วโมงสอนเพื่อออกเกียรติบัตรอาสาให้ผู้สอน และเปิดให้ผู้เรียนรีวิวได้</p>';
+}
+function verifyPanelHTML(){
+  var rows=skills.filter(function(s){return s.type==='offer'&&(!s.verified||s.suspended);}).map(function(s){
+    var c=SCAT[s.cat]||{emoji:'🧩',label:s.cat};
+    var btns=s.suspended?'<button type="button" class="btn btn-ghost" style="padding:6px 14px" data-act="restore-teacher" data-id="'+esc(s.id)+'">คืนสถานะ</button>':'<button type="button" class="btn" style="padding:6px 14px" data-act="verify-teacher" data-id="'+esc(s.id)+'">ตรวจสอบแล้ว</button> <button type="button" class="btn btn-ghost" style="padding:6px 14px" data-act="suspend-teacher" data-id="'+esc(s.id)+'">ระงับ</button>';
+    return '<tr><td>'+esc(s.id)+(s.sample?'<span class="tag">ตัวอย่าง</span>':'<span class="tag">ใหม่</span>')+'</td><td>'+c.emoji+' '+esc(s.title)+'</td><td>'+esc(FORMATS[s.format]||s.format)+'</td><td>'+(s.suspended?'ถูกระงับ':'รอตรวจสอบ')+'</td><td>'+btns+'</td></tr>';
+  }).join('');
+  if(!rows) return '<p class="empty">ไม่มีผู้สอนที่รอตรวจสอบหรือถูกระงับ</p>';
+  return '<div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>รหัส</th><th>หัวข้อที่สอน</th><th>รูปแบบ</th><th>สถานะ</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div><p class="hint" style="margin-top:8px">แนวทางตรวจสอบ: ยืนยันตัวตนผ่าน Case Manager (พบหน้าหรือวิดีโอคอล) ทดสอบทักษะที่สอน และแจ้งแนวปฏิบัติด้านความปลอดภัยก่อนขึ้นป้าย "ตรวจสอบแล้ว"</p>';
+}
+function reportsHTML(){
+  var rows=reports.slice().sort(function(a,b){return a.ts<b.ts?1:-1;}).map(function(r){
+    var tgt=r.kind==='review'?'รีวิว '+r.target:'ผู้สอน '+r.target;
+    var st={open:'รอตรวจสอบ',resolved:'ดำเนินการแล้ว',dismissed:'ปิดเรื่อง'}[r.status]||r.status;
+    var btn=r.status==='open'?'<button type="button" class="btn" style="padding:6px 14px" data-act="report-act" data-do="act" data-id="'+esc(r.id)+'">'+(r.kind==='review'?'ซ่อนรีวิว':'ระงับผู้สอน')+'</button> <button type="button" class="btn btn-ghost" style="padding:6px 14px" data-act="report-act" data-do="close" data-id="'+esc(r.id)+'">ปิดเรื่อง</button>':'';
+    return '<tr><td>'+esc(r.id)+(r.sample?'<span class="tag">ตัวอย่าง</span>':'<span class="tag">ใหม่</span>')+'</td><td>'+esc(tgt)+'</td><td>'+esc(r.reason)+(r.detail?'<br><span class="muted small">'+esc(r.detail)+'</span>':'')+'</td><td>'+esc(st)+'</td><td>'+btn+'</td></tr>';
+  }).join('');
+  if(!rows) return '<p class="empty">ยังไม่มีรายงาน</p>';
+  return '<div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>รหัส</th><th>เรื่องที่ถูกรายงาน</th><th>เหตุผล</th><th>สถานะ</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>';
 }
 function skillDashHTML(){
   var st=skillStats();
   var totalOffer=skills.filter(function(s){return s.type==='offer';}).length;
   var totalWant=skills.filter(function(s){return s.type==='want';}).length;
-  var kpis='<div class="kpis"><div class="kpi"><b>'+skills.length+'</b><span>รายการทั้งหมด</span></div><div class="kpi"><b>'+totalOffer+'</b><span>ผู้มีทักษะ</span></div><div class="kpi"><b>'+totalWant+'</b><span>ผู้ต้องการเรียน</span></div><div class="kpi"><b>'+st.pairs+'</b><span>จับคู่สำเร็จแล้ว</span></div></div>';
+  var done=skills.filter(function(s){return s.type==='offer'&&s.status==='done';}).length;
+  var openR=reports.filter(function(r){return r.status==='open';}).length;
+  var kpis='<div class="kpis"><div class="kpi"><b>'+skills.length+'</b><span>รายการทั้งหมด</span></div><div class="kpi"><b>'+totalOffer+'</b><span>ผู้มีทักษะ</span></div><div class="kpi"><b>'+totalWant+'</b><span>ผู้ต้องการเรียน</span></div><div class="kpi"><b>'+st.pairs+'</b><span>จับคู่สำเร็จแล้ว</span></div><div class="kpi"><b>'+done+'</b><span>เรียนเสร็จแล้ว</span></div><div class="kpi"><b>'+openR+'</b><span>รายงานรอตรวจสอบ</span></div></div>';
   var offerItems=SKILL_CATS.map(function(c){return {label:c.emoji+' '+esc(c.label),n:st.byCatOffer[c.id]};});
   var wantItems=SKILL_CATS.map(function(c){return {label:c.emoji+' '+esc(c.label),n:st.byCatWant[c.id]};});
   var max1=Math.max.apply(null,offerItems.map(function(x){return x.n;}).concat([1]));
   var max2=Math.max.apply(null,wantItems.map(function(x){return x.n;}).concat([1]));
+  var oc={}; Object.keys(OUTCOMES).forEach(function(k){oc[k]=0;});
+  reviews.forEach(function(r){if(r.outcome&&oc[r.outcome]!==undefined) oc[r.outcome]++;});
+  var ocItems=Object.keys(OUTCOMES).map(function(k){return {label:esc(OUTCOMES[k]),n:oc[k],color:'var(--loc)'};});
+  var max3=Math.max.apply(null,ocItems.map(function(x){return x.n;}).concat([1]));
+  var totOut=ocItems.reduce(function(a,x){return a+x.n;},0);
   return kpis
     +'<div class="charts"><div><h3>ผู้มีทักษะ ตามหมวด</h3>'+barRows(offerItems,max1)+'</div><div><h3>ผู้ต้องการเรียน ตามหมวด</h3>'+barRows(wantItems,max2)+'</div></div>'
+    +'<h3 style="margin-top:30px;font-size:1.05rem">ผลลัพธ์หลังเรียน (จากแบบรีวิว, '+totOut+' คนแจ้งผล)</h3><div style="max-width:560px;margin-top:10px">'+barRows(ocItems,max3)+'</div>'
     +'<h3 style="margin-top:30px;font-size:1.05rem">จับคู่ผู้ที่ยังรอ</h3>'+matchPanelHTML()
-    +'<h3 style="margin-top:30px;font-size:1.05rem">คู่ที่จับคู่แล้ว</h3>'+pairRowsHTML();
+    +'<h3 style="margin-top:30px;font-size:1.05rem">คู่ที่จับคู่แล้ว</h3>'+pairRowsHTML()
+    +'<h3 style="margin-top:30px;font-size:1.05rem">ตรวจสอบผู้สอน</h3>'+verifyPanelHTML()
+    +'<h3 style="margin-top:30px;font-size:1.05rem">รายงานจากผู้ใช้</h3>'+reportsHTML();
 }
 function refreshSkillDash(){var el=$('#skilldash'); if(el) el.innerHTML=skillDashHTML();}
 function viewSkills(){
   var catOpts=SKILL_CATS.map(function(c){return '<option value="'+c.id+'">'+c.emoji+' '+esc(c.label)+'</option>';}).join('');
+  var slotChk=Object.keys(SLOTS).map(function(k){return '<label><input type="checkbox" name="sks" value="'+k+'"> '+esc(SLOTS[k])+'</label>';}).join('');
+  var accChk=Object.keys(ACCESS).map(function(k){return '<label><input type="checkbox" name="ska" value="'+k+'"> '+esc(ACCESS[k])+'</label>';}).join('');
+  var safe='<div class="safebox"><b>🛡️ เรียนอย่างปลอดภัย</b><ul>'
+   +'<li>นัดเรียนแบบพบหน้ากันที่ศูนย์พหุพัฒนาหรือสถานที่สาธารณะที่มีคนอยู่ ในช่วงกลางวัน</li>'
+   +'<li>เลือกผู้สอนที่มีป้าย "✔ Case Manager ตรวจสอบแล้ว" และอ่านรีวิวก่อนตัดสินใจ</li>'
+   +'<li>ไม่โอนเงิน ไม่ให้เลขบัตรหรือข้อมูลส่วนตัว และบอกคนใกล้ชิดทุกครั้งที่ไปเรียน</li>'
+   +'<li>ผู้เรียนอายุต่ำกว่า 18 ปี ควรมีผู้ปกครองหรือเจ้าหน้าที่ร่วมด้วย</li>'
+   +'<li>พบพฤติกรรมไม่เหมาะสม กดปุ่ม "⚑ รายงาน" หรือโทร 1300 · กรณีอันตรายโทร 191</li></ul></div>';
   var html='<div class="wrap"><div class="pagehead"><h1>จับคู่ทักษะในชุมชน</h1><p>ให้คนในชุมชนที่มีทักษะมาสอน จับคู่กับคนที่อยากเรียนรู้ทักษะนั้น จัดการเรียนการสอนได้ทั้งแบบออนไลน์และพบหน้ากัน เสริมจากคอร์สออนไลน์ของมหาวิทยาลัยในหน้า "บริการทั้งหมด" ด้วยการเรียนรู้แบบเพื่อนสอนเพื่อนในพื้นที่จริง</p><p class="hint" style="margin-top:10px">เจ้าหน้าที่ดูภาพรวมและทำการจับคู่ได้ที่ <a href="#/system?focus=skilldash" style="text-decoration:underline">แดชบอร์ดจับคู่ทักษะ</a></p></div>'
+   +safe
    +'<section class="section" style="padding-top:8px"><div id="skill-list">'+skillsHTML()+'</div>'
    +'<div class="formbox skillform"><h2 style="font-size:1.15rem">เพิ่มรายการของท่าน</h2>'
      +'<div id="sk-err" role="alert"></div>'
@@ -1056,13 +1253,16 @@ function viewSkills(){
        +'<label><input type="radio" name="skfmt" value="onsite"> พบหน้ากัน</label>'
        +'<label><input type="radio" name="skfmt" value="both"> ได้ทั้งสองแบบ</label>'
      +'</div></fieldset>'
-     +'<span class="hint">ไม่ต้องใส่ชื่อ-นามสกุลหรือข้อมูลติดต่อจริง หากมีผู้ที่ตรงกัน เจ้าหน้าที่ Case Manager จะช่วยประสานงานให้ผ่านช่องทาง "ขอความช่วยเหลือ"</span>'
+     +'<fieldset class="field"><legend>ช่วงเวลาที่สะดวก (เลือกได้หลายข้อ)</legend><div class="checks">'+slotChk+'</div></fieldset>'
+     +'<fieldset class="field"><legend>การเข้าถึงที่รองรับ (สำหรับผู้สอน เลือกได้หลายข้อ)</legend><div class="checks">'+accChk+'</div></fieldset>'
+     +'<div class="checks" style="margin-bottom:12px"><label><input type="checkbox" id="sk-consent"> ข้าพเจ้ายินยอมให้เก็บและใช้ข้อมูลเพื่อการจับคู่ทักษะ ตาม <a href="#/privacy" style="text-decoration:underline">ประกาศความเป็นส่วนตัว</a></label></div>'
+     +'<span class="hint">ไม่ต้องใส่ชื่อ-นามสกุลหรือข้อมูลติดต่อจริง หากมีผู้ที่ตรงกัน เจ้าหน้าที่ Case Manager จะช่วยประสานงานให้ผ่านช่องทาง "ขอความช่วยเหลือ" ผู้สอนใหม่ต้องผ่านการตรวจสอบก่อนจึงจะถูกจับคู่ได้</span>'
      +'<div class="btnrow"><button type="button" class="btn btn-lg" data-act="submit-skill">เพิ่มรายการ</button></div>'
    +'</div>'
+   +reviewFormHTML()
    +'</section></div>';
   return {title:'จับคู่ทักษะในชุมชน',html:html};
 }
-
 function viewKnowledge(){
   var kb=KNOWLEDGE.map(function(k){return '<a href="'+esc(k.u)+'" target="_blank" rel="noopener noreferrer"><h3>'+esc(k.t)+'</h3><p>'+esc(k.d)+'</p><span class="src">'+esc(k.a)+' '+ICON.ext+'</span></a>';}).join('');
   var news=NEWS.map(function(n){return '<li><time>'+esc(n.date)+'</time><div><h3>'+esc(n.t)+'<span class="tag">ตัวอย่าง</span></h3><p>'+esc(n.d)+'</p></div></li>';}).join('');
@@ -1084,6 +1284,31 @@ function viewContact(){
    +'</ul><aside class="side"><div class="emerg"><b>กรณีฉุกเฉิน</b><p class="small muted">ศูนย์บริการนี้ไม่ใช่ช่องทางฉุกเฉิน</p><ul><li>🚓 <a href="tel:191">191</a> แจ้งเหตุด่วนเหตุร้าย</li><li>🚑 <a href="tel:1669">1669</a> การแพทย์ฉุกเฉิน</li><li>💙 <a href="tel:1323">1323</a> สายด่วนสุขภาพจิต</li><li>🤝 <a href="tel:1300">1300</a> ศูนย์ช่วยเหลือสังคม</li></ul></div></aside></div></div>'};
 }
 
+function viewTrack(params){
+  var id=(params.get('id')||'').trim().toUpperCase(), res='';
+  if(id){
+    var c=cases.filter(function(x){return x.id.toUpperCase()===id;})[0];
+    if(!c) res='<p class="err" style="margin-top:18px">ไม่พบรหัสเรื่อง "'+esc(id)+'" ตรวจสอบรหัสอีกครั้ง (รูปแบบ PP-2569-0001) หรือโทรสายด่วน Case Manager 089-999-9999</p>';
+    else{
+      var t=TOPIC[c.topic]||{label:c.topic,emoji:''};
+      var upTo=c.status==='new'?2:(c.status==='routed'?4:5);
+      var steps=[['รับเรื่องแล้ว','ระบบรับเรื่องและออกรหัสให้'],['คัดกรองเบื้องต้น','ระบบจัดหมวดและเสนอหน่วยงาน'],['เจ้าหน้าที่ตรวจสอบ','ยืนยันหมวดและความเร่งด่วน'],['ส่งต่อหน่วยงาน','ส่งเรื่องไปยังหน่วยงานที่เกี่ยวข้อง'],['ติดตามผลและแจ้งกลับ','อัปเดตสถานะให้ผู้ขอรับความช่วยเหลือ']];
+      var tl='<ol class="tl">'+steps.map(function(x,i){var n=i+1, cls=n<=upTo?'done':(n===upTo+1?'cur':''); return '<li class="'+cls+'"><span class="mk" aria-hidden="true">'+(n<=upTo?'✓':n)+'</span><div><b>'+esc(x[0])+'</b><p>'+esc(x[1])+(n<=upTo?' · เสร็จแล้ว':(n===upTo+1?' · กำลังดำเนินการ':''))+'</p></div></li>';}).join('')+'</ol>';
+      res='<div class="formbox" style="margin-top:20px"><span class="code">'+esc(c.id)+'</span><p class="muted small">ด้าน: '+t.emoji+' '+esc(t.label)+' · ยื่นเมื่อ '+esc(fmtTime(c.ts))+'</p><p class="strong" style="margin-top:8px">สถานะปัจจุบัน: '+esc(STATUS[c.status]||c.status)+'</p>'+tl+'<p class="strong" style="margin-top:20px">หน่วยงานที่ได้รับการเสนอส่งต่อ</p>'+routeList(c.routed||[])+'</div>';
+    }
+  }
+  return {title:'ตรวจสอบสถานะเรื่อง',html:'<div class="wrap"><div class="pagehead"><h1>ตรวจสอบสถานะเรื่อง</h1><p>กรอกรหัสเรื่องที่ได้รับหลังส่งแบบฟอร์ม เพื่อดูว่าเรื่องของท่านถึงขั้นตอนไหนแล้ว</p></div><div class="sbox" role="search"><input id="tq" type="search" value="'+esc(id)+'" placeholder="เช่น PP-2569-0001" aria-label="รหัสเรื่อง"><button type="button" class="btn" data-act="track">ตรวจสอบ</button></div><p class="hint">ต้นแบบใช้เพียงรหัสเรื่อง ในระบบจริงควรยืนยันตัวตนเพิ่มเติม เช่น รหัส OTP ทางโทรศัพท์ เพื่อป้องกันผู้อื่นดูข้อมูล</p><div style="margin-bottom:40px">'+res+'</div></div>'};
+}
+function viewPrivacy(){
+  var sec=function(h,b){return '<section class="about-sec"><div class="sec-h"><h2>'+h+'</h2></div>'+b+'</section>';};
+  var li=function(a){return '<ul class="blist">'+a.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>';};
+  return {title:'ประกาศความเป็นส่วนตัว',html:'<div class="wrap"><div class="pagehead"><h1>ประกาศความเป็นส่วนตัว (PDPA)</h1><p>ร่างตัวอย่างสำหรับต้นแบบ ควรให้เจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคลหรือนักกฎหมายตรวจก่อนใช้งานจริง</p></div>'
+   +sec('ข้อมูลที่ต้นแบบนี้เก็บ','<p style="max-width:70ch">ต้นแบบนี้เก็บเฉพาะรหัสเรื่อง หมวดที่ขอความช่วยเหลือ ช่องทางติดต่อที่เลือก และรายการทักษะ/รีวิวที่กรอก ไว้ในเบราว์เซอร์ของท่านเท่านั้น ไม่ส่งออกไปยังเซิร์ฟเวอร์หรือหน่วยงานใด และไม่บันทึกข้อความที่พิมพ์ในช่องเล่าปัญหา</p>')
+   +sec('หากพัฒนาเป็นระบบจริง ควรกำหนดอย่างน้อย',li(['วัตถุประสงค์ที่ชัดเจน: คัดกรองและส่งต่อเรื่อง จับคู่ทักษะ และประเมินผลโครงการ','เก็บข้อมูลเท่าที่จำเป็น และขอความยินยอมแยกเป็นรายวัตถุประสงค์ โดยเฉพาะข้อมูลอ่อนไหว เช่น สุขภาพ ความพิการ หรือเพศสภาพ','เปิดเผยแก่หน่วยงานปลายทางเท่าที่จำเป็นต่อการช่วยเหลือเท่านั้น','กำหนดระยะเวลาเก็บและวิธีลบข้อมูลเมื่อสิ้นสุดวัตถุประสงค์','การรายงานสถิติบนแดชบอร์ดต้องไม่ระบุตัวตน','กรณีผู้เยาว์ ต้องมีมาตรการขอความยินยอมจากผู้ปกครองหรือแนวทางคุ้มครองเด็ก']))
+   +sec('สิทธิของเจ้าของข้อมูล','<p style="max-width:70ch">ขอเข้าถึง แก้ไข ลบ ระงับการใช้ หรือถอนความยินยอมได้ โดยติดต่อเจ้าหน้าที่ที่สายด่วน Case Manager 089-999-9999 หรืออีเมล contact@pahupattana-nongyim.org (ข้อมูลตัวอย่าง)</p>')
+   +'<div class="btnrow" style="margin-bottom:40px"><a class="btn" href="#/help">กลับไปหน้าขอความช่วยเหลือ</a></div></div>'};
+}
+
 /* search */
 function searchIndex(){
   var idx=[];
@@ -1093,6 +1318,8 @@ function searchIndex(){
   FAQS.forEach(function(f){idx.push({type:'คำถามที่พบบ่อย',t:f.q,d:f.a,to:'#/faq',h:(f.q+' '+f.a)});});
   idx.push({type:'งบประมาณ',t:'งบประมาณโครงการ',d:'ตรวจสอบว่างบประมาณของโครงการถูกวางแผนไว้ใช้ทำอะไรบ้าง',to:'#/budget',h:'งบประมาณ เงิน เบิกจ่าย โปร่งใส ตรวจสอบ'});
   idx.push({type:'จับคู่ทักษะ',t:'จับคู่ทักษะในชุมชน',d:'จับคู่ผู้มีทักษะกับผู้ต้องการเรียนรู้ ทั้งออนไลน์และพบหน้ากัน',to:'#/skills',h:'จับคู่ทักษะ สอน เรียน ออนไลน์ onsite reskill upskill'});
+  idx.push({type:'ตรวจสอบสถานะ',t:'ตรวจสอบสถานะเรื่อง',d:'ใส่รหัสเรื่องเพื่อดูความคืบหน้า',to:'#/track',h:'ตรวจสอบสถานะ ติดตาม รหัสเรื่อง ความคืบหน้า'});
+  idx.push({type:'ความเป็นส่วนตัว',t:'ประกาศความเป็นส่วนตัว (PDPA)',d:'ข้อมูลที่เก็บ วัตถุประสงค์ และสิทธิของเจ้าของข้อมูล',to:'#/privacy',h:'pdpa ความเป็นส่วนตัว ข้อมูลส่วนบุคคล ความยินยอม'});
   return idx;
 }
 var SIDX=null;
@@ -1114,7 +1341,7 @@ function viewSearch(params){
 }
 
 /* ---------- router ---------- */
-var VIEWS={home:viewHome,about:viewAbout,services:viewServices,agencies:viewAgencies,help:viewHelp,system:viewSystem,skills:viewSkills,budget:viewBudget,knowledge:viewKnowledge,faq:viewFaq,contact:viewContact,search:viewSearch};
+var VIEWS={track:viewTrack,privacy:viewPrivacy,home:viewHome,about:viewAbout,services:viewServices,agencies:viewAgencies,help:viewHelp,system:viewSystem,skills:viewSkills,budget:viewBudget,knowledge:viewKnowledge,faq:viewFaq,contact:viewContact,search:viewSearch};
 var app=$('#app');
 function parseHash(){
   var h=location.hash.replace(/^#\/?/,'');
@@ -1159,6 +1386,7 @@ function submitHelp(){
   if(!topic) errs.push('เลือกด้านที่ต้องการความช่วยเหลือ');
   if(story.length<10) errs.push('เล่าปัญหาสั้น ๆ อย่างน้อย 10 ตัวอักษร');
   if(!ch.length) errs.push('เลือกช่องทางติดต่อกลับอย่างน้อย 1 ช่องทาง');
+  var hc=$('#hf-consent'); if(!hc||!hc.checked) errs.push('กรุณายินยอมให้เก็บและใช้ข้อมูลตามประกาศความเป็นส่วนตัว');
   var box=$('#hf-err');
   if(errs.length){
     box.innerHTML='<p class="err">'+errs.map(esc).join('<br>')+'</p>';
@@ -1178,20 +1406,23 @@ function submitSkill(){
   var typeEl=$$('input[name="sktype"]:checked')[0], fmtEl=$$('input[name="skfmt"]:checked')[0];
   var type=typeEl?typeEl.value:'offer', format=fmtEl?fmtEl.value:'online';
   var cat=$('#sk-cat').value, title=$('#sk-title').value.trim(), note=$('#sk-note').value.trim();
+  var slots=$$('input[name="sks"]:checked').map(function(i){return i.value;}), access=$$('input[name="ska"]:checked').map(function(i){return i.value;});
   var errs=[];
   if(title.length<3) errs.push('กรอกชื่อทักษะ / หัวข้ออย่างน้อย 3 ตัวอักษร');
+  var cc=$('#sk-consent'); if(!cc||!cc.checked) errs.push('กรุณายินยอมให้เก็บและใช้ข้อมูลตามประกาศความเป็นส่วนตัว');
   var box=$('#sk-err');
   if(errs.length){ box.innerHTML='<p class="err">'+errs.map(esc).join('<br>')+'</p>'; return; }
   box.innerHTML='';
   var now=new Date(), pad=function(n){return String(n).padStart(2,'0');};
-  var s={id:nextSkillId(),type:type,cat:cat,title:title,note:note,format:format,ts:now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate())+'T'+pad(now.getHours())+':'+pad(now.getMinutes()),status:'open',matchId:null,sample:false};
+  var s={id:nextSkillId(),type:type,cat:cat,title:title,note:note,format:format,ts:now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate())+'T'+pad(now.getHours())+':'+pad(now.getMinutes()),status:'open',matchId:null,sample:false,slots:slots,access:access,verified:false,suspended:false,hours:0};
   skills.push(s); saveSkills();
   var ti=$('#sk-title'), no=$('#sk-note'); if(ti) ti.value=''; if(no) no.value='';
+  box.innerHTML='<p class="rvok">เพิ่มรายการแล้ว'+(type==='offer'?' ผู้สอนจะขึ้นป้าย "รอตรวจสอบ" จนกว่า Case Manager จะตรวจสอบ':'')+'</p>';
   refreshSkills(); refreshSkillDash();
 }
-
 /* ---------- events ---------- */
 var loginDlg=$('#login');
+['reportdlg','certdlg'].forEach(function(i){var d=document.getElementById(i); if(d) d.addEventListener('click',function(e){ if(e.target===d) d.close(); });});
 function openLogin(){ if(loginDlg&&loginDlg.showModal){loginDlg.showModal();} else {location.hash='#/help';} }
 function closeLogin(){ if(loginDlg&&loginDlg.open) loginDlg.close(); }
 
@@ -1255,7 +1486,51 @@ document.addEventListener('click',function(e){
       });
       saveSkills(); refreshSkillDash();
       break;
-    case 'reset-skill-demo': skills=seedSkills(); saveSkills(); refreshSkillDash(); break;
+    case 'submit-review': submitReview(); break;
+    case 'track': var tq=$('#tq'); location.hash='#/track'+(tq&&tq.value.trim()?'?id='+encodeURIComponent(tq.value.trim()):''); break;
+    case 'reply-review':
+      var rid=el.getAttribute('data-id'), rta=$('textarea[data-rvreply="'+rid+'"]');
+      if(rta&&rta.value.trim().length>=3){ reviews.forEach(function(r){ if(r.id===rid) r.reply=rta.value.trim(); }); saveReviews(); refreshSkills(); }
+      break;
+    case 'report':
+      reportCtx={kind:el.getAttribute('data-kind'),id:el.getAttribute('data-id')};
+      $('#rp-body').innerHTML='<h2 id="rp-h">รายงานเรื่องไม่เหมาะสม</h2><p class="small muted">'+(reportCtx.kind==='review'?'รีวิว ':'ผู้สอน ')+esc(reportCtx.id)+'</p><div class="field" style="margin-top:14px"><label for="rp-reason">เหตุผล</label><select id="rp-reason">'+REPORT_REASONS.map(function(x){return '<option>'+esc(x)+'</option>';}).join('')+'</select></div><div class="field"><label for="rp-detail">รายละเอียด (ไม่ต้องใส่ชื่อจริง)</label><textarea id="rp-detail" style="min-height:90px"></textarea></div><div class="stack"><button type="button" class="btn" data-act="send-report">ส่งรายงาน</button><button type="button" class="btn btn-ghost" data-act="close-report">ปิด</button></div><p class="small muted" style="margin:12px 0 0">กรณีอันตรายโทร 191 · ขอความช่วยเหลือทางสังคมโทร 1300</p>';
+      if($('#reportdlg').showModal) $('#reportdlg').showModal();
+      break;
+    case 'send-report':
+      var rn=0; reports.forEach(function(r){var m=/(\d+)$/.exec(r.id); if(m) rn=Math.max(rn,parseInt(m[1],10));});
+      var nw=new Date(), pd=function(n){return String(n).padStart(2,'0');};
+      reports.push({id:'RP-'+String(rn+1).padStart(4,'0'),kind:reportCtx.kind,target:reportCtx.id,reason:$('#rp-reason').value,detail:$('#rp-detail').value.trim(),status:'open',ts:nw.getFullYear()+'-'+pd(nw.getMonth()+1)+'-'+pd(nw.getDate())+'T'+pd(nw.getHours())+':'+pd(nw.getMinutes()),sample:false});
+      saveReports();
+      $('#rp-body').innerHTML='<h2>รับรายงานแล้ว</h2><p class="rvok" style="margin-top:12px">เจ้าหน้าที่จะตรวจสอบเรื่องนี้ ขอบคุณที่ช่วยดูแลชุมชน</p><div class="stack"><button type="button" class="btn" data-act="close-report">ปิด</button></div>';
+      break;
+    case 'close-report': $('#reportdlg').close(); break;
+    case 'verify-teacher': var vt=skById(el.getAttribute('data-id')); if(vt){vt.verified=true; saveSkills(); refreshSkillDash();} break;
+    case 'suspend-teacher': var st2=skById(el.getAttribute('data-id')); if(st2){st2.suspended=true; saveSkills(); refreshSkillDash();} break;
+    case 'restore-teacher': var rt=skById(el.getAttribute('data-id')); if(rt){rt.suspended=false; saveSkills(); refreshSkillDash();} break;
+    case 'report-act':
+      var rp=reports.filter(function(r){return r.id===el.getAttribute('data-id');})[0];
+      if(rp){
+        if(el.getAttribute('data-do')==='act'){
+          if(rp.kind==='review') reviews.forEach(function(r){ if(r.id===rp.target) r.hidden=true; });
+          else { var tt=skById(rp.target); if(tt) tt.suspended=true; }
+          rp.status='resolved';
+        } else rp.status='dismissed';
+        saveReports(); saveReviews(); saveSkills(); refreshSkillDash();
+      }
+      break;
+    case 'cert':
+      var cs=skById(el.getAttribute('data-id'));
+      if(cs){
+        var d=new Date().toLocaleDateString('th-TH',{day:'numeric',month:'long',year:'numeric'});
+        $('#cert-body').innerHTML='<div class="cert"><h2 id="cert-h">เกียรติบัตรอาสาสมัครผู้ถ่ายทอดทักษะ</h2><p>ขอมอบให้</p><p style="font:700 1.3rem var(--font-head)" id="cert-nm">……………………………</p><p>ที่ได้สอน “'+esc(cs.title)+'” ในโครงการจับคู่ทักษะในชุมชน</p><p>รวม '+(cs.hours||0)+' ชั่วโมง</p><p class="small muted" style="margin-top:14px">องค์กรพหุพัฒนา · ชุมชนนิมนต์หนองยิ้ม · '+esc(d)+'</p><p class="small muted">(เอกสารตัวอย่างสำหรับต้นแบบ ไม่มีผลทางราชการ)</p></div>';
+        $('#cert-name').value='';
+        if($('#certdlg').showModal) $('#certdlg').showModal();
+      }
+      break;
+    case 'print-cert': window.print(); break;
+    case 'close-cert': $('#certdlg').close(); break;
+    case 'reset-skill-demo': skills=seedSkills(); saveSkills(); reviews=seedReviews(); saveReviews(); reports=loadReports.call(null,(localStorage.removeItem('oss-demo-reports-v1'),0)); saveReports(); refreshSkillDash(); break;
   }
 });
 document.addEventListener('change',function(e){
@@ -1263,6 +1538,13 @@ document.addEventListener('change',function(e){
     var ta=$('#hf-story'); if(ta) ta.setAttribute('placeholder',storyPlaceholder(e.target.value));
     return;
   }
+  var tid=e.target.id;
+  if(tid==='sk-sort'||tid==='sk-slot'||tid==='sk-acc'||tid==='sk-ver'){
+    if(tid==='sk-sort') skSort=e.target.value; else if(tid==='sk-slot') skSlot=e.target.value; else if(tid==='sk-acc') skAcc=e.target.value; else skVer=e.target.checked;
+    refreshSkills(); return;
+  }
+  var hr=e.target.closest&&e.target.closest('input[data-hours]');
+  if(hr){ var hs=skById(hr.getAttribute('data-hours')); if(hs){ hs.hours=Math.max(0,parseInt(hr.value,10)||0); saveSkills(); refreshSkillDash(); } return; }
   var ps=e.target.closest&&e.target.closest('select[data-pair]');
   if(ps){
     var pid=ps.getAttribute('data-pair'), newStatus=ps.value;
@@ -1282,11 +1564,13 @@ document.addEventListener('change',function(e){
 });
 document.addEventListener('input',function(e){
   if(e.target.id==='agq'){ ag.q=e.target.value; var l=$('#aglist'); if(l) l.innerHTML=agListHTML(); }
+  if(e.target.id==='cert-name'){ var cn=$('#cert-nm'); if(cn) cn.textContent=e.target.value.trim()||'……………………………'; }
   if(e.target.id==='sq'){ var r=$('#sr'); if(r) r.innerHTML=searchHTML(e.target.value); }
 });
 document.addEventListener('keydown',function(e){
   if(e.key==='Enter'){
     if(e.target.id==='heroq'){ e.preventDefault(); goSearch(e.target.value); }
+    if(e.target.id==='tq'){ e.preventDefault(); location.hash='#/track'+(e.target.value.trim()?'?id='+encodeURIComponent(e.target.value.trim()):''); }
     if(e.target.id==='fq'){ e.preventDefault(); var sec=$('#fsec').value, fq=e.target.value.trim(); location.hash='#/agencies?sector='+encodeURIComponent(sec)+(fq?'&q='+encodeURIComponent(fq):''); }
   }
   if(e.key==='Escape') closeMenu();

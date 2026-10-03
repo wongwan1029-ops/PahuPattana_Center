@@ -689,6 +689,7 @@ var FAQS=[
 /* ---------- state ---------- */
 var KEY='oss-demo-cases-v3';
 var STATUS={new:'รอคัดกรอง',routed:'ส่งต่อแล้ว',closed:'ปิดเคส'};
+var SHARED=false, DB=null, ME=null, STAFF=false, IS_OWNER=false, synced={}, wq=Promise.resolve(), GATE='<p class="note">ส่วนนี้สำหรับเจ้าหน้าที่ที่ได้รับสิทธิ์แก้ไขเท่านั้น</p>';
 var casesAll=false, RETAIN_DAYS=90, SENSITIVE={lgbtq:1,disab:1,youngmom:1,welfare:1};
 function seed(){
   var rows=[
@@ -769,7 +770,7 @@ function loadSkills(){
   return seedSkills();
 }
 var skills=loadSkills();
-function saveSkills(){try{localStorage.setItem(SKEY,JSON.stringify(skills));}catch(e){}}
+function saveSkills(){try{localStorage.setItem(SKEY,JSON.stringify(skills));}catch(e){} pushDiff('skills',skills);}
 
 var RKEY='oss-demo-reviews-v2';
 var RV_TAGS=['อธิบายเข้าใจง่าย','ตรงเวลา','ใจเย็น','นำไปใช้ได้จริง','ตรงตามที่แจ้งไว้'];
@@ -799,12 +800,15 @@ var OUTCOMES={job:'ได้งานหรือเปลี่ยนงาน'
 var REPORT_REASONS=['ข้อมูลไม่ตรงความจริง','พฤติกรรมไม่เหมาะสม / ไม่ปลอดภัย','เรียกเก็บเงินหรือผลประโยชน์','ข้อความรีวิวไม่เหมาะสม','อื่น ๆ'];
 function loadReports(){
   try{var raw=localStorage.getItem('oss-demo-reports-v1'); if(raw){var a=JSON.parse(raw); if(Array.isArray(a)) return a;}}catch(e){}
+  return seedReports();
+}
+function seedReports(){
   return [{id:'RP-0001',kind:'review',target:'RV-0005',reason:'ข้อความรีวิวไม่เหมาะสม',detail:'ผู้ใช้แจ้งว่ารีวิวมีถ้อยคำเกินจริง',status:'open',ts:'2026-09-24T09:30',sample:true}];
 }
-function saveReports(){try{localStorage.setItem('oss-demo-reports-v1',JSON.stringify(reports));}catch(e){}}
+function saveReports(){try{localStorage.setItem('oss-demo-reports-v1',JSON.stringify(reports));}catch(e){} pushDiff('reports',reports);}
 function skById(id){return skills.filter(function(s){return s.id===id;})[0];}
 var reviews=loadReviews(), skSort='default', skSlot='all', skAcc='all', skVer=false, reports=loadReports(), reportCtx=null;
-function saveReviews(){try{localStorage.setItem(RKEY,JSON.stringify(reviews));}catch(e){}}
+function saveReviews(){try{localStorage.setItem(RKEY,JSON.stringify(reviews));}catch(e){} pushDiff('reviews',reviews);}
 function reviewsFor(id){return reviews.filter(function(r){return r.teacher===id&&!r.hidden;});}
 function avgRating(id){var l=reviewsFor(id); if(!l.length) return 0; return l.reduce(function(a,r){return a+r.rating;},0)/l.length;}
 function starsHTML(n){var f=Math.round(n),o=''; for(var i=1;i<=5;i++) o+=i<=f?'★':'☆'; return o;}
@@ -844,7 +848,7 @@ function reviewFormHTML(){
    +'<button type="button" class="btn btn-lg" data-act="submit-review">ส่งรีวิว</button>'
    +'</div>';
 }
-function nextReviewId(){
+function nextReviewId(){ if(SHARED) return uniq('RV-',reviews);
   var max=0; reviews.forEach(function(r){var m=/(\d+)$/.exec(r.id); if(m) max=Math.max(max,parseInt(m[1],10));});
   return 'RV-'+String(max+1).padStart(4,'0');
 }
@@ -932,7 +936,8 @@ function barRows(items,max){
     return '<div class="barrow"><span>'+it.label+'</span><div class="track"><div class="fill" style="width:'+w+'%;'+(it.color?'--fillc:'+it.color:'')+'"></div></div><output>'+shown+'</output></div>';
   }).join('');
 }
-function dashHTML(){
+function dashHTML(){ if(SHARED&&!STAFF) return GATE; return dashHTMLReal(); }
+function dashHTMLReal(){
   var st=stats(), total=cases.length;
   var topicItems=TOPICS.map(function(t){return {label:t.emoji+' '+esc(t.label),n:st.byTopic[t.id],mask:true};});
   var secItems=SECTORS.map(function(s){return {label:s.emoji+' '+esc(s.name),n:st.bySector[s.id],color:'var(--'+s.id+')',mask:true};});
@@ -1253,7 +1258,8 @@ function reportsHTML(){
   if(!rows) return '<p class="empty">ยังไม่มีรายงาน</p>';
   return '<div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>รหัส</th><th>เรื่องที่ถูกรายงาน</th><th>เหตุผล</th><th>สถานะ</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>';
 }
-function skillDashHTML(){
+function skillDashHTML(){ if(SHARED&&!STAFF) return GATE; return skillDashHTMLReal(); }
+function skillDashHTMLReal(){
   var st=skillStats();
   var totalOffer=skills.filter(function(s){return s.type==='offer';}).length;
   var totalWant=skills.filter(function(s){return s.type==='want';}).length;
@@ -1363,7 +1369,7 @@ function viewPrivacy(){
    +sec('5. สถิติบนแดชบอร์ดต้องไม่ระบุตัวตน',li(['ไม่แสดงข้อมูลรายบุคคล แสดงเฉพาะวันที่ ไม่แสดงเวลา','จำนวนที่น้อยกว่า 3 แสดงเป็น "&lt;3" เพื่อป้องกันการระบุตัวบุคคล','เรื่องอ่อนไหวไม่แสดงด้านที่ขอและหน่วยงานที่ส่งต่อรายเคส','สถิติด้านและภาคส่วนนับเฉพาะผู้ที่ยินยอมข้อ ③']))
    +sec('6. ผู้เยาว์',li(['ฟอร์มขอความช่วยเหลือให้เลือกช่วงอายุ หากต่ำกว่า 18 ปี ต้องมีผู้ปกครองยินยอม หรือให้เจ้าหน้าที่ติดต่อผู้ปกครองและเจ้าหน้าที่คุ้มครองเด็ก (สายด่วน พม. 1300) ก่อนส่งต่อ','ฟอร์มจับคู่ทักษะต้องยืนยันว่าอายุ 18 ปีขึ้นไปหรือมีผู้ปกครองยินยอม','ผู้เยาว์ที่เรียนแบบพบหน้ากันควรมีผู้ปกครองหรือเจ้าหน้าที่ร่วมด้วยทุกครั้ง']))
    +sec('สิทธิของเจ้าของข้อมูล','<p style="max-width:70ch">ขอเข้าถึง แก้ไข ลบ ระงับการใช้ หรือถอนความยินยอมได้ โดยติดต่อสายด่วน Case Manager 089-999-9999 หรืออีเมล contact@pahupattana-nongyim.org</p>')
-   +'<div class="btnrow" style="margin-bottom:40px"><a class="btn" href="#/help">กลับไปหน้าขอความช่วยเหลือ</a><button type="button" class="btn btn-ghost" data-act="wipe-all">🗑️ ล้างข้อมูลทั้งหมดในเบราว์เซอร์นี้</button></div></div>'};
+   +'<div class="btnrow" style="margin-bottom:40px"><a class="btn" href="#/help">กลับไปหน้าขอความช่วยเหลือ</a>'+((SHARED&&!IS_OWNER)?'':'<button type="button" class="btn btn-ghost" data-act="wipe-all">🗑️ ล้างข้อมูลทั้งหมดในเบราว์เซอร์นี้</button>')+'</div></div>'};
 }
 /* search */
 function searchIndex(){
@@ -1431,7 +1437,8 @@ function routeFor(topicId,story){
   KEYWORDS.forEach(function(k){ if(k.re.test(story)) k.add.forEach(function(id){ if(AG[id]&&ids.indexOf(id)<0) ids.push(id); }); });
   return ids.slice(0,6);
 }
-function nextId(){
+function uniq(prefix,list){ var used={}; list.forEach(function(x){used[x.id]=1;}); var id; do{ id=prefix+String(100+Math.floor(Math.random()*9899)).padStart(4,'0'); }while(used[id]); return id; }
+function nextId(){ if(SHARED) return uniq('PP-2569-',cases);
   var max=0; cases.forEach(function(c){var m=/(\d+)$/.exec(c.id); if(m) max=Math.max(max,parseInt(m[1],10));});
   return 'PP-2569-'+String(max+1).padStart(4,'0');
 }
@@ -1454,10 +1461,11 @@ function submitHelp(){
   var now=new Date(), pad=function(n){return String(n).padStart(2,'0');};
   var c={id:nextId(),ts:now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate())+'T'+pad(now.getHours())+':'+pad(now.getMinutes()),topic:topic,status:'new',routed:routeFor(topic,story),channels:ch,story:story,minor:age==='minor',evalOk:$('#hf-c3').checked,sample:false};
   cases.push(c); save(); lastCase=c; newId=c.id;
+  if(SHARED){ c.uid=ME; caseWrite(c); }
   render();
 }
 
-function nextSkillId(){
+function nextSkillId(){ if(SHARED) return uniq('SK-',skills);
   var max=0; skills.forEach(function(s){var m=/(\d+)$/.exec(s.id); if(m) max=Math.max(max,parseInt(m[1],10));});
   return 'SK-'+String(max+1).padStart(4,'0');
 }
@@ -1522,7 +1530,7 @@ document.addEventListener('click',function(e){
     case 'submit-help': submitHelp(); break;
     case 'submit-skill': submitSkill(); break;
     case 'new-help': lastCase=null; newId=null; render(); break;
-    case 'reset-demo': cases=seed(); newId=null; save(); refreshDash(); break;
+    case 'reset-demo': if(SHARED){ if(IS_OWNER) seedAllShared(false); } else { cases=seed(); newId=null; save(); refreshDash(); } break;
     case 'match-skill':
       var mcat=el.getAttribute('data-cat');
       var offerSel=$('select[data-mcat="'+mcat+'"][data-mrole="offer"]');
@@ -1555,11 +1563,12 @@ document.addEventListener('click',function(e){
     case 'toggle-cases': casesAll=!casesAll; refreshDash(); break;
     case 'delete-case':
       if(el.getAttribute('data-confirm')!=='1'){ el.setAttribute('data-confirm','1'); el.textContent='กดอีกครั้งเพื่อยืนยันการลบ (ย้อนกลับไม่ได้)'; }
-      else { var dId=el.getAttribute('data-id'); cases=cases.filter(function(c){return c.id!==dId;}); save(); location.hash='#/track?deleted=1'; }
+      else { var dId=el.getAttribute('data-id'); var dc=cases.filter(function(c){return c.id===dId;})[0]; cases=cases.filter(function(c){return c.id!==dId;}); save(); if(SHARED&&dc) caseDel(dc); location.hash='#/track?deleted=1'; }
       break;
     case 'wipe-all':
       if(el.getAttribute('data-confirm')!=='1'){ el.setAttribute('data-confirm','1'); el.textContent='กดอีกครั้งเพื่อยืนยันล้างข้อมูลทั้งหมด'; }
       else {
+        if(SHARED){ if(IS_OWNER) seedAllShared(false); location.hash='#/home'; render(); break; }
         ['oss-demo-cases-v3','oss-demo-skills-v2','oss-demo-reviews-v2','oss-demo-reports-v1'].forEach(function(k){try{localStorage.removeItem(k);}catch(e){}});
         cases=seed(); skills=seedSkills(); reviews=seedReviews(); reports=loadReports(); triage=null; lastCase=null;
         location.hash='#/home'; render();
@@ -1578,7 +1587,7 @@ document.addEventListener('click',function(e){
     case 'send-report':
       var rn=0; reports.forEach(function(r){var m=/(\d+)$/.exec(r.id); if(m) rn=Math.max(rn,parseInt(m[1],10));});
       var nw=new Date(), pd=function(n){return String(n).padStart(2,'0');};
-      reports.push({id:'RP-'+String(rn+1).padStart(4,'0'),kind:reportCtx.kind,target:reportCtx.id,reason:$('#rp-reason').value,detail:$('#rp-detail').value.trim(),status:'open',ts:nw.getFullYear()+'-'+pd(nw.getMonth()+1)+'-'+pd(nw.getDate())+'T'+pd(nw.getHours())+':'+pd(nw.getMinutes()),sample:false});
+      reports.push({id:(SHARED?uniq('RP-',reports):'RP-'+String(rn+1).padStart(4,'0')),kind:reportCtx.kind,target:reportCtx.id,reason:$('#rp-reason').value,detail:$('#rp-detail').value.trim(),status:'open',ts:nw.getFullYear()+'-'+pd(nw.getMonth()+1)+'-'+pd(nw.getDate())+'T'+pd(nw.getHours())+':'+pd(nw.getMinutes()),sample:false});
       saveReports();
       $('#rp-body').innerHTML='<h2>รับรายงานแล้ว</h2><p class="rvok" style="margin-top:12px">เจ้าหน้าที่จะตรวจสอบเรื่องนี้ ขอบคุณที่ช่วยดูแลชุมชน</p><div class="stack"><button type="button" class="btn" data-act="close-report">ปิด</button></div>';
       break;
@@ -1608,7 +1617,7 @@ document.addEventListener('click',function(e){
       break;
     case 'print-cert': window.print(); break;
     case 'close-cert': $('#certdlg').close(); break;
-    case 'reset-skill-demo': skills=seedSkills(); saveSkills(); reviews=seedReviews(); saveReviews(); reports=loadReports.call(null,(localStorage.removeItem('oss-demo-reports-v1'),0)); saveReports(); refreshSkillDash(); break;
+    case 'reset-skill-demo': if(SHARED){ if(IS_OWNER) seedAllShared(false); break; } skills=seedSkills(); saveSkills(); reviews=seedReviews(); saveReviews(); reports=loadReports.call(null,(localStorage.removeItem('oss-demo-reports-v1'),0)); saveReports(); refreshSkillDash(); break;
   }
 });
 document.addEventListener('change',function(e){
@@ -1639,7 +1648,7 @@ document.addEventListener('change',function(e){
   }
   var s=e.target.closest&&e.target.closest('select[data-case]'); if(!s) return;
   var id=s.getAttribute('data-case');
-  cases.forEach(function(c){ if(c.id===id) c.status=s.value; });
+  cases.forEach(function(c){ if(c.id===id){ c.status=s.value; if(SHARED) caseWrite(c); } });
   save(); newId=null; refreshDash();
 });
 document.addEventListener('input',function(e){
@@ -1657,6 +1666,83 @@ document.addEventListener('keydown',function(e){
 });
 if(loginDlg){ loginDlg.addEventListener('click',function(e){ if(e.target===loginDlg) closeLogin(); }); }
 window.addEventListener('hashchange',function(){ render(); });
+
+/* ---------- shared mode (db capability) ---------- */
+function clone(x){return JSON.parse(JSON.stringify(x));}
+function pushDiff(name,arr){
+  if(!SHARED) return;
+  arr.forEach(function(it){
+    var j=JSON.stringify(it); synced[name]=synced[name]||{};
+    if(synced[name][it.id]===j) return;
+    synced[name][it.id]=j;
+    wq=wq.then(function(){return DB.collection(name).doc(it.id).set(it);}).catch(function(){});
+  });
+}
+function caseWrite(c){
+  if(!SHARED||!c.uid) return;
+  var ref=DB.doc('cases/'+c.uid), body={items:{}}; body.items[c.id]=c;
+  wq=wq.then(function(){return ref.update(body).catch(function(){return ref.set(body);});}).catch(function(){});
+}
+function caseDel(c){
+  if(!SHARED||!c.uid) return;
+  var ref=DB.doc('cases/'+c.uid);
+  wq=wq.then(function(){return ref.get().then(function(snap){ var it=Object.assign({},((snap.data()||{}).items)||{}); delete it[c.id]; return ref.set({items:it}); });}).catch(function(){});
+}
+async function seedAllShared(onlyIfEmpty){
+  try{
+    var meta=DB.doc('meta/seeded');
+    if(onlyIfEmpty){ var m=await meta.get(); if(m.exists) return; }
+    var items={}; seed().forEach(function(c){c.uid='seed'; items[c.id]=c;});
+    await DB.doc('cases/seed').set({items:items});
+    var groups=[['skills',seedSkills()],['reviews',seedReviews()],['reports',seedReports()]];
+    for(var g=0;g<groups.length;g++){ for(var i=0;i<groups[g][1].length;i++){ var x=groups[g][1][i]; await DB.collection(groups[g][0]).doc(x.id).set(x); } }
+    await meta.set({at:new Date().toISOString()});
+  }catch(e){}
+}
+function liveRefresh(){
+  var path=parseHash().path;
+  if(path==='system'){ refreshDash(); refreshSkillDash(); }
+  else if(path==='skills'){ refreshSkills(); }
+  else if(path==='track'){ var a=document.activeElement; if(!a||a.id!=='tq') render(); }
+}
+function connectShared(db,uid){
+  DB=db; ME=uid; SHARED=true;
+  cases=[]; skills=[]; reviews=[]; reports=[];
+  var purged=false;
+  if(STAFF){
+    db.collection('cases').onSnapshot(function(snap){
+      var arr=[]; snap.docs.forEach(function(d){ var it=(d.data()||{}).items||{}; Object.keys(it).forEach(function(k){arr.push(clone(it[k]));}); });
+      cases=arr; liveRefresh();
+      if(!purged){ purged=true; arr.forEach(function(c){ if(c.sample) return; var t=new Date(c.ts).getTime(); if(!isNaN(t)&&(Date.now()-t)>RETAIN_DAYS*86400000) caseDel(c); }); }
+    },function(){});
+  } else {
+    db.doc('cases/'+uid).onSnapshot(function(d){
+      var it=d.exists?(((d.data()||{}).items)||{}):{};
+      cases=Object.keys(it).map(function(k){return clone(it[k]);}); liveRefresh();
+    },function(){});
+  }
+  ['skills','reviews','reports'].forEach(function(name){
+    db.collection(name).onSnapshot(function(snap){
+      var a=snap.docs.map(function(d){return clone(d.data());});
+      synced[name]={}; a.forEach(function(x){synced[name][x.id]=JSON.stringify(x);});
+      if(name==='skills') skills=a; else if(name==='reviews') reviews=a; else reports=a;
+      liveRefresh();
+    },function(){});
+  });
+  if(IS_OWNER) seedAllShared(true);
+}
+if(window.claude&&window.claude.use){
+  (async function(){
+    try{
+      var db=await window.claude.use('db'); if(!db) return;
+      var user=await window.claude.use('user'); if(!user) return;
+      var uid=await user.id(); if(!uid) return;
+      IS_OWNER=!!(await Promise.resolve(user.isOwner()));
+      STAFF=!!(await Promise.resolve(user.canEdit()));
+      connectShared(db,uid);
+    }catch(e){}
+  })();
+}
 
 render();
 })();

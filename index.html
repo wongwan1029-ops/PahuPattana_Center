@@ -390,6 +390,8 @@ dialog .stack{display:grid;gap:10px}
 .rvform{margin-top:26px}
 .rvok{color:var(--loc);border:1.5px solid var(--loc);border-radius:12px;padding:10px 14px;margin:0 0 14px;font-size:.92rem}
 [hidden]{display:none!important}
+#casedlg{max-width:640px}
+#casedlg .stack{display:flex;gap:10px}
 /* v3 additions */
 .vbadge{display:inline-block;font-size:.78rem;border-radius:999px;padding:2px 10px;background:var(--surface-2);color:var(--ink-2)}
 .vbadge.ok{background:var(--loc-s);color:var(--loc);font-weight:600}
@@ -517,6 +519,7 @@ dialog .stack{display:grid;gap:10px}
   <div class="field inline noprint"><label for="cert-name">ชื่อผู้รับเกียรติบัตร (ไม่ถูกบันทึก)</label><input id="cert-name" type="text" placeholder="พิมพ์ชื่อเพื่อแสดงบนเกียรติบัตร"></div>
   <div class="stack noprint" style="margin-top:14px"><button type="button" class="btn" data-act="print-cert">พิมพ์ / บันทึกเป็น PDF</button><button type="button" class="btn btn-ghost" data-act="close-cert">ปิด</button></div>
 </dialog>
+<dialog id="casedlg" aria-labelledby="case-h"><div id="case-body"></div></dialog>
 <noscript><div class="wrap section">หน้าเว็บนี้ต้องเปิดใช้งาน JavaScript</div></noscript>
 
 <script>
@@ -671,22 +674,22 @@ var KNOWLEDGE=[
 var NEWS=[
   {date:'15 ก.ย. 2569',t:'เปิดทดลองระบบรับเรื่องเบื้องต้น',d:'ทดลองส่งเรื่องผ่านแบบฟอร์ม "ขอความช่วยเหลือ" และดูผลการส่งต่อบนแดชบอร์ดเจ้าหน้าที่'},
   {date:'10 ก.ย. 2569',t:'รวมแหล่งเรียนรู้ทักษะใหม่จาก MOOC ของมหาวิทยาลัยชั้นนำ',d:'Thai MOOC, CHULA MOOC, MUx, CMU MOOC และ สจล. อยู่ในหน้าบริการทั้งหมดแล้ว'},
-  {date:'5 ก.ย. 2569',t:'แนวทางคุ้มครองข้อมูลผู้ขอรับความช่วยเหลือ',d:'ต้นแบบนี้ไม่บันทึกข้อความที่พิมพ์ในช่องเล่าปัญหา ใช้เพื่อจัดหมวดเท่านั้น'}
+  {date:'5 ก.ย. 2569',t:'แนวทางคุ้มครองข้อมูลผู้ขอรับความช่วยเหลือ',d:'ข้อความเล่าปัญหาให้เจ้าหน้าที่ Case Manager อ่านเพื่อคัดกรองและส่งต่อเท่านั้น'}
 ];
 
 var FAQS=[
   {q:'One Stop Service คืออะไร',a:'เป็นจุดเดียวสำหรับค้นหาบริการและหน่วยงาน และส่งเรื่องขอความช่วยเหลือครั้งเดียว เพื่อให้ระบบช่วยส่งต่อไปยังหน่วยงานภาครัฐและท้องถิ่นที่เกี่ยวข้อง'},
   {q:'ต้องเล่าปัญหาซ้ำหลายหน่วยงานหรือไม่',a:'แนวคิดของระบบคือไม่ต้อง ประชาชนเล่าเรื่องครั้งเดียวผ่านแบบฟอร์ม เจ้าหน้าที่ตรวจสอบและส่งต่อไปยังหน่วยงานที่เหมาะสม เพื่อลดการเดินทางและการเล่าซ้ำ'},
   {q:'เว็บไซต์นี้ใช้งานได้จริงหรือยัง',a:'เว็บไซต์นี้เป็นต้นแบบเพื่อการนำเสนอ ยังไม่ได้เชื่อมต่อกับหน่วยงานจริง ข้อมูลที่กรอกจะอยู่ในเบราว์เซอร์นี้เท่านั้น และลิงก์ภายนอกพาไปยังเว็บไซต์ของหน่วยงานเจ้าของบริการ'},
-  {q:'ข้อมูลส่วนบุคคลจะถูกจัดการอย่างไร',a:'ไม่มีการส่งข้อมูลออกและไม่บันทึกข้อความที่พิมพ์ ระบบขอความยินยอมตามพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล (PDPA) และเปิดเผยข้อมูลเท่าที่จำเป็นต่อการส่งต่อเรื่อง'},
+  {q:'ข้อมูลส่วนบุคคลจะถูกจัดการอย่างไร',a:'ข้อมูลไม่ถูกส่งออกจากเบราว์เซอร์นี้ และข้อความเล่าปัญหาให้เจ้าหน้าที่ที่ดูแลเรื่องอ่านเท่านั้น ระบบขอความยินยอมตามพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล (PDPA) และเปิดเผยข้อมูลเท่าที่จำเป็นต่อการส่งต่อเรื่อง'},
   {q:'ไม่รู้ว่าต้องติดต่อหน่วยงานไหน ทำอย่างไร',a:'เลือกสถานการณ์ที่ใกล้เคียงในหน้าแรก หรือไปที่หน้า "หน่วยงานที่เกี่ยวข้อง" เพื่อค้นหาตามประเภทและชื่อ หากยังไม่แน่ใจ ให้ส่งเรื่องผ่านแบบฟอร์ม "ขอความช่วยเหลือ"'},
   {q:'ถ้าอยู่ในสถานการณ์ฉุกเฉินควรทำอย่างไร',a:'เว็บไซต์นี้ไม่ใช่ช่องทางฉุกเฉิน หากมีอันตรายให้โทร 191 (แจ้งเหตุด่วนเหตุร้าย) หรือ 1669 (การแพทย์ฉุกเฉิน) หากต้องการปรึกษาด้านสุขภาพใจโทร 1323 และหากต้องการความช่วยเหลือทางสังคมโทร 1300'}
 ];
 
 /* ---------- state ---------- */
-var KEY='oss-demo-cases-v2';
+var KEY='oss-demo-cases-v3';
 var STATUS={new:'รอคัดกรอง',routed:'ส่งต่อแล้ว',closed:'ปิดเคส'};
-var RETAIN_DAYS=90, SENSITIVE={lgbtq:1,disab:1,youngmom:1,welfare:1};
+var casesAll=false, RETAIN_DAYS=90, SENSITIVE={lgbtq:1,disab:1,youngmom:1,welfare:1};
 function seed(){
   var rows=[
     ['PP-2569-0001','2026-09-08T09:20','work','routed',['doe','dsd']],
@@ -707,7 +710,24 @@ function seed(){
     ['PP-2569-0016','2026-09-22T11:00','housing','new',['mso','front']],
     ['PP-2569-0017','2026-09-23T15:40','other','new',['front']]
   ];
-  return rows.map(function(r){return {id:r[0],ts:r[1],topic:r[2],status:r[3],routed:r[4],channels:['phone'],sample:true};});
+  var ST={'PP-2569-0001':'ถูกเลิกจ้างเมื่อต้นเดือน อยากขึ้นทะเบียนผู้ว่างงานและหาหลักสูตรฝึกอาชีพ',
+    'PP-2569-0002':'ออกจากโรงเรียนกลางคัน อยากกลับมาเรียนต่อให้จบ ม.ปลาย',
+    'PP-2569-0003':'ถูกปฏิเสธการสมัครงานหลายครั้งเพราะเพศสภาพ อยากทราบสิทธิและช่องทางร้องเรียน',
+    'PP-2569-0004':'ต้องการตรวจสอบสิทธิรักษาและสวัสดิการสำหรับครอบครัว',
+    'PP-2569-0005':'ตกงานมาสองเดือน อยากเปลี่ยนสายงานแต่ไม่แน่ใจว่าควรเริ่มเรียนอะไร',
+    'PP-2569-0006':'ต้องการสมัครงานตามโควตาคนพิการและขอรับเงินอุดหนุน',
+    'PP-2569-0007':'อยากเรียนต่อ กศน. แต่ไม่มีค่าเดินทางไปศูนย์การเรียน',
+    'PP-2569-0008':'ได้รับแจ้งตำแหน่งงานจากกรมการจัดหางานแล้ว ขอปิดเรื่อง',
+    'PP-2569-0009':'ถูกเลือกปฏิบัติในที่ทำงานเพราะเพศสภาพ ต้องการคำปรึกษา',
+    'PP-2569-0010':'ครอบครัวรายได้น้อย ต้องการความช่วยเหลือด้านสวัสดิการ',
+    'PP-2569-0011':'ต้องการกลับเข้าเรียนหลังหยุดไปช่วยงานที่บ้าน',
+    'PP-2569-0012':'อยากอัปสกิลดิจิทัลเพื่อสมัครงานสำนักงาน',
+    'PP-2569-0013':'ตั้งครรภ์ระหว่างเรียน กังวลว่าต้องลาออก อยากทราบสิทธิและทางเลือกการเรียนต่อ',
+    'PP-2569-0014':'จบแล้วยังไม่มีงาน ผ่อนชำระ กยศ. ไม่ไหว',
+    'PP-2569-0015':'ทำงานอยู่แต่ต้องการเพิ่มทักษะเพื่อความมั่นคงในอาชีพ',
+    'PP-2569-0016':'ถูกให้ออกจากห้องเช่า ไม่มีที่พักที่มั่นคง',
+    'PP-2569-0017':'อยากปรึกษาเรื่องที่ไม่ตรงกับหัวข้อที่มี ขอให้เจ้าหน้าที่ติดต่อกลับ'};
+  return rows.map(function(r){return {id:r[0],ts:r[1],topic:r[2],status:r[3],routed:r[4],channels:['phone'],story:ST[r[0]]||'',minor:r[0]==='PP-2569-0013',sample:true};});
 }
 function load(){
   try{
@@ -918,15 +938,29 @@ function dashHTML(){
   var secItems=SECTORS.map(function(s){return {label:s.emoji+' '+esc(s.name),n:st.bySector[s.id],color:'var(--'+s.id+')',mask:true};});
   var max1=Math.max.apply(null,topicItems.map(function(x){return x.n;}).concat([1]));
   var max2=Math.max.apply(null,secItems.map(function(x){return x.n;}).concat([1]));
-  var rows=cases.slice().sort(function(a,b){return a.ts<b.ts?1:-1;}).slice(0,10).map(function(c){
+  var rows=cases.slice().sort(function(a,b){return a.ts<b.ts?1:-1;}).slice(0,casesAll?cases.length:10).map(function(c){
     var t=TOPIC[c.topic]||{label:c.topic,emoji:''};
     var pills=(c.routed||[]).slice(0,4).map(function(id){var a=AG[id]; return a?'<span class="pill" style="'+sty(a.s)+'"><span class="dot"></span>'+esc(a.sn)+'</span>':'';}).join('');
     var opts=Object.keys(STATUS).map(function(k){return '<option value="'+k+'"'+(c.status===k?' selected':'')+'>'+STATUS[k]+'</option>';}).join('');
-    return '<tr'+(c.id===newId?' class="is-new"':'')+'><td>'+esc(c.id)+''+'</td><td>'+esc(fmtDate(c.ts))+'</td><td>'+(SENSITIVE[c.topic]?'🔒 เรื่องที่ต้องดูแลเป็นพิเศษ':t.emoji+' '+esc(t.label))+'</td><td>'+(SENSITIVE[c.topic]?'<span class="muted">—</span>':pills)+'</td><td><select data-case="'+esc(c.id)+'" aria-label="สถานะของ '+esc(c.id)+'">'+opts+'</select></td></tr>';
+    return '<tr'+(c.id===newId?' class="is-new"':'')+'><td>'+esc(c.id)+''+'</td><td>'+esc(fmtDate(c.ts))+'</td><td>'+(SENSITIVE[c.topic]?'🔒 เรื่องที่ต้องดูแลเป็นพิเศษ':t.emoji+' '+esc(t.label))+'</td><td>'+(SENSITIVE[c.topic]?'<span class="muted">—</span>':pills)+'</td><td><select data-case="'+esc(c.id)+'" aria-label="สถานะของ '+esc(c.id)+'">'+opts+'</select></td><td><button type="button" class="btn btn-ghost" style="padding:6px 14px" data-act="read-case" data-id="'+esc(c.id)+'">อ่านเรื่อง</button></td></tr>';
   }).join('');
   return '<div class="kpis"><div class="kpi"><b>'+total+'</b><span>เรื่องทั้งหมด</span></div><div class="kpi"><b>'+st.byStatus.new+'</b><span>รอคัดกรอง</span></div><div class="kpi"><b>'+st.byStatus.routed+'</b><span>ส่งต่อแล้ว</span></div><div class="kpi"><b>'+st.byStatus.closed+'</b><span>ปิดเคส</span></div></div>'
    +'<div class="charts"><div><h3>เรื่องที่ขอความช่วยเหลือ แยกตามด้าน</h3>'+barRows(topicItems,max1)+'</div><div><h3>เรื่องที่ถูกส่งต่อ แยกตามภาคส่วน</h3>'+barRows(secItems,max2)+'</div></div>'
-   +'<div class="tablewrap"><table><thead><tr><th>รหัสเรื่อง</th><th>วันที่</th><th>ด้าน</th><th>ส่งต่อไปยัง</th><th>สถานะ</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+   +'<div class="tablewrap"><table><thead><tr><th>รหัสเรื่อง</th><th>วันที่</th><th>ด้าน</th><th>ส่งต่อไปยัง</th><th>สถานะ</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div><p style="margin-top:10px"><button type="button" class="btn btn-ghost" data-act="toggle-cases">'+(casesAll?'แสดงเฉพาะ 10 รายการล่าสุด':'แสดงทั้งหมด ('+cases.length+' เรื่อง)')+'</button></p>';
+}
+function caseDetailHTML(c){
+  var t=TOPIC[c.topic]||{label:c.topic,emoji:''};
+  var chn={phone:'โทรศัพท์',chat:'แชท',walkin:'นัดหมาย Walk-in'};
+  var ch=(c.channels||[]).map(function(k){return chn[k]||k;}).join(', ')||'—';
+  var tags='';
+  if(SENSITIVE[c.topic]) tags+='<span class="vbadge">🔒 เรื่องอ่อนไหว</span> ';
+  if(c.minor) tags+='<span class="vbadge">🧒 ผู้เยาว์ — ติดต่อผู้ปกครองหรือเจ้าหน้าที่คุ้มครองเด็กก่อน</span>';
+  return '<h2 id="case-h">'+esc(c.id)+'</h2><p class="muted small">'+esc(fmtTime(c.ts))+' · ด้าน: '+t.emoji+' '+esc(t.label)+' · สถานะ: '+esc(STATUS[c.status]||c.status)+'</p>'+(tags?'<div style="margin-top:8px">'+tags+'</div>':'')
+   +'<h3 style="font-size:1.05rem;margin-top:16px">เรื่องที่ผู้ขอเล่า</h3><p style="white-space:pre-wrap;background:var(--surface-2);border-radius:12px;padding:14px 16px;margin-top:8px">'+(c.story?esc(c.story):'<span class="muted">ไม่มีข้อความเล่าปัญหา</span>')+'</p>'
+   +'<p class="small" style="margin-top:14px"><b>ช่องทางติดต่อกลับ:</b> '+esc(ch)+'</p>'
+   +'<p class="small"><b>ยินยอมใช้ข้อมูลเพื่อสถิติ:</b> '+(c.evalOk===true?'ใช่':(c.evalOk===false?'ไม่':'—'))+'</p>'
+   +'<p class="strong" style="margin-top:14px">หน่วยงานที่เสนอส่งต่อ</p>'+routeList(c.routed||[])
+   +'<div class="stack" style="margin-top:14px"><button type="button" class="btn" data-act="close-case">ปิด</button></div>';
 }
 function refreshDash(){var d=$('#dash'); if(d) d.innerHTML=dashHTML();}
 
@@ -1043,16 +1077,16 @@ function viewAgencies(params){
 
 function viewHelp(params){
   var pre=params.get('topic')||'';
-  var side='<aside class="side"><h2>เล่าปัญหาครั้งเดียว</h2><p class="muted">เจ้าหน้าที่จะช่วยคัดกรองและส่งต่อไปยังหน่วยงานที่เกี่ยวข้อง โดยไม่ต้องเล่าซ้ำหลายที่</p><ul><li>ข้อความที่พิมพ์ในต้นแบบนี้ไม่ถูกบันทึกและไม่ถูกส่งออก ใช้เพื่อจัดหมวดเท่านั้น</li><li>ไม่ต้องใส่ชื่อ เลขบัตร หรือข้อมูลส่วนตัวจริง</li></ul><div class="emerg"><b>กรณีฉุกเฉิน</b><ul><li>🚓 <a href="tel:191">191</a> แจ้งเหตุด่วนเหตุร้าย</li><li>🚑 <a href="tel:1669">1669</a> การแพทย์ฉุกเฉิน</li><li>💙 <a href="tel:1323">1323</a> สายด่วนสุขภาพจิต</li><li>🤝 <a href="tel:1300">1300</a> ศูนย์ช่วยเหลือสังคม</li></ul></div></aside>';
+  var side='<aside class="side"><h2>เล่าปัญหาครั้งเดียว</h2><p class="muted">เจ้าหน้าที่จะช่วยคัดกรองและส่งต่อไปยังหน่วยงานที่เกี่ยวข้อง โดยไม่ต้องเล่าซ้ำหลายที่</p><ul><li>ข้อความที่ท่านเล่า เจ้าหน้าที่ Case Manager อ่านเพื่อคัดกรองและส่งต่อเท่านั้น</li><li>ไม่ต้องใส่ชื่อ เลขบัตร หรือข้อมูลส่วนตัวจริง</li></ul><div class="emerg"><b>กรณีฉุกเฉิน</b><ul><li>🚓 <a href="tel:191">191</a> แจ้งเหตุด่วนเหตุร้าย</li><li>🚑 <a href="tel:1669">1669</a> การแพทย์ฉุกเฉิน</li><li>💙 <a href="tel:1323">1323</a> สายด่วนสุขภาพจิต</li><li>🤝 <a href="tel:1300">1300</a> ศูนย์ช่วยเหลือสังคม</li></ul></div></aside>';
   var main;
   if(lastCase){
     var c=lastCase, t=TOPIC[c.topic];
-    main='<div class="formbox done"><h2>รับเรื่องแล้ว</h2><p>รหัสเรื่องของคุณ</p><span class="code">'+esc(c.id)+'</span><p class="muted small">ด้าน: '+t.emoji+' '+esc(t.label)+'</p><p style="margin-top:14px" class="strong">ระบบคัดกรองเบื้องต้นแนะนำให้ส่งต่อไปยัง</p>'+routeList(c.routed)+'<p class="hint">ในการใช้งานจริง เจ้าหน้าที่จะตรวจสอบอีกครั้งก่อนส่งต่อ ต้นแบบนี้ยังไม่ส่งข้อมูลไปที่หน่วยงานใด</p><div class="note"><b>ข้อมูลที่ส่งต่อให้หน่วยงานปลายทาง (เท่าที่จำเป็น):</b> ด้านที่ขอความช่วยเหลือ รหัสเรื่อง และช่องทางติดต่อที่ท่านเลือก ไม่ส่งต่อข้อความเล่าปัญหาหรือข้อมูลอ่อนไหวเกินกว่าที่หน่วยงานนั้นต้องใช้ · เก็บข้อมูลไม่เกิน 90 วัน และขอลบได้ที่หน้าตรวจสอบสถานะ</div>'+(c.minor?'<div class="note" style="margin-top:10px">🧒 เรื่องนี้ระบุว่าผู้ขอเป็นผู้เยาว์ เจ้าหน้าที่จะติดต่อผู้ปกครองหรือเจ้าหน้าที่คุ้มครองเด็กก่อนส่งต่อ (สายด่วน พม. 1300)</div>':'')+'<div class="btnrow"><a class="btn" href="#/track?id='+esc(c.id)+'">ตรวจสอบสถานะเรื่อง '+ICON.arrow+'</a><a class="btn btn-ghost" href="#/system?focus=dash">ดูแดชบอร์ดเจ้าหน้าที่</a><button type="button" class="btn btn-ghost" data-act="new-help">ส่งเรื่องใหม่</button></div></div>';
+    main='<div class="formbox done"><h2>รับเรื่องแล้ว</h2><p>รหัสเรื่องของคุณ</p><span class="code">'+esc(c.id)+'</span><p class="muted small">ด้าน: '+t.emoji+' '+esc(t.label)+'</p><p style="margin-top:14px" class="strong">ระบบคัดกรองเบื้องต้นแนะนำให้ส่งต่อไปยัง</p>'+routeList(c.routed)+'<p class="hint">ในการใช้งานจริง เจ้าหน้าที่จะตรวจสอบอีกครั้งก่อนส่งต่อ ต้นแบบนี้ยังไม่ส่งข้อมูลไปที่หน่วยงานใด</p><div class="note"><b>ข้อมูลที่ส่งต่อให้หน่วยงานปลายทาง (เท่าที่จำเป็น):</b> ด้านที่ขอความช่วยเหลือ รหัสเรื่อง และช่องทางติดต่อที่ท่านเลือก · ข้อความเล่าปัญหาให้เจ้าหน้าที่ Case Manager อ่าน และส่งต่อเฉพาะส่วนที่หน่วยงานนั้นต้องใช้ · เก็บข้อมูลไม่เกิน 90 วัน และขอลบได้ที่หน้าตรวจสอบสถานะ</div>'+(c.minor?'<div class="note" style="margin-top:10px">🧒 เรื่องนี้ระบุว่าผู้ขอเป็นผู้เยาว์ เจ้าหน้าที่จะติดต่อผู้ปกครองหรือเจ้าหน้าที่คุ้มครองเด็กก่อนส่งต่อ (สายด่วน พม. 1300)</div>':'')+'<div class="btnrow"><a class="btn" href="#/track?id='+esc(c.id)+'">ตรวจสอบสถานะเรื่อง '+ICON.arrow+'</a><a class="btn btn-ghost" href="#/system?focus=dash">ดูแดชบอร์ดเจ้าหน้าที่</a><button type="button" class="btn btn-ghost" data-act="new-help">ส่งเรื่องใหม่</button></div></div>';
   }else{
     var opts='<option value="">— เลือกด้านที่ต้องการ —</option>'+TOPICS.map(function(t){return '<option value="'+t.id+'"'+(pre===t.id?' selected':'')+'>'+esc(t.label)+'</option>';}).join('');
     main='<div class="formbox"><div id="hf-err" role="alert"></div>'
      +'<div class="field"><label for="hf-topic">ท่านต้องการความช่วยเหลือด้านใดเป็นหลัก?</label><select id="hf-topic">'+opts+'</select></div>'
-     +'<div class="field"><label for="hf-story">เล่าปัญหาของท่านให้เราฟัง</label><textarea id="hf-story" placeholder="'+esc(storyPlaceholder(pre))+'"></textarea><span class="hint">ไม่ต้องใส่ข้อมูลส่วนตัวจริง ข้อความนี้ไม่ถูกบันทึก</span></div>'
+     +'<div class="field"><label for="hf-story">เล่าปัญหาของท่านให้เราฟัง</label><textarea id="hf-story" placeholder="'+esc(storyPlaceholder(pre))+'"></textarea><span class="hint">เจ้าหน้าที่ Case Manager จะอ่านข้อความนี้เพื่อคัดกรอง ไม่ต้องใส่ชื่อ-นามสกุลหรือเลขบัตร</span></div>'
      +'<fieldset class="field"><legend>ช่องทางที่ท่านสะดวกให้เจ้าหน้าที่ติดต่อกลับ</legend><div class="checks"><label><input type="checkbox" name="ch" value="phone"> โทรศัพท์</label><label><input type="checkbox" name="ch" value="chat"> แชท</label><label><input type="checkbox" name="ch" value="walkin"> นัดหมาย Walk-in</label></div></fieldset>'
      +'<div class="field"><label for="hf-age">ช่วงอายุของผู้ขอรับความช่วยเหลือ</label><select id="hf-age"><option value="">— เลือก —</option><option value="minor">ต่ำกว่า 18 ปี</option><option value="adult">18 ปีขึ้นไป</option></select></div>'
      +'<div id="hf-guard" hidden class="note" style="margin:0 0 18px"><label style="display:flex;gap:8px;align-items:flex-start"><input type="checkbox" id="hf-guardc" style="margin-top:6px"> <span>ผู้ปกครองหรือผู้ดูแลรับทราบและยินยอม หรือขอให้เจ้าหน้าที่ติดต่อผู้ปกครอง/เจ้าหน้าที่คุ้มครองเด็กก่อนดำเนินการต่อ</span></label></div>'
@@ -1323,8 +1357,8 @@ function viewPrivacy(){
   var li=function(a){return '<ul class="blist">'+a.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>';};
   return {title:'ประกาศความเป็นส่วนตัว',html:'<div class="wrap"><div class="pagehead"><h1>ประกาศความเป็นส่วนตัว (PDPA)</h1><p>หลักการคุ้มครองข้อมูลส่วนบุคคลที่ศูนย์บริการใช้</p></div>'
    +sec('1. วัตถุประสงค์ที่ชัดเจน',li(['คัดกรองและส่งต่อเรื่องไปยังหน่วยงานที่เกี่ยวข้อง','จับคู่ทักษะระหว่างผู้สอนและผู้เรียนในชุมชน','ประเมินผลโครงการด้วยสถิติที่ไม่ระบุตัวตน (ไม่บังคับ)','ไม่นำข้อมูลไปใช้เพื่อวัตถุประสงค์อื่นนอกเหนือจากนี้']))
-   +sec('2. เก็บเท่าที่จำเป็น และขอความยินยอมแยกรายวัตถุประสงค์',li(['แบบฟอร์มขอความช่วยเหลือแยกความยินยอมเป็น ① ส่งต่อเรื่อง (จำเป็น) ② ข้อมูลอ่อนไหว (จำเป็นเมื่อเลือกด้านสุขภาพ ความพิการ เพศสภาพ คุณแม่วัยใส หรือสวัสดิการ) ③ สถิติและประเมินผล (ไม่บังคับ)','ต้นแบบไม่บันทึกข้อความที่พิมพ์ในช่องเล่าปัญหา และไม่ขอชื่อหรือเลขบัตร','ถอนความยินยอมได้ทุกเมื่อโดยขอลบเรื่อง']))
-   +sec('3. เปิดเผยเท่าที่จำเป็นต่อการช่วยเหลือ',li(['ส่งต่อให้หน่วยงานปลายทางเฉพาะด้านที่ขอความช่วยเหลือ รหัสเรื่อง และช่องทางติดต่อที่เลือก','ไม่ส่งต่อข้อมูลอ่อนไหวเกินกว่าที่หน่วยงานนั้นต้องใช้ในการดำเนินการ']))
+   +sec('2. เก็บเท่าที่จำเป็น และขอความยินยอมแยกรายวัตถุประสงค์',li(['แบบฟอร์มขอความช่วยเหลือแยกความยินยอมเป็น ① ส่งต่อเรื่อง (จำเป็น) ② ข้อมูลอ่อนไหว (จำเป็นเมื่อเลือกด้านสุขภาพ ความพิการ เพศสภาพ คุณแม่วัยใส หรือสวัสดิการ) ③ สถิติและประเมินผล (ไม่บังคับ)','ข้อความเล่าปัญหาให้เจ้าหน้าที่ Case Manager ที่ดูแลเรื่องอ่านเท่านั้น และไม่ขอชื่อหรือเลขบัตร','ถอนความยินยอมได้ทุกเมื่อโดยขอลบเรื่อง']))
+   +sec('3. เปิดเผยเท่าที่จำเป็นต่อการช่วยเหลือ',li(['ส่งต่อให้หน่วยงานปลายทางเฉพาะด้านที่ขอความช่วยเหลือ รหัสเรื่อง ช่องทางติดต่อที่เลือก และข้อความเล่าปัญหาเฉพาะส่วนที่หน่วยงานนั้นต้องใช้','ไม่ส่งต่อข้อมูลอ่อนไหวเกินกว่าที่หน่วยงานนั้นต้องใช้ในการดำเนินการ']))
    +sec('4. ระยะเวลาเก็บและการลบข้อมูล',li(['เรื่องที่ขอความช่วยเหลือ: ลบอัตโนมัติเมื่อครบ '+RETAIN_DAYS+' วันนับจากวันที่ยื่น','ลบเองได้ทุกเมื่อที่หน้า <a href="#/track" style="text-decoration:underline">ตรวจสอบสถานะเรื่อง</a>','ข้อมูลทักษะ รีวิว และรายงาน: ล้างได้ด้วยปุ่มด้านล่าง']))
    +sec('5. สถิติบนแดชบอร์ดต้องไม่ระบุตัวตน',li(['ไม่แสดงข้อมูลรายบุคคล แสดงเฉพาะวันที่ ไม่แสดงเวลา','จำนวนที่น้อยกว่า 3 แสดงเป็น "&lt;3" เพื่อป้องกันการระบุตัวบุคคล','เรื่องอ่อนไหวไม่แสดงด้านที่ขอและหน่วยงานที่ส่งต่อรายเคส','สถิติด้านและภาคส่วนนับเฉพาะผู้ที่ยินยอมข้อ ③']))
    +sec('6. ผู้เยาว์',li(['ฟอร์มขอความช่วยเหลือให้เลือกช่วงอายุ หากต่ำกว่า 18 ปี ต้องมีผู้ปกครองยินยอม หรือให้เจ้าหน้าที่ติดต่อผู้ปกครองและเจ้าหน้าที่คุ้มครองเด็ก (สายด่วน พม. 1300) ก่อนส่งต่อ','ฟอร์มจับคู่ทักษะต้องยืนยันว่าอายุ 18 ปีขึ้นไปหรือมีผู้ปกครองยินยอม','ผู้เยาว์ที่เรียนแบบพบหน้ากันควรมีผู้ปกครองหรือเจ้าหน้าที่ร่วมด้วยทุกครั้ง']))
@@ -1418,7 +1452,7 @@ function submitHelp(){
     return;
   }
   var now=new Date(), pad=function(n){return String(n).padStart(2,'0');};
-  var c={id:nextId(),ts:now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate())+'T'+pad(now.getHours())+':'+pad(now.getMinutes()),topic:topic,status:'new',routed:routeFor(topic,story),channels:ch,minor:age==='minor',evalOk:$('#hf-c3').checked,sample:false};
+  var c={id:nextId(),ts:now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate())+'T'+pad(now.getHours())+':'+pad(now.getMinutes()),topic:topic,status:'new',routed:routeFor(topic,story),channels:ch,story:story,minor:age==='minor',evalOk:$('#hf-c3').checked,sample:false};
   cases.push(c); save(); lastCase=c; newId=c.id;
   render();
 }
@@ -1448,7 +1482,7 @@ function submitSkill(){
 }
 /* ---------- events ---------- */
 var loginDlg=$('#login');
-['reportdlg','certdlg'].forEach(function(i){var d=document.getElementById(i); if(d) d.addEventListener('click',function(e){ if(e.target===d) d.close(); });});
+['reportdlg','certdlg','casedlg'].forEach(function(i){var d=document.getElementById(i); if(d) d.addEventListener('click',function(e){ if(e.target===d) d.close(); });});
 function openLogin(){ if(loginDlg&&loginDlg.showModal){loginDlg.showModal();} else {location.hash='#/help';} }
 function closeLogin(){ if(loginDlg&&loginDlg.open) loginDlg.close(); }
 
@@ -1513,6 +1547,12 @@ document.addEventListener('click',function(e){
       saveSkills(); refreshSkillDash();
       break;
     case 'submit-review': submitReview(); break;
+    case 'read-case':
+      var rc=cases.filter(function(x){return x.id===el.getAttribute('data-id');})[0];
+      if(rc){ $('#case-body').innerHTML=caseDetailHTML(rc); if($('#casedlg').showModal) $('#casedlg').showModal(); }
+      break;
+    case 'close-case': $('#casedlg').close(); break;
+    case 'toggle-cases': casesAll=!casesAll; refreshDash(); break;
     case 'delete-case':
       if(el.getAttribute('data-confirm')!=='1'){ el.setAttribute('data-confirm','1'); el.textContent='กดอีกครั้งเพื่อยืนยันการลบ (ย้อนกลับไม่ได้)'; }
       else { var dId=el.getAttribute('data-id'); cases=cases.filter(function(c){return c.id!==dId;}); save(); location.hash='#/track?deleted=1'; }
@@ -1520,7 +1560,7 @@ document.addEventListener('click',function(e){
     case 'wipe-all':
       if(el.getAttribute('data-confirm')!=='1'){ el.setAttribute('data-confirm','1'); el.textContent='กดอีกครั้งเพื่อยืนยันล้างข้อมูลทั้งหมด'; }
       else {
-        ['oss-demo-cases-v2','oss-demo-skills-v2','oss-demo-reviews-v2','oss-demo-reports-v1'].forEach(function(k){try{localStorage.removeItem(k);}catch(e){}});
+        ['oss-demo-cases-v3','oss-demo-skills-v2','oss-demo-reviews-v2','oss-demo-reports-v1'].forEach(function(k){try{localStorage.removeItem(k);}catch(e){}});
         cases=seed(); skills=seedSkills(); reviews=seedReviews(); reports=loadReports(); triage=null; lastCase=null;
         location.hash='#/home'; render();
       }

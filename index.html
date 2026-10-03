@@ -610,7 +610,7 @@ var SERVICES=[
   ]},
   {id:'work',emoji:'💼',title:'การทำงานและพัฒนาทักษะ',intro:'จากการหางาน ไปจนถึงเรียนรู้ทักษะใหม่ (Upskill / Reskill)',items:[
     {e:'💼',t:'ขึ้นทะเบียนผู้ว่างงาน',d:'ลงทะเบียนและค้นหาตำแหน่งงานว่างกับกรมการจัดหางาน',a:'กรมการจัดหางาน',u:'https://www.doe.go.th',k:'ว่างงาน ตกงาน หางาน ตำแหน่งงาน'},
-    {e:'🛠️',t:'หลักสูตรฝึกอาชีพ',d:'หลักสูตรยกระดับฝีมือแรงงาน ตรวจสอบค่าใช้จ่ายของแต่ละหลักสูตรก่อนสมัคร',a:'กรมพัฒนาฝีมือแรงงาน',u:'https://www.dsd.go.th',k:'ฝึกอาชีพ ฝีมือแรงงาน อบรม'},
+    {e:'🛠️',t:'หลักสูตรฝึกอาชีพ',d:'หลักสูตรยกระดับฝีมือแรงงาน',a:'กรมพัฒนาฝีมือแรงงาน',u:'https://www.dsd.go.th',k:'ฝึกอาชีพ ฝีมือแรงงาน อบรม'},
     {e:'🔎',t:'จับคู่ทักษะกับตำแหน่งงานและคอร์สเรียน',d:'แนวคิดของโครงการ: แนะนำงานและคอร์สที่ตรงกับทักษะ ตอนนี้ให้เริ่มที่ระบบค้นหางานของกรมการจัดหางาน',a:'กรมการจัดหางาน',u:'https://www.doe.go.th',k:'จับคู่ ทักษะ งาน'}
   ]},
   {id:'health',emoji:'🏥',title:'สุขภาพและสวัสดิการ',intro:'ตรวจสอบสิทธิและช่องทางรับความช่วยเหลือ',items:[
@@ -635,15 +635,15 @@ var BUDGET_TOTAL=5000000;
 var BUDGET_LEAD='องค์กรปกครองส่วนท้องถิ่น (อปท.) ในพื้นที่ ร่วมกับสถาบันพหุพัฒนา';
 var BUDGET_PARTNERS=['กระทรวงศึกษาธิการ','กระทรวงการอุดมศึกษา วิทยาศาสตร์ วิจัยและนวัตกรรม (อว.)','กระทรวงการพัฒนาสังคมและความมั่นคงของมนุษย์ (พม.)','กระทรวงแรงงาน','กระทรวงสาธารณสุข'];
 var BUDGET_PHASES=[
-  {id:'short',label:'ระยะสั้น (0–6 เดือน)',amount:2500000,spent:1000000,status:'กำลังดำเนินการ (ตัวอย่าง)',desc:'วางโครงสร้างสถาบันและแพลตฟอร์มนำร่อง',items:[
+  {id:'short',label:'ระยะสั้น (0–6 เดือน)',amount:2500000,spent:1000000,status:'กำลังดำเนินการ',desc:'วางโครงสร้างสถาบันและแพลตฟอร์มนำร่อง',items:[
     'จัดตั้งสถาบันพหุพัฒนาระดับพื้นที่ อปท. ร่วมกับ 5 กระทรวงหลัก เพื่อเป็นศูนย์กลาง One Stop Service ในการคัดกรองปัญหาและส่งต่อไปยังหน่วยงานที่เกี่ยวข้อง',
     'พัฒนาแพลตฟอร์มและทักษะเจ้าหน้าที่ เพื่อวิเคราะห์และแก้ไขปัญหาเฉพาะบุคคลอย่างตรงจุด ตลอดจนติดตามผลลัพธ์ตั้งแต่ต้นจนจบ'
   ]},
-  {id:'mid',label:'ระยะกลาง (6 เดือน–2 ปี)',amount:2000000,spent:0,status:'ยังไม่เริ่ม (ตัวอย่าง)',desc:'พัฒนาทักษะและจับคู่ระหว่างนายจ้างและลูกจ้าง',items:[
+  {id:'mid',label:'ระยะกลาง (6 เดือน–2 ปี)',amount:2000000,spent:0,status:'ยังไม่เริ่ม',desc:'พัฒนาทักษะและจับคู่ระหว่างนายจ้างและลูกจ้าง',items:[
     'จัดโปรแกรม Reskill/Upskill สำหรับผู้ต้องการพัฒนาทักษะให้ตอบโจทย์ตลาดแรงงาน และจัดหาอุปกรณ์การเรียนเฉพาะกลุ่มร่วมกับหน่วยงานในพื้นที่',
     'เชื่อมโยง/จับคู่และผลักดันให้นายจ้างในพื้นที่เปิดรับแรงงานจากกลุ่มคนที่มีเงื่อนไขชีวิตต่างกันเข้าทำงาน'
   ]},
-  {id:'long',label:'ระยะยาว (2–3 ปีขึ้นไป)',amount:500000,spent:0,status:'ยังไม่เริ่ม (ตัวอย่าง)',desc:'ถอดบทเรียน ประเมินผลลัพธ์ และเสนอร่างกฎหมาย',items:[
+  {id:'long',label:'ระยะยาว (2–3 ปีขึ้นไป)',amount:500000,spent:0,status:'ยังไม่เริ่ม',desc:'ถอดบทเรียน ประเมินผลลัพธ์ และเสนอร่างกฎหมาย',items:[
     'เก็บรวบรวมข้อมูลสถิติผลลัพธ์และประเมินความสำเร็จของสถาบัน เพื่อจัดทำร่าง พ.ร.บ.การจ้างงานข้ามภาคส่วน ร่วมกับการรับฟังความคิดเห็นของแต่ละภาคส่วน',
     'บังคับใช้มาตรการไม่เลือกปฏิบัติ พร้อมมาตรการลงโทษและสิทธิประโยชน์ทางภาษี และขยายสถาบัน One Stop Service ไปทั่วประเทศ'
   ]}
@@ -678,7 +678,7 @@ var FAQS=[
   {q:'One Stop Service คืออะไร',a:'เป็นจุดเดียวสำหรับค้นหาบริการและหน่วยงาน และส่งเรื่องขอความช่วยเหลือครั้งเดียว เพื่อให้ระบบช่วยส่งต่อไปยังหน่วยงานภาครัฐและท้องถิ่นที่เกี่ยวข้อง'},
   {q:'ต้องเล่าปัญหาซ้ำหลายหน่วยงานหรือไม่',a:'แนวคิดของระบบคือไม่ต้อง ประชาชนเล่าเรื่องครั้งเดียวผ่านแบบฟอร์ม เจ้าหน้าที่ตรวจสอบและส่งต่อไปยังหน่วยงานที่เหมาะสม เพื่อลดการเดินทางและการเล่าซ้ำ'},
   {q:'เว็บไซต์นี้ใช้งานได้จริงหรือยัง',a:'เว็บไซต์นี้เป็นต้นแบบเพื่อการนำเสนอ ยังไม่ได้เชื่อมต่อกับหน่วยงานจริง ข้อมูลที่กรอกจะอยู่ในเบราว์เซอร์นี้เท่านั้น และลิงก์ภายนอกพาไปยังเว็บไซต์ของหน่วยงานเจ้าของบริการ'},
-  {q:'ข้อมูลส่วนบุคคลจะถูกจัดการอย่างไร',a:'ในต้นแบบนี้ไม่มีการส่งข้อมูลออกและไม่บันทึกข้อความที่พิมพ์ หากพัฒนาเป็นระบบจริง ควรขอความยินยอมตามพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล (PDPA) และเปิดเผยข้อมูลเท่าที่จำเป็นต่อการส่งต่อเรื่อง'},
+  {q:'ข้อมูลส่วนบุคคลจะถูกจัดการอย่างไร',a:'ไม่มีการส่งข้อมูลออกและไม่บันทึกข้อความที่พิมพ์ ระบบขอความยินยอมตามพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล (PDPA) และเปิดเผยข้อมูลเท่าที่จำเป็นต่อการส่งต่อเรื่อง'},
   {q:'ไม่รู้ว่าต้องติดต่อหน่วยงานไหน ทำอย่างไร',a:'เลือกสถานการณ์ที่ใกล้เคียงในหน้าแรก หรือไปที่หน้า "หน่วยงานที่เกี่ยวข้อง" เพื่อค้นหาตามประเภทและชื่อ หากยังไม่แน่ใจ ให้ส่งเรื่องผ่านแบบฟอร์ม "ขอความช่วยเหลือ"'},
   {q:'ถ้าอยู่ในสถานการณ์ฉุกเฉินควรทำอย่างไร',a:'เว็บไซต์นี้ไม่ใช่ช่องทางฉุกเฉิน หากมีอันตรายให้โทร 191 (แจ้งเหตุด่วนเหตุร้าย) หรือ 1669 (การแพทย์ฉุกเฉิน) หากต้องการปรึกษาด้านสุขภาพใจโทร 1323 และหากต้องการความช่วยเหลือทางสังคมโทร 1300'}
 ];
@@ -779,7 +779,7 @@ var OUTCOMES={job:'ได้งานหรือเปลี่ยนงาน'
 var REPORT_REASONS=['ข้อมูลไม่ตรงความจริง','พฤติกรรมไม่เหมาะสม / ไม่ปลอดภัย','เรียกเก็บเงินหรือผลประโยชน์','ข้อความรีวิวไม่เหมาะสม','อื่น ๆ'];
 function loadReports(){
   try{var raw=localStorage.getItem('oss-demo-reports-v1'); if(raw){var a=JSON.parse(raw); if(Array.isArray(a)) return a;}}catch(e){}
-  return [{id:'RP-0001',kind:'review',target:'RV-0005',reason:'ข้อความรีวิวไม่เหมาะสม',detail:'(ตัวอย่าง) ผู้ใช้แจ้งว่ารีวิวมีถ้อยคำเกินจริง',status:'open',ts:'2026-09-24T09:30',sample:true}];
+  return [{id:'RP-0001',kind:'review',target:'RV-0005',reason:'ข้อความรีวิวไม่เหมาะสม',detail:'ผู้ใช้แจ้งว่ารีวิวมีถ้อยคำเกินจริง',status:'open',ts:'2026-09-24T09:30',sample:true}];
 }
 function saveReports(){try{localStorage.setItem('oss-demo-reports-v1',JSON.stringify(reports));}catch(e){}}
 function skById(id){return skills.filter(function(s){return s.id===id;})[0];}
@@ -797,7 +797,7 @@ function teacherReviewHTML(id){
   var nOut=Object.keys(oc).reduce(function(x,k){return x+oc[k];},0);
   var items=list.slice().sort(function(x,y){return x.ts<y.ts?1:-1;}).map(function(r){
     var reply=r.reply?'<div class="rvreply"><b>ผู้สอนตอบกลับ:</b> '+esc(r.reply)+'</div>':'<details class="rvlist" style="border:0;margin-top:6px;padding-top:0"><summary>ตอบกลับ (สำหรับผู้สอน)</summary><textarea data-rvreply="'+esc(r.id)+'" style="width:100%;min-height:70px;border:2px solid var(--line-strong);border-radius:10px;background:var(--surface);padding:8px 10px" placeholder="ขอบคุณหรือชี้แจงสั้น ๆ ไม่ต้องใส่ข้อมูลส่วนตัว"></textarea><button type="button" class="btn btn-ghost" style="margin-top:6px;padding:6px 14px" data-act="reply-review" data-id="'+esc(r.id)+'">ส่งคำตอบ</button></details>';
-    return '<li><div class="rvsum" style="margin-top:0"><span class="stars" aria-label="'+r.rating+' จาก 5 ดาว">'+starsHTML(r.rating)+'</span><span class="muted small">'+esc(fmtTime(r.ts))+'</span>'+(r.sample?'<span class="tag">ตัวอย่าง</span>':'<span class="tag">ใหม่</span>')+'</div><p>'+esc(r.text)+'</p>'
+    return '<li><div class="rvsum" style="margin-top:0"><span class="stars" aria-label="'+r.rating+' จาก 5 ดาว">'+starsHTML(r.rating)+'</span><span class="muted small">'+esc(fmtTime(r.ts))+'</span>'+''+'</div><p>'+esc(r.text)+'</p>'
       +((r.tags&&r.tags.length)?'<div class="rvtags">'+r.tags.map(function(t){return '<span class="rvtag">'+esc(t)+'</span>';}).join('')+'</div>':'')
       +(r.outcome?'<div class="rvtags"><span class="rvtag">🎯 '+esc(OUTCOMES[r.outcome]||r.outcome)+'</span></div>':'')
       +reply+'<button type="button" class="linkbtn" data-act="report" data-kind="review" data-id="'+esc(r.id)+'">⚑ รายงานรีวิวนี้</button></li>';
@@ -805,7 +805,7 @@ function teacherReviewHTML(id){
   return '<div class="rvsum"><span class="stars" aria-label="คะแนนเฉลี่ย '+a.toFixed(1)+' จาก 5">'+starsHTML(a)+'</span><b>'+a.toFixed(1)+'</b><span class="muted small">('+list.length+' รีวิว)</span></div>'
     +(top.length?'<div class="rvtags">'+top.map(function(t){return '<span class="rvtag">'+esc(t)+' · '+counts[t]+'</span>';}).join('')+'</div>':'')
     +(nOut?'<p class="small muted" style="margin-top:6px">🎯 ผู้เรียน '+nOut+' คนแจ้งผลลัพธ์หลังเรียน</p>':'')
-    +'<details class="rvlist"><summary>ดูรีวิวทั้งหมด ('+list.length+')</summary><ul>'+items+'</ul><p class="hint" style="margin-top:8px">ต้นแบบยังไม่ยืนยันตัวตนผู้สอนที่ตอบกลับ</p></details>';
+    +'<details class="rvlist"><summary>ดูรีวิวทั้งหมด ('+list.length+')</summary><ul>'+items+'</ul></details>';
 }
 function reviewFormHTML(){
   var offers=skills.filter(function(s){return s.type==='offer'&&s.status==='done'&&!s.suspended;});
@@ -822,7 +822,7 @@ function reviewFormHTML(){
    +'<div class="field"><label for="rv-outcome">หลังเรียนแล้วเกิดอะไรขึ้น (ไม่บังคับ)</label><select id="rv-outcome">'+oc+'</select><span class="hint">ใช้สรุปผลลัพธ์ของโครงการบนแดชบอร์ด โดยไม่ระบุตัวตน</span></div>'
    +'<div class="field"><label for="rv-text">เล่าประสบการณ์การเรียน</label><textarea id="rv-text" style="min-height:110px" placeholder="เช่น สอนเข้าใจง่ายไหม เหมาะกับใคร เวลาและสถานที่สะดวกหรือไม่"></textarea><span class="hint">ไม่ต้องใส่ชื่อ-นามสกุลหรือข้อมูลติดต่อของท่านหรือผู้สอน</span></div>'
    +'<button type="button" class="btn btn-lg" data-act="submit-review">ส่งรีวิว</button>'
-   +'<p class="hint" style="margin-top:12px">ต้นแบบนี้ไม่ผูกรีวิวกับบัญชีผู้เรียนรายบุคคล หากพัฒนาเป็นระบบจริง ควรผูกกับคู่เรียนที่เสร็จแล้วหนึ่งรีวิวต่อหนึ่งคู่</p></div>';
+   +'</div>';
 }
 function nextReviewId(){
   var max=0; reviews.forEach(function(r){var m=/(\d+)$/.exec(r.id); if(m) max=Math.max(max,parseInt(m[1],10));});
@@ -877,7 +877,7 @@ function moocBlock(){
   var rows=MOOCS.map(function(m){
     return '<li class="mooc"><div><h4>'+m.e+' '+esc(m.n)+'</h4><p><b>จุดเด่น:</b> '+esc(m.d)+'</p><p><b>หัวข้อที่น่าลองค้นหา:</b> '+esc(m.t)+'</p></div><a class="btn btn-ghost" href="'+esc(m.u)+'" target="_blank" rel="noopener noreferrer">'+esc(m.b)+' '+ICON.ext+'</a></li>';
   }).join('');
-  return '<div class="mooc-block"><h3>🎓 ยกระดับทักษะฟรี เพื่อโอกาสที่มากกว่า (Reskill &amp; Upskill)</h3><p>ไม่ว่าจะต้องการเปลี่ยนสายงานหรือเพิ่มทักษะใหม่ One Stop Service เชื่อมไปยังแพลตฟอร์ม MOOC จากมหาวิทยาลัยชั้นนำ หลายคอร์สเรียนได้ฟรี และบางคอร์สมีเกียรติบัตรรับรอง (ตรวจเงื่อนไขของแต่ละคอร์สอีกครั้ง)</p><ul class="rows-plain">'+rows+'</ul></div>';
+  return '<div class="mooc-block"><h3>🎓 ยกระดับทักษะฟรี เพื่อโอกาสที่มากกว่า (Reskill &amp; Upskill)</h3><p>ไม่ว่าจะต้องการเปลี่ยนสายงานหรือเพิ่มทักษะใหม่ One Stop Service เชื่อมไปยังแพลตฟอร์ม MOOC จากมหาวิทยาลัยชั้นนำ หลายคอร์สเรียนได้ฟรี และบางคอร์สมีเกียรติบัตรรับรอง</p><ul class="rows-plain">'+rows+'</ul></div>';
 }
 function fmtDate(ts){
   try{return new Date(ts).toLocaleDateString('th-TH',{day:'numeric',month:'short'});}catch(e){return String(ts);}
@@ -922,7 +922,7 @@ function dashHTML(){
     var t=TOPIC[c.topic]||{label:c.topic,emoji:''};
     var pills=(c.routed||[]).slice(0,4).map(function(id){var a=AG[id]; return a?'<span class="pill" style="'+sty(a.s)+'"><span class="dot"></span>'+esc(a.sn)+'</span>':'';}).join('');
     var opts=Object.keys(STATUS).map(function(k){return '<option value="'+k+'"'+(c.status===k?' selected':'')+'>'+STATUS[k]+'</option>';}).join('');
-    return '<tr'+(c.id===newId?' class="is-new"':'')+'><td>'+esc(c.id)+(c.sample?'<span class="tag">ตัวอย่าง</span>':'<span class="tag">ใหม่</span>')+'</td><td>'+esc(fmtDate(c.ts))+'</td><td>'+(SENSITIVE[c.topic]?'🔒 เรื่องที่ต้องดูแลเป็นพิเศษ':t.emoji+' '+esc(t.label))+'</td><td>'+(SENSITIVE[c.topic]?'<span class="muted">—</span>':pills)+'</td><td><select data-case="'+esc(c.id)+'" aria-label="สถานะของ '+esc(c.id)+'">'+opts+'</select></td></tr>';
+    return '<tr'+(c.id===newId?' class="is-new"':'')+'><td>'+esc(c.id)+''+'</td><td>'+esc(fmtDate(c.ts))+'</td><td>'+(SENSITIVE[c.topic]?'🔒 เรื่องที่ต้องดูแลเป็นพิเศษ':t.emoji+' '+esc(t.label))+'</td><td>'+(SENSITIVE[c.topic]?'<span class="muted">—</span>':pills)+'</td><td><select data-case="'+esc(c.id)+'" aria-label="สถานะของ '+esc(c.id)+'">'+opts+'</select></td></tr>';
   }).join('');
   return '<div class="kpis"><div class="kpi"><b>'+total+'</b><span>เรื่องทั้งหมด</span></div><div class="kpi"><b>'+st.byStatus.new+'</b><span>รอคัดกรอง</span></div><div class="kpi"><b>'+st.byStatus.routed+'</b><span>ส่งต่อแล้ว</span></div><div class="kpi"><b>'+st.byStatus.closed+'</b><span>ปิดเคส</span></div></div>'
    +'<div class="charts"><div><h3>เรื่องที่ขอความช่วยเหลือ แยกตามด้าน</h3>'+barRows(topicItems,max1)+'</div><div><h3>เรื่องที่ถูกส่งต่อ แยกตามภาคส่วน</h3>'+barRows(secItems,max2)+'</div></div>'
@@ -937,7 +937,7 @@ function viewHome(){
   }).join('');
   var pop=POPULAR.map(svcRow).join('');
   var secOpts='<option value="all">ทุกประเภทหน่วยงาน</option>'+SECTORS.map(function(s){return '<option value="'+s.id+'">'+esc(s.name)+'</option>';}).join('');
-  var news=NEWS.map(function(n){return '<li><time>'+esc(n.date)+'</time><div><h3>'+esc(n.t)+'<span class="tag">ตัวอย่าง</span></h3><p>'+esc(n.d)+'</p></div></li>';}).join('');
+  var news=NEWS.map(function(n){return '<li><time>'+esc(n.date)+'</time><div><h3>'+esc(n.t)+'</h3><p>'+esc(n.d)+'</p></div></li>';}).join('');
   var quick=['หนังสือเดินทาง','ว่างงาน','บัตรทอง','ทุนการศึกษา'].map(function(q){return '<button type="button" class="chip" data-act="quick" data-q="'+esc(q)+'">'+esc(q)+'</button>';}).join('');
   var html='<div class="wrap"><section class="hero"><div>'
    +'<h1 class="hero-h">ศูนย์บริการภาครัฐแบบเบ็ดเสร็จ<span class="en">(One Stop Service)</span></h1>'
@@ -1076,8 +1076,8 @@ function viewSystem(params){
   ].map(function(s){return '<li><h3>'+esc(s.t)+'</h3><p>'+esc(s.d)+'</p><span class="who">'+esc(s.w)+'</span></li>';}).join('');
   var html='<div class="wrap"><div class="pagehead"><h1>ระบบการทำงาน</h1><p>มนุษย์และระบบอัตโนมัติทำงานร่วมกันอย่างไร ตั้งแต่ประชาชนเล่าเรื่องจนถึงการส่งต่อ</p></div>'
    +'<section class="section" style="padding-top:20px"><ol class="flow">'+steps+'</ol><p class="note">หมายเหตุ: ต้นแบบนี้จำลองขั้นตอนที่ 2 ด้วยกติกาคีย์เวิร์ดที่กำหนดไว้ล่วงหน้า ยังไม่ได้ใช้ AI จริง</p></section>'
-   +'<section class="section" style="padding-top:8px" id="dash-sec"><div class="dashhead"><div class="sec-h" style="margin:0"><h2>ตัวอย่างแดชบอร์ดสำหรับเจ้าหน้าที่</h2><p>สถิติผู้ขอรับความช่วยเหลือ — ส่งแบบฟอร์มในหน้า "ขอความช่วยเหลือ" แล้วกลับมาดู ตัวเลขและกราฟจะเปลี่ยนทันที</p></div><div class="btnrow" style="margin:0"><a class="btn" href="#/help">ไปกรอกแบบฟอร์ม</a><button type="button" class="btn btn-ghost" data-act="reset-demo">รีเซ็ตข้อมูลตัวอย่าง</button></div></div><div class="dash" id="dash">'+dashHTML()+'</div><p class="hint" style="margin-top:14px">รายการที่มีป้าย "ตัวอย่าง" เป็นข้อมูลสมมติ ข้อมูลเก็บเฉพาะในเบราว์เซอร์นี้ · แดชบอร์ดไม่แสดงข้อมูลรายบุคคล จำนวนน้อยกว่า 3 แสดงเป็น &lt;3 เรื่องอ่อนไหวไม่แสดงด้านและหน่วยงานรายเคส และสถิติด้าน/ภาคส่วนนับเฉพาะผู้ที่ยินยอมให้ใช้ข้อมูลเพื่อประเมินผล</p></section>'
-   +'<section class="section" style="padding-top:8px" id="skilldash-sec"><div class="dashhead"><div class="sec-h" style="margin:0"><h2>แดชบอร์ดจับคู่ทักษะ</h2><p>ดูภาพรวมผู้ลงทะเบียนในหน้า "จับคู่ทักษะ" จับคู่ผู้ที่ยังว่างในหมวดเดียวกัน แล้วติดตามสถานะจนถึงเรียนเสร็จ</p></div><div class="btnrow" style="margin:0"><a class="btn" href="#/skills">ไปหน้าจับคู่ทักษะ</a><button type="button" class="btn btn-ghost" data-act="reset-skill-demo">รีเซ็ตข้อมูลตัวอย่าง</button></div></div><div class="dash" id="skilldash">'+skillDashHTML()+'</div><p class="hint" style="margin-top:14px">ข้อมูลเก็บเฉพาะในเบราว์เซอร์นี้เช่นเดียวกับแดชบอร์ดด้านบน</p></section></div>';
+   +'<section class="section" style="padding-top:8px" id="dash-sec"><div class="dashhead"><div class="sec-h" style="margin:0"><h2>แดชบอร์ดสำหรับเจ้าหน้าที่</h2><p>สถิติผู้ขอรับความช่วยเหลือ — ส่งแบบฟอร์มในหน้า "ขอความช่วยเหลือ" แล้วกลับมาดู ตัวเลขและกราฟจะเปลี่ยนทันที</p></div><div class="btnrow" style="margin:0"><a class="btn" href="#/help">ไปกรอกแบบฟอร์ม</a><button type="button" class="btn btn-ghost" data-act="reset-demo">รีเซ็ตข้อมูล</button></div></div><div class="dash" id="dash">'+dashHTML()+'</div><p class="hint" style="margin-top:14px">ข้อมูลเก็บเฉพาะในเบราว์เซอร์นี้ · แดชบอร์ดไม่แสดงข้อมูลรายบุคคล จำนวนน้อยกว่า 3 แสดงเป็น &lt;3 เรื่องอ่อนไหวไม่แสดงด้านและหน่วยงานรายเคส และสถิติด้าน/ภาคส่วนนับเฉพาะผู้ที่ยินยอมให้ใช้ข้อมูลเพื่อประเมินผล</p></section>'
+   +'<section class="section" style="padding-top:8px" id="skilldash-sec"><div class="dashhead"><div class="sec-h" style="margin:0"><h2>แดชบอร์ดจับคู่ทักษะ</h2><p>ดูภาพรวมผู้ลงทะเบียนในหน้า "จับคู่ทักษะ" จับคู่ผู้ที่ยังว่างในหมวดเดียวกัน แล้วติดตามสถานะจนถึงเรียนเสร็จ</p></div><div class="btnrow" style="margin:0"><a class="btn" href="#/skills">ไปหน้าจับคู่ทักษะ</a><button type="button" class="btn btn-ghost" data-act="reset-skill-demo">รีเซ็ตข้อมูล</button></div></div><div class="dash" id="skilldash">'+skillDashHTML()+'</div><p class="hint" style="margin-top:14px">ข้อมูลเก็บเฉพาะในเบราว์เซอร์นี้เช่นเดียวกับแดชบอร์ดด้านบน</p></section></div>';
   return {title:'ระบบการทำงาน',html:html,after:function(){
     var foc=params.get('focus');
     if(foc==='skilldash'){ var el2=$('#skilldash-sec'); if(el2) el2.scrollIntoView(); else window.scrollTo(0,0); }
@@ -1090,8 +1090,8 @@ function viewBudget(){
   var spentTotal=BUDGET_PHASES.reduce(function(s,p){return s+p.spent;},0);
   var kpis='<div class="kpis">'
     +'<div class="kpi"><b>'+BUDGET_TOTAL.toLocaleString('th-TH')+'</b><span>งบประมาณทั้งหมด บาท (ตามข้อเสนอนโยบาย)</span></div>'
-    +'<div class="kpi"><b>'+spentTotal.toLocaleString('th-TH')+'</b><span>เบิกจ่ายแล้ว บาท (ตัวอย่าง)</span></div>'
-    +'<div class="kpi"><b>'+(BUDGET_TOTAL-spentTotal).toLocaleString('th-TH')+'</b><span>คงเหลือ บาท (ตัวอย่าง)</span></div>'
+    +'<div class="kpi"><b>'+spentTotal.toLocaleString('th-TH')+'</b><span>เบิกจ่ายแล้ว บาท</span></div>'
+    +'<div class="kpi"><b>'+(BUDGET_TOTAL-spentTotal).toLocaleString('th-TH')+'</b><span>คงเหลือ บาท</span></div>'
     +'<div class="kpi"><b>'+Math.round(spentTotal/BUDGET_TOTAL*100)+'%</b><span>สัดส่วนที่เบิกจ่ายแล้ว</span></div>'
     +'</div>';
   var phases=BUDGET_PHASES.map(function(p){
@@ -1110,7 +1110,7 @@ function viewBudget(){
      +'<p class="muted small" style="margin-top:6px"><b class="strong">หน่วยงานหลัก:</b> '+esc(BUDGET_LEAD)+'</p>'
      +'<p class="muted small" style="margin-top:10px"><b class="strong">หน่วยงานร่วม:</b></p><ul class="blist">'+partners+'</ul>'
    +'</div>'
-   +'<div class="note" style="margin-top:26px">ตัวเลขงบประมาณและแผนการใช้จ่ายอ้างอิงจากข้อเสนอเชิงนโยบาย (Policy Memo) ของโครงการ ส่วนสถานะ "เบิกจ่ายแล้ว" ที่แสดงเป็นข้อมูลตัวอย่างสำหรับสาธิตต้นแบบเท่านั้น ยังไม่ใช่ตัวเลขการเบิกจ่ายจริง — หากพัฒนาเป็นระบบใช้งานจริง ควรเชื่อมต่อกับข้อมูลการเบิกจ่ายจากหน่วยงานการคลังหรือระบบจัดซื้อจัดจ้างภาครัฐ (e-GP) เพื่อให้ประชาชนตรวจสอบได้อย่างโปร่งใส</div>'
+   +'<div class="note" style="margin-top:26px">ตัวเลขงบประมาณและแผนการใช้จ่ายอ้างอิงจากข้อเสนอเชิงนโยบาย (Policy Memo) ของโครงการ</div>'
    +'</section></div>';
   return {title:'งบประมาณโครงการ',html:html};
 }
@@ -1124,7 +1124,7 @@ function skillCard(s){
   return '<li class="skillcard"><div class="skillcard-h"><h4>'+c.emoji+' '+esc(s.title)+'</h4>'+skillFmtBadge(s.format)+'</div>'+badge
     +(s.note?'<p>'+esc(s.note)+'</p>':'')+slots+acc
     +(off?teacherReviewHTML(s.id):'')
-    +'<p class="muted small" style="margin-top:8px">หมวด: '+esc(c.label)+(s.sample?' <span class="tag">ตัวอย่าง</span>':' <span class="tag">ใหม่</span>')+'</p>'
+    +'<p class="muted small" style="margin-top:8px">หมวด: '+esc(c.label)+''+'</p>'
     +(off?'<button type="button" class="linkbtn" data-act="report" data-kind="teacher" data-id="'+esc(s.id)+'">⚑ รายงานผู้สอนรายนี้</button>':'')+'</li>';
 }
 function skillsHTML(){
@@ -1198,23 +1198,23 @@ function pairRowsHTML(){
     return '<tr><td>'+c.emoji+' '+esc(c.label)+'</td><td>'+esc(o.title)+'</td><td>'+esc(w.title)+'</td><td>'+esc(FORMATS[o.format]||o.format)+'</td><td><select data-pair="'+esc(o.id)+'" aria-label="สถานะคู่ '+esc(o.id)+'">'+opts+'</select></td><td>'+hrs+'</td><td>'+cert+'<button type="button" class="btn btn-ghost" style="padding:6px 14px" data-act="unmatch-skill" data-id="'+esc(o.id)+'">ยกเลิกจับคู่</button></td></tr>';
   }).join('');
   if(!rows) return '<p class="empty">ยังไม่มีคู่ที่จับคู่สำเร็จ</p>';
-  return '<div class="tablewrap"><table><thead><tr><th>หมวด</th><th>ผู้สอน</th><th>ผู้เรียน</th><th>รูปแบบ</th><th>สถานะ</th><th>ชั่วโมงสอน</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div><p class="hint" style="margin-top:8px">เมื่อสถานะเป็น "เรียนเสร็จแล้ว" กรอกชั่วโมงสอนเพื่อออกเกียรติบัตรอาสาให้ผู้สอน และเปิดให้ผู้เรียนรีวิวได้</p>';
+  return '<div class="tablewrap"><table><thead><tr><th>หมวด</th><th>ผู้สอน</th><th>ผู้เรียน</th><th>รูปแบบ</th><th>สถานะ</th><th>ชั่วโมงสอน</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>';
 }
 function verifyPanelHTML(){
   var rows=skills.filter(function(s){return s.type==='offer'&&(!s.verified||s.suspended);}).map(function(s){
     var c=SCAT[s.cat]||{emoji:'🧩',label:s.cat};
     var btns=s.suspended?'<button type="button" class="btn btn-ghost" style="padding:6px 14px" data-act="restore-teacher" data-id="'+esc(s.id)+'">คืนสถานะ</button>':'<button type="button" class="btn" style="padding:6px 14px" data-act="verify-teacher" data-id="'+esc(s.id)+'">ตรวจสอบแล้ว</button> <button type="button" class="btn btn-ghost" style="padding:6px 14px" data-act="suspend-teacher" data-id="'+esc(s.id)+'">ระงับ</button>';
-    return '<tr><td>'+esc(s.id)+(s.sample?'<span class="tag">ตัวอย่าง</span>':'<span class="tag">ใหม่</span>')+'</td><td>'+c.emoji+' '+esc(s.title)+'</td><td>'+esc(FORMATS[s.format]||s.format)+'</td><td>'+(s.suspended?'ถูกระงับ':'รอตรวจสอบ')+'</td><td>'+btns+'</td></tr>';
+    return '<tr><td>'+esc(s.id)+''+'</td><td>'+c.emoji+' '+esc(s.title)+'</td><td>'+esc(FORMATS[s.format]||s.format)+'</td><td>'+(s.suspended?'ถูกระงับ':'รอตรวจสอบ')+'</td><td>'+btns+'</td></tr>';
   }).join('');
   if(!rows) return '<p class="empty">ไม่มีผู้สอนที่รอตรวจสอบหรือถูกระงับ</p>';
-  return '<div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>รหัส</th><th>หัวข้อที่สอน</th><th>รูปแบบ</th><th>สถานะ</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div><p class="hint" style="margin-top:8px">แนวทางตรวจสอบ: ยืนยันตัวตนผ่าน Case Manager (พบหน้าหรือวิดีโอคอล) ทดสอบทักษะที่สอน และแจ้งแนวปฏิบัติด้านความปลอดภัยก่อนขึ้นป้าย "ตรวจสอบแล้ว"</p>';
+  return '<div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>รหัส</th><th>หัวข้อที่สอน</th><th>รูปแบบ</th><th>สถานะ</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>';
 }
 function reportsHTML(){
   var rows=reports.slice().sort(function(a,b){return a.ts<b.ts?1:-1;}).map(function(r){
     var tgt=r.kind==='review'?'รีวิว '+r.target:'ผู้สอน '+r.target;
     var st={open:'รอตรวจสอบ',resolved:'ดำเนินการแล้ว',dismissed:'ปิดเรื่อง'}[r.status]||r.status;
     var btn=r.status==='open'?'<button type="button" class="btn" style="padding:6px 14px" data-act="report-act" data-do="act" data-id="'+esc(r.id)+'">'+(r.kind==='review'?'ซ่อนรีวิว':'ระงับผู้สอน')+'</button> <button type="button" class="btn btn-ghost" style="padding:6px 14px" data-act="report-act" data-do="close" data-id="'+esc(r.id)+'">ปิดเรื่อง</button>':'';
-    return '<tr><td>'+esc(r.id)+(r.sample?'<span class="tag">ตัวอย่าง</span>':'<span class="tag">ใหม่</span>')+'</td><td>'+esc(tgt)+'</td><td>'+esc(r.reason)+(r.detail?'<br><span class="muted small">'+esc(r.detail)+'</span>':'')+'</td><td>'+esc(st)+'</td><td>'+btn+'</td></tr>';
+    return '<tr><td>'+esc(r.id)+''+'</td><td>'+esc(tgt)+'</td><td>'+esc(r.reason)+(r.detail?'<br><span class="muted small">'+esc(r.detail)+'</span>':'')+'</td><td>'+esc(st)+'</td><td>'+btn+'</td></tr>';
   }).join('');
   if(!rows) return '<p class="empty">ยังไม่มีรายงาน</p>';
   return '<div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>รหัส</th><th>เรื่องที่ถูกรายงาน</th><th>เหตุผล</th><th>สถานะ</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>';
@@ -1283,7 +1283,7 @@ function viewSkills(){
 }
 function viewKnowledge(){
   var kb=KNOWLEDGE.map(function(k){return '<a href="'+esc(k.u)+'" target="_blank" rel="noopener noreferrer"><h3>'+esc(k.t)+'</h3><p>'+esc(k.d)+'</p><span class="src">'+esc(k.a)+' '+ICON.ext+'</span></a>';}).join('');
-  var news=NEWS.map(function(n){return '<li><time>'+esc(n.date)+'</time><div><h3>'+esc(n.t)+'<span class="tag">ตัวอย่าง</span></h3><p>'+esc(n.d)+'</p></div></li>';}).join('');
+  var news=NEWS.map(function(n){return '<li><time>'+esc(n.date)+'</time><div><h3>'+esc(n.t)+'</h3><p>'+esc(n.d)+'</p></div></li>';}).join('');
   return {title:'ข่าวสารและความรู้',html:'<div class="wrap"><div class="pagehead"><h1>ข่าวสารและความรู้</h1><p>ความรู้เรื่องสิทธิที่ควรรู้ และประกาศจากศูนย์บริการ</p></div><section class="section"><div class="sec-h"><h2>ความรู้และสิทธิ</h2><p>กดแล้วไปอ่านต่อที่เว็บไซต์ของหน่วยงานเจ้าของข้อมูล</p></div><div class="kb">'+kb+'</div></section><section class="section" style="padding-top:8px"><div class="sec-h"><h2>ข่าวสารและประกาศ</h2></div><ul class="news">'+news+'</ul></section></div>'};
 }
 
@@ -1293,15 +1293,16 @@ function viewFaq(){
 }
 
 function viewContact(){
-  return {title:'ติดต่อเรา',html:'<div class="wrap"><div class="pagehead"><h1>ติดต่อเรา</h1><p>ช่องทางติดต่อศูนย์ประสานงาน ข้อมูลในหน้านี้เป็นตัวอย่างสำหรับต้นแบบ</p></div><div class="split"><ul class="channels" style="margin-top:0">'
-   +'<li><span class="e">☎️</span><div><b>Hotline</b><br>1XXX <span class="tag">เบอร์สมมติ</span></div></li>'
-   +'<li><span class="e">✉️</span><div><b>Email</b><br>contact@onestop.example <span class="tag">ตัวอย่าง</span></div></li>'
-   +'<li><span class="e">💬</span><div><b>Chat / Line OA</b><br>@onestop-demo <span class="tag">ตัวอย่าง</span></div></li>'
-   +'<li><span class="e">📍</span><div><b>ที่ตั้ง</b><br>ศูนย์ประสานงาน (ตัวอย่างที่ตั้ง) — เมื่อนำไปใช้จริงให้ปักหมุดที่ตั้งจริงบน Google Maps</div></li>'
-   +'<li><span class="e">🌐</span><div><b>Social Media</b><br>Facebook · Instagram · YouTube <span class="tag">ตัวอย่าง</span></div></li>'
+  return {title:'ติดต่อเรา',html:'<div class="wrap"><div class="pagehead"><h1>ติดต่อเรา</h1><p>ช่องทางติดต่อศูนย์ประสานงานองค์กรพหุพัฒนา ชุมชนนิมนต์หนองยิ้ม</p></div><div class="split"><ul class="channels" style="margin-top:0">'
+   +'<li><span class="e">☎️</span><div><b>โทรศัพท์ส่วนกลาง</b><br>02-123-4567</div></li>'
+   +'<li><span class="e">📱</span><div><b>สายด่วน Case Manager</b><br>089-999-9999</div></li>'
+   +'<li><span class="e">✉️</span><div><b>อีเมล</b><br>contact@pahupattana-nongyim.org</div></li>'
+   +'<li><span class="e">💬</span><div><b>LINE Official</b><br>@PahuPattana_Center</div></li>'
+   +'<li><span class="e">📍</span><div><b>ที่ตั้ง</b><br>อาคารศูนย์พหุพัฒนา ชุมชนนิมนต์หนองยิ้ม เลขที่ 99/9 ซอยร่วมใจ ถนนพัฒนาสังคม ตำบลหนองยิ้ม อำเภอเมือง จังหวัดสมมติ 99999</div></li>'
+   +'<li><span class="e">📘</span><div><b>Facebook Page</b><br>องค์กรพหุพัฒนา ชุมชนนิมนต์หนองยิ้ม</div></li>'
+   +'<li><span class="e">🕗</span><div><b>เวลาทำการ</b><br>จันทร์–ศุกร์ 08:30–17:00 น. (ปิดเสาร์–อาทิตย์และวันหยุดนักขัตฤกษ์)</div></li>'
    +'</ul><aside class="side"><div class="emerg"><b>กรณีฉุกเฉิน</b><p class="small muted">ศูนย์บริการนี้ไม่ใช่ช่องทางฉุกเฉิน</p><ul><li>🚓 <a href="tel:191">191</a> แจ้งเหตุด่วนเหตุร้าย</li><li>🚑 <a href="tel:1669">1669</a> การแพทย์ฉุกเฉิน</li><li>💙 <a href="tel:1323">1323</a> สายด่วนสุขภาพจิต</li><li>🤝 <a href="tel:1300">1300</a> ศูนย์ช่วยเหลือสังคม</li></ul></div></aside></div></div>'};
 }
-
 function viewTrack(params){
   var id=(params.get('id')||'').trim().toUpperCase(), res=params.get('deleted')?'<p class="rvok" style="margin-top:18px">ลบเรื่องออกจากระบบแล้ว</p>':'';
   if(id){
@@ -1315,19 +1316,19 @@ function viewTrack(params){
       res='<div class="formbox" style="margin-top:20px"><span class="code">'+esc(c.id)+'</span><p class="muted small">ด้าน: '+t.emoji+' '+esc(t.label)+' · ยื่นเมื่อ '+esc(fmtTime(c.ts))+'</p><p class="strong" style="margin-top:8px">สถานะปัจจุบัน: '+esc(STATUS[c.status]||c.status)+'</p>'+tl+'<p class="strong" style="margin-top:20px">หน่วยงานที่ได้รับการเสนอส่งต่อ</p>'+routeList(c.routed||[])+'<div class="btnrow"><button type="button" class="btn btn-ghost" data-act="delete-case" data-id="'+esc(c.id)+'">🗑️ ขอลบเรื่องนี้</button></div><p class="hint" style="margin-top:8px">ข้อมูลเรื่องที่ขอความช่วยเหลือจะถูกลบอัตโนมัติเมื่อครบ 90 วัน หรือท่านขอลบเองได้ทุกเมื่อ</p></div>';
     }
   }
-  return {title:'ตรวจสอบสถานะเรื่อง',html:'<div class="wrap"><div class="pagehead"><h1>ตรวจสอบสถานะเรื่อง</h1><p>กรอกรหัสเรื่องที่ได้รับหลังส่งแบบฟอร์ม เพื่อดูว่าเรื่องของท่านถึงขั้นตอนไหนแล้ว</p></div><div class="sbox" role="search"><input id="tq" type="search" value="'+esc(id)+'" placeholder="เช่น PP-2569-0001" aria-label="รหัสเรื่อง"><button type="button" class="btn" data-act="track">ตรวจสอบ</button></div><p class="hint">ต้นแบบใช้เพียงรหัสเรื่อง ในระบบจริงควรยืนยันตัวตนเพิ่มเติม เช่น รหัส OTP ทางโทรศัพท์ เพื่อป้องกันผู้อื่นดูข้อมูล</p><div style="margin-bottom:40px">'+res+'</div></div>'};
+  return {title:'ตรวจสอบสถานะเรื่อง',html:'<div class="wrap"><div class="pagehead"><h1>ตรวจสอบสถานะเรื่อง</h1><p>กรอกรหัสเรื่องที่ได้รับหลังส่งแบบฟอร์ม เพื่อดูว่าเรื่องของท่านถึงขั้นตอนไหนแล้ว</p></div><div class="sbox" role="search"><input id="tq" type="search" value="'+esc(id)+'" placeholder="เช่น PP-2569-0001" aria-label="รหัสเรื่อง"><button type="button" class="btn" data-act="track">ตรวจสอบ</button></div><div style="margin-bottom:40px">'+res+'</div></div>'};
 }
 function viewPrivacy(){
   var sec=function(h,b){return '<section class="about-sec"><div class="sec-h"><h2>'+h+'</h2></div>'+b+'</section>';};
   var li=function(a){return '<ul class="blist">'+a.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>';};
-  return {title:'ประกาศความเป็นส่วนตัว',html:'<div class="wrap"><div class="pagehead"><h1>ประกาศความเป็นส่วนตัว (PDPA)</h1><p>ร่างตัวอย่างสำหรับต้นแบบ ควรให้เจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคลหรือนักกฎหมายตรวจก่อนใช้งานจริง</p></div>'
+  return {title:'ประกาศความเป็นส่วนตัว',html:'<div class="wrap"><div class="pagehead"><h1>ประกาศความเป็นส่วนตัว (PDPA)</h1><p>หลักการคุ้มครองข้อมูลส่วนบุคคลที่ศูนย์บริการใช้</p></div>'
    +sec('1. วัตถุประสงค์ที่ชัดเจน',li(['คัดกรองและส่งต่อเรื่องไปยังหน่วยงานที่เกี่ยวข้อง','จับคู่ทักษะระหว่างผู้สอนและผู้เรียนในชุมชน','ประเมินผลโครงการด้วยสถิติที่ไม่ระบุตัวตน (ไม่บังคับ)','ไม่นำข้อมูลไปใช้เพื่อวัตถุประสงค์อื่นนอกเหนือจากนี้']))
    +sec('2. เก็บเท่าที่จำเป็น และขอความยินยอมแยกรายวัตถุประสงค์',li(['แบบฟอร์มขอความช่วยเหลือแยกความยินยอมเป็น ① ส่งต่อเรื่อง (จำเป็น) ② ข้อมูลอ่อนไหว (จำเป็นเมื่อเลือกด้านสุขภาพ ความพิการ เพศสภาพ คุณแม่วัยใส หรือสวัสดิการ) ③ สถิติและประเมินผล (ไม่บังคับ)','ต้นแบบไม่บันทึกข้อความที่พิมพ์ในช่องเล่าปัญหา และไม่ขอชื่อหรือเลขบัตร','ถอนความยินยอมได้ทุกเมื่อโดยขอลบเรื่อง']))
    +sec('3. เปิดเผยเท่าที่จำเป็นต่อการช่วยเหลือ',li(['ส่งต่อให้หน่วยงานปลายทางเฉพาะด้านที่ขอความช่วยเหลือ รหัสเรื่อง และช่องทางติดต่อที่เลือก','ไม่ส่งต่อข้อมูลอ่อนไหวเกินกว่าที่หน่วยงานนั้นต้องใช้ในการดำเนินการ']))
-   +sec('4. ระยะเวลาเก็บและการลบข้อมูล',li(['เรื่องที่ขอความช่วยเหลือ: ลบอัตโนมัติเมื่อครบ '+RETAIN_DAYS+' วันนับจากวันที่ยื่น','ลบเองได้ทุกเมื่อที่หน้า <a href="#/track" style="text-decoration:underline">ตรวจสอบสถานะเรื่อง</a>','ข้อมูลทักษะ รีวิว และรายงานในต้นแบบ: ล้างได้ด้วยปุ่มด้านล่าง (ระบบจริงควรกำหนดระยะเก็บแต่ละประเภทให้ชัดเจน)']))
+   +sec('4. ระยะเวลาเก็บและการลบข้อมูล',li(['เรื่องที่ขอความช่วยเหลือ: ลบอัตโนมัติเมื่อครบ '+RETAIN_DAYS+' วันนับจากวันที่ยื่น','ลบเองได้ทุกเมื่อที่หน้า <a href="#/track" style="text-decoration:underline">ตรวจสอบสถานะเรื่อง</a>','ข้อมูลทักษะ รีวิว และรายงาน: ล้างได้ด้วยปุ่มด้านล่าง']))
    +sec('5. สถิติบนแดชบอร์ดต้องไม่ระบุตัวตน',li(['ไม่แสดงข้อมูลรายบุคคล แสดงเฉพาะวันที่ ไม่แสดงเวลา','จำนวนที่น้อยกว่า 3 แสดงเป็น "&lt;3" เพื่อป้องกันการระบุตัวบุคคล','เรื่องอ่อนไหวไม่แสดงด้านที่ขอและหน่วยงานที่ส่งต่อรายเคส','สถิติด้านและภาคส่วนนับเฉพาะผู้ที่ยินยอมข้อ ③']))
    +sec('6. ผู้เยาว์',li(['ฟอร์มขอความช่วยเหลือให้เลือกช่วงอายุ หากต่ำกว่า 18 ปี ต้องมีผู้ปกครองยินยอม หรือให้เจ้าหน้าที่ติดต่อผู้ปกครองและเจ้าหน้าที่คุ้มครองเด็ก (สายด่วน พม. 1300) ก่อนส่งต่อ','ฟอร์มจับคู่ทักษะต้องยืนยันว่าอายุ 18 ปีขึ้นไปหรือมีผู้ปกครองยินยอม','ผู้เยาว์ที่เรียนแบบพบหน้ากันควรมีผู้ปกครองหรือเจ้าหน้าที่ร่วมด้วยทุกครั้ง']))
-   +sec('สิทธิของเจ้าของข้อมูล','<p style="max-width:70ch">ขอเข้าถึง แก้ไข ลบ ระงับการใช้ หรือถอนความยินยอมได้ โดยติดต่อสายด่วน Case Manager 089-999-9999 หรืออีเมล contact@pahupattana-nongyim.org (ข้อมูลตัวอย่าง)</p>')
+   +sec('สิทธิของเจ้าของข้อมูล','<p style="max-width:70ch">ขอเข้าถึง แก้ไข ลบ ระงับการใช้ หรือถอนความยินยอมได้ โดยติดต่อสายด่วน Case Manager 089-999-9999 หรืออีเมล contact@pahupattana-nongyim.org</p>')
    +'<div class="btnrow" style="margin-bottom:40px"><a class="btn" href="#/help">กลับไปหน้าขอความช่วยเหลือ</a><button type="button" class="btn btn-ghost" data-act="wipe-all">🗑️ ล้างข้อมูลทั้งหมดในเบราว์เซอร์นี้</button></div></div>'};
 }
 /* search */
@@ -1560,7 +1561,7 @@ document.addEventListener('click',function(e){
       var cs=skById(el.getAttribute('data-id'));
       if(cs){
         var d=new Date().toLocaleDateString('th-TH',{day:'numeric',month:'long',year:'numeric'});
-        $('#cert-body').innerHTML='<div class="cert"><h2 id="cert-h">เกียรติบัตรอาสาสมัครผู้ถ่ายทอดทักษะ</h2><p>ขอมอบให้</p><p style="font:700 1.3rem var(--font-head)" id="cert-nm">……………………………</p><p>ที่ได้สอน “'+esc(cs.title)+'” ในโครงการจับคู่ทักษะในชุมชน</p><p>รวม '+(cs.hours||0)+' ชั่วโมง</p><p class="small muted" style="margin-top:14px">องค์กรพหุพัฒนา · ชุมชนนิมนต์หนองยิ้ม · '+esc(d)+'</p><p class="small muted">(เอกสารตัวอย่างสำหรับต้นแบบ ไม่มีผลทางราชการ)</p></div>';
+        $('#cert-body').innerHTML='<div class="cert"><h2 id="cert-h">เกียรติบัตรอาสาสมัครผู้ถ่ายทอดทักษะ</h2><p>ขอมอบให้</p><p style="font:700 1.3rem var(--font-head)" id="cert-nm">……………………………</p><p>ที่ได้สอน “'+esc(cs.title)+'” ในโครงการจับคู่ทักษะในชุมชน</p><p>รวม '+(cs.hours||0)+' ชั่วโมง</p><p class="small muted" style="margin-top:14px">องค์กรพหุพัฒนา · ชุมชนนิมนต์หนองยิ้ม · '+esc(d)+'</p></div>';
         $('#cert-name').value='';
         if($('#certdlg').showModal) $('#certdlg').showModal();
       }

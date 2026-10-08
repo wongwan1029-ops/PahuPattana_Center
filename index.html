@@ -438,6 +438,17 @@ dialog .stack{display:grid;gap:10px}
 .about-hero h1,.about-hero p{max-width:60ch}
 .art-dots{position:absolute;right:0;top:34px;width:210px}
 @media (max-width:900px){.art-dots{display:none}}
+.assess{background:var(--surface);border:2px solid var(--focus);border-radius:20px;padding:22px;margin-bottom:22px}
+.assess h2{font-size:1.2rem}
+.assess .chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.acard{border:1.5px solid var(--line);border-radius:14px;padding:12px 16px;margin-top:10px;background:var(--bg)}
+.acard p{font-size:.92rem;color:var(--ink-2)}
+.bell-n{position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;border-radius:9px;background:var(--danger);color:#fff;font:600 .72rem/18px var(--font-head);text-align:center;padding:0 4px}
+.notice{display:grid;grid-template-columns:34px 1fr;gap:12px;padding:16px 4px;border-bottom:1px solid var(--line)}
+.notice .e{font-size:1.4rem;text-align:center}
+.cmgr{background:var(--surface-2);border-radius:12px;padding:10px 14px;margin-top:14px;font-size:.93rem}
+.stars-in label{font-size:1rem}
+.big-btn{font-size:1.25rem;padding:18px 32px}
 </style>
 </head>
 <body>
@@ -466,6 +477,9 @@ dialog .stack{display:grid;gap:10px}
       <div class="navmore">
         <button type="button" data-act="toggle-more" aria-haspopup="true" aria-expanded="false">เพิ่มเติม <span aria-hidden="true">▾</span></button>
         <div class="navmore-panel" role="menu">
+          <a href="#/rights" data-nav="rights" role="menuitem">ตรวจสอบสิทธิของฉัน</a>
+          <a href="#/community" data-nav="community" role="menuitem">สถานการณ์ชุมชน</a>
+          <a href="#/notify" data-nav="notify" role="menuitem">การแจ้งเตือน</a>
           <a href="#/about" data-nav="about" role="menuitem">เกี่ยวกับเรา</a>
           <a href="#/budget" data-nav="budget" role="menuitem">งบประมาณ</a>
           <a href="#/track" data-nav="track" role="menuitem">ตรวจสอบสถานะเรื่อง</a>
@@ -477,6 +491,7 @@ dialog .stack{display:grid;gap:10px}
       <button type="button" class="nav-login" data-act="open-login">เข้าสู่ระบบ</button>
     </nav>
     <div class="actions">
+      <a class="iconbtn" href="#/notify" id="hdr-bell" aria-label="การแจ้งเตือน" style="position:relative">🔔</a>
       <a class="iconbtn" href="#/search" aria-label="ค้นหา" id="hdr-search"></a>
       <button type="button" class="btn btn-ghost" data-act="open-login">เข้าสู่ระบบ</button>
       <a class="btn" href="#/help">ขอความช่วยเหลือ</a>
@@ -760,7 +775,9 @@ function seed(){
     'PP-2569-0015':'ทำงานอยู่แต่ต้องการเพิ่มทักษะเพื่อความมั่นคงในอาชีพ',
     'PP-2569-0016':'ถูกให้ออกจากห้องเช่า ไม่มีที่พักที่มั่นคง',
     'PP-2569-0017':'อยากปรึกษาเรื่องที่ไม่ตรงกับหัวข้อที่มี ขอให้เจ้าหน้าที่ติดต่อกลับ'};
-  return rows.map(function(r){return {id:r[0],ts:r[1],topic:r[2],status:r[3],routed:r[4],channels:['phone'],story:ST[r[0]]||'',minor:r[0]==='PP-2569-0013',sample:true};});
+  var out=rows.map(function(r){return {id:r[0],ts:r[1],topic:r[2],status:r[3],routed:r[4],channels:['phone'],story:ST[r[0]]||'',minor:r[0]==='PP-2569-0013',sample:true};});
+  out.forEach(function(c){ if(c.status==='closed'){ var two=c.id.slice(-1)==='2'; c.rating=two?5:4; c.days=two?3:5; c.feedback=''; } });
+  return out;
 }
 function load(){
   try{
@@ -982,7 +999,7 @@ function dashHTMLReal(){
     return '<tr'+(c.id===newId?' class="is-new"':'')+'><td>'+esc(c.id)+''+'</td><td>'+esc(fmtDate(c.ts))+'</td><td>'+(SENSITIVE[c.topic]?'🔒 เรื่องที่ต้องดูแลเป็นพิเศษ':t.emoji+' '+esc(t.label))+'</td><td>'+(SENSITIVE[c.topic]?'<span class="muted">—</span>':pills)+'</td><td><select data-case="'+esc(c.id)+'" aria-label="สถานะของ '+esc(c.id)+'">'+opts+'</select></td><td><button type="button" class="btn btn-ghost" style="padding:6px 14px" data-act="read-case" data-id="'+esc(c.id)+'">อ่านเรื่อง</button></td></tr>';
   }).join('');
   return '<div class="kpis"><div class="kpi"><b>'+total+'</b><span>เรื่องทั้งหมด</span></div><div class="kpi"><b>'+st.byStatus.new+'</b><span>รอคัดกรอง</span></div><div class="kpi"><b>'+st.byStatus.routed+'</b><span>ส่งต่อแล้ว</span></div><div class="kpi"><b>'+st.byStatus.closed+'</b><span>ปิดเคส</span></div></div>'
-   +'<div class="charts"><div><h3>เรื่องที่ขอความช่วยเหลือ แยกตามด้าน</h3>'+barRows(topicItems,max1)+'</div><div><h3>เรื่องที่ถูกส่งต่อ แยกตามภาคส่วน</h3>'+barRows(secItems,max2)+'</div></div>'
+   +outcomeKpisHTML()+'<div class="charts"><div><h3>เรื่องที่ขอความช่วยเหลือ แยกตามด้าน</h3>'+barRows(topicItems,max1)+'</div><div><h3>เรื่องที่ถูกส่งต่อ แยกตามภาคส่วน</h3>'+barRows(secItems,max2)+'</div></div>'
    +'<div class="tablewrap"><table><thead><tr><th>รหัสเรื่อง</th><th>วันที่</th><th>ด้าน</th><th>ส่งต่อไปยัง</th><th>สถานะ</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div><p style="margin-top:10px"><button type="button" class="btn btn-ghost" data-act="toggle-cases">'+(casesAll?'แสดงเฉพาะ 10 รายการล่าสุด':'แสดงทั้งหมด ('+cases.length+' เรื่อง)')+'</button></p>';
 }
 function caseDetailHTML(c){
@@ -1044,6 +1061,7 @@ function viewHome(){
    +'<p class="muted small" style="margin-top:10px">ริเริ่มโดย <a href="#/about" style="text-decoration:underline">องค์กรพหุพัฒนา</a> · ชุมชนนิมนต์หนองยิ้ม</p>'
    +'<div class="searchbar" role="search"><input id="heroq" type="search" placeholder="ค้นหาบริการ / หน่วยงาน / เรื่องที่ต้องการ" aria-label="ค้นหาบริการ หน่วยงาน หรือเรื่องที่ต้องการ"><button type="button" data-act="hero-search">'+ICON.search+' ค้นหา</button></div>'
    +'<div class="quick"><span>ลองค้นหา:</span>'+quick+'</div>'
+   +'<p style="margin-top:20px"><a class="btn btn-lg big-btn" href="#/rights">🔎 ตรวจสอบสิทธิของฉัน</a></p>'
    +'</div><aside class="triage" id="triage">'+triageHTML()+'</aside></section></div>'
    +'<section class="section" style="padding-bottom:0"><div class="wrap">'+flowArt()+'</div></section>'
    +'<section class="section"><div class="wrap"><div class="sec-h"><h2>เชื่อมต่อทุกภาคส่วน</h2><p>เลือกภาคส่วนเพื่อดูหน่วยงานที่เกี่ยวข้อง แต่ละกล่องพาไปยังหน้ารวมหน่วยงานของภาคส่วนนั้น</p></div><div class="tiles">'+tiles+'</div></div></section>'
@@ -1186,7 +1204,7 @@ function viewHelp(params){
     main='<div class="formbox done"><h2>รับเรื่องแล้ว</h2><p>รหัสเรื่องของคุณ</p><span class="code">'+esc(c.id)+'</span><p class="muted small">ด้าน: '+t.emoji+' '+esc(t.label)+'</p><p style="margin-top:14px" class="strong">ระบบคัดกรองเบื้องต้นแนะนำให้ส่งต่อไปยัง</p>'+routeList(c.routed)+'<p class="hint">ในการใช้งานจริง เจ้าหน้าที่จะตรวจสอบอีกครั้งก่อนส่งต่อ ต้นแบบนี้ยังไม่ส่งข้อมูลไปที่หน่วยงานใด</p><div class="note"><b>ข้อมูลที่ส่งต่อให้หน่วยงานปลายทาง (เท่าที่จำเป็น):</b> ด้านที่ขอความช่วยเหลือ รหัสเรื่อง และช่องทางติดต่อที่ท่านเลือก · ข้อความเล่าปัญหาให้เจ้าหน้าที่ Case Manager อ่าน และส่งต่อเฉพาะส่วนที่หน่วยงานนั้นต้องใช้ · เก็บข้อมูลไม่เกิน 90 วัน และขอลบได้ที่หน้าตรวจสอบสถานะ</div>'+(c.minor?'<div class="note" style="margin-top:10px">🧒 เรื่องนี้ระบุว่าผู้ขอเป็นผู้เยาว์ เจ้าหน้าที่จะติดต่อผู้ปกครองหรือเจ้าหน้าที่คุ้มครองเด็กก่อนส่งต่อ (สายด่วน พม. 1300)</div>':'')+'<div class="btnrow"><a class="btn" href="#/track?id='+esc(c.id)+'">ตรวจสอบสถานะเรื่อง '+ICON.arrow+'</a><a class="btn btn-ghost" href="#/system?focus=dash">ดูแดชบอร์ดเจ้าหน้าที่</a><button type="button" class="btn btn-ghost" data-act="new-help">ส่งเรื่องใหม่</button></div></div>';
   }else{
     var opts='<option value="">— เลือกด้านที่ต้องการ —</option>'+TOPICS.map(function(t){return '<option value="'+t.id+'"'+(pre===t.id?' selected':'')+'>'+esc(t.label)+'</option>';}).join('');
-    main='<div class="formbox"><div id="hf-err" role="alert"></div>'
+    main='<div>'+assessBox()+'<div class="formbox"><div id="hf-err" role="alert"></div>'
      +'<div class="field"><label for="hf-topic">ท่านต้องการความช่วยเหลือด้านใดเป็นหลัก?</label><select id="hf-topic">'+opts+'</select></div>'
      +'<div class="field"><label for="hf-story">เล่าปัญหาของท่านให้เราฟัง</label><textarea id="hf-story" placeholder="'+esc(storyPlaceholder(pre))+'"></textarea><span class="hint">เจ้าหน้าที่ Case Manager จะอ่านข้อความนี้เพื่อคัดกรอง ไม่ต้องใส่ชื่อ-นามสกุลหรือเลขบัตร</span></div>'
      +'<fieldset class="field"><legend>ช่องทางที่ท่านสะดวกให้เจ้าหน้าที่ติดต่อกลับ</legend><div class="checks"><label><input type="checkbox" name="ch" value="phone"> โทรศัพท์</label><label><input type="checkbox" name="ch" value="chat"> แชท</label><label><input type="checkbox" name="ch" value="walkin"> นัดหมาย Walk-in</label></div></fieldset>'
@@ -1197,7 +1215,7 @@ function viewHelp(params){
        +'<label id="hf-c2l"'+(SENSITIVE[pre]?'':' hidden')+'><input type="checkbox" id="hf-c2"> <span>② ใช้ข้อมูลอ่อนไหว (เช่น สุขภาพ ความพิการ เพศสภาพ) เฉพาะเพื่อส่งต่อเรื่องนี้ (จำเป็นสำหรับด้านที่เลือก)</span></label>'
        +'<label><input type="checkbox" id="hf-c3"> <span>③ ใช้ข้อมูลแบบไม่ระบุตัวตนเพื่อทำสถิติและประเมินผลโครงการ (ไม่บังคับ)</span></label>'
      +'</div><span class="hint">ส่งต่อเฉพาะด้านที่ขอและช่องทางติดต่อ เก็บข้อมูลไม่เกิน 90 วัน อ่านรายละเอียดที่ <a href="#/privacy" style="text-decoration:underline">ประกาศความเป็นส่วนตัว (PDPA)</a></span></fieldset>'
-     +'<button type="button" class="btn btn-lg" data-act="submit-help">ส่งเรื่อง</button></div>';
+     +'<button type="button" class="btn btn-lg" data-act="submit-help">ส่งเรื่อง</button></div></div>';
   }
   return {title:'ขอความช่วยเหลือ',html:'<div class="wrap"><div class="pagehead"><h1>ขอความช่วยเหลือ</h1><p>เล่าปัญหาครั้งเดียว แล้วให้เจ้าหน้าที่ช่วยส่งต่อไปยังหน่วยงานที่เกี่ยวข้อง</p></div><div class="split">'+main+side+'</div></div>'};
 }
@@ -1447,10 +1465,8 @@ function viewTrack(params){
     if(!c) res='<p class="err" style="margin-top:18px">ไม่พบรหัสเรื่อง "'+esc(id)+'" ตรวจสอบรหัสอีกครั้ง (รูปแบบ PP-2569-0001) หรือโทรสายด่วน Case Manager 089-999-9999</p>';
     else{
       var t=TOPIC[c.topic]||{label:c.topic,emoji:''};
-      var upTo=c.status==='new'?2:(c.status==='routed'?4:5);
-      var steps=[['รับเรื่องแล้ว','ระบบรับเรื่องและออกรหัสให้'],['คัดกรองเบื้องต้น','ระบบจัดหมวดและเสนอหน่วยงาน'],['เจ้าหน้าที่ตรวจสอบ','ยืนยันหมวดและความเร่งด่วน'],['ส่งต่อหน่วยงาน','ส่งเรื่องไปยังหน่วยงานที่เกี่ยวข้อง'],['ติดตามผลและแจ้งกลับ','อัปเดตสถานะให้ผู้ขอรับความช่วยเหลือ']];
-      var tl='<ol class="tl">'+steps.map(function(x,i){var n=i+1, cls=n<=upTo?'done':(n===upTo+1?'cur':''); return '<li class="'+cls+'"><span class="mk" aria-hidden="true">'+(n<=upTo?'✓':n)+'</span><div><b>'+esc(x[0])+'</b><p>'+esc(x[1])+(n<=upTo?' · เสร็จแล้ว':(n===upTo+1?' · กำลังดำเนินการ':''))+'</p></div></li>';}).join('')+'</ol>';
-      res='<div class="formbox" style="margin-top:20px"><span class="code">'+esc(c.id)+'</span><p class="muted small">ด้าน: '+t.emoji+' '+esc(t.label)+' · ยื่นเมื่อ '+esc(fmtTime(c.ts))+'</p><p class="strong" style="margin-top:8px">สถานะปัจจุบัน: '+esc(STATUS[c.status]||c.status)+'</p>'+tl+'<p class="strong" style="margin-top:20px">หน่วยงานที่ได้รับการเสนอส่งต่อ</p>'+routeList(c.routed||[])+'<div class="btnrow"><button type="button" class="btn btn-ghost" data-act="delete-case" data-id="'+esc(c.id)+'">🗑️ ขอลบเรื่องนี้</button></div><p class="hint" style="margin-top:8px">ข้อมูลเรื่องที่ขอความช่วยเหลือจะถูกลบอัตโนมัติเมื่อครบ 90 วัน หรือท่านขอลบเองได้ทุกเมื่อ</p></div>';
+      var tl=tlHTML(c);
+      res='<div class="formbox" style="margin-top:20px"><span class="code">'+esc(c.id)+'</span><p class="muted small">ด้าน: '+t.emoji+' '+esc(t.label)+' · ยื่นเมื่อ '+esc(fmtTime(c.ts))+'</p><p class="strong" style="margin-top:8px">สถานะปัจจุบัน: '+esc(STATUS[c.status]||c.status)+'</p>'+tl+caseMgrHTML(c)+feedbackHTML(c)+'<p class="strong" style="margin-top:20px">หน่วยงานที่ได้รับการเสนอส่งต่อ</p>'+routeList(c.routed||[])+'<div class="btnrow"><button type="button" class="btn btn-ghost" data-act="delete-case" data-id="'+esc(c.id)+'">🗑️ ขอลบเรื่องนี้</button></div><p class="hint" style="margin-top:8px">ข้อมูลเรื่องที่ขอความช่วยเหลือจะถูกลบอัตโนมัติเมื่อครบ 90 วัน หรือท่านขอลบเองได้ทุกเมื่อ</p></div>';
     }
   }
   return {title:'ตรวจสอบสถานะเรื่อง',html:'<div class="wrap"><div class="pagehead"><h1>ตรวจสอบสถานะเรื่อง</h1><p>กรอกรหัสเรื่องที่ได้รับหลังส่งแบบฟอร์ม เพื่อดูว่าเรื่องของท่านถึงขั้นตอนไหนแล้ว</p></div><div class="sbox" role="search"><input id="tq" type="search" value="'+esc(id)+'" placeholder="เช่น PP-2569-0001" aria-label="รหัสเรื่อง"><button type="button" class="btn" data-act="track">ตรวจสอบ</button></div><div style="margin-bottom:40px">'+res+'</div></div>'};
@@ -1501,6 +1517,175 @@ function viewSearch(params){
 
 /* ---------- router ---------- */
 var VIEWS={track:viewTrack,privacy:viewPrivacy,home:viewHome,about:viewAbout,services:viewServices,agencies:viewAgencies,help:viewHelp,system:viewSystem,skills:viewSkills,budget:viewBudget,knowledge:viewKnowledge,faq:viewFaq,contact:viewContact,search:viewSearch};
+/* ===== ADD-ON v4 ===== */
+VIEWS.rights=viewRights; VIEWS.community=viewCommunity; VIEWS.notify=viewNotify;
+
+/* --- 1) ประเมินปัญหาอัตโนมัติ --- */
+var PROBLEMS=[
+  {id:'work',e:'💼',t:'ไม่มีงานทำ / ต้องการหางาน',topic:'work',next:'ขึ้นทะเบียนผู้ว่างงานและดูตำแหน่งงานว่าง'},
+  {id:'income',e:'💸',t:'ขาดรายได้',topic:'welfare',next:'ตรวจสอบสิทธิสวัสดิการและเงินอุดหนุน'},
+  {id:'edu',e:'🎓',t:'ต้องการความช่วยเหลือด้านการศึกษา',topic:'edu',next:'ดูหลักสูตรเรียนต่อและแหล่งทุน'},
+  {id:'preg',e:'🤱',t:'ตั้งครรภ์และหลุดออกจากระบบการศึกษา',topic:'youngmom',next:'ปรึกษาสิทธิและทางเลือกการเรียนต่อ'},
+  {id:'disab',e:'♿',t:'คนพิการต้องการสิทธิหรืออุปกรณ์ช่วยเหลือ',topic:'disab',next:'ตรวจสอบบัตรคนพิการและเงินอุดหนุน'},
+  {id:'disc',e:'🏳️‍🌈',t:'ถูกเลือกปฏิบัติในการทำงาน',topic:'lgbtq',next:'ขอคำปรึกษาและช่องทางร้องเรียน'},
+  {id:'train',e:'🛠️',t:'ต้องการฝึกอาชีพ',topic:'reskill',next:'ดูหลักสูตรฝึกอาชีพและ Reskill/Upskill'},
+  {id:'other',e:'✏️',t:'อื่น ๆ',topic:'other',next:'ให้เจ้าหน้าที่ช่วยประเมินให้'}
+];
+var PROB={}; PROBLEMS.forEach(function(p){PROB[p.id]=p;});
+var assessSel=[];
+function assessInner(){
+  var chips=PROBLEMS.map(function(p){var on=assessSel.indexOf(p.id)>-1; return '<button type="button" class="chip'+(on?' on':'')+'" data-x="prob" data-p="'+p.id+'" aria-pressed="'+on+'">'+p.e+' '+esc(p.t)+'</button>';}).join('');
+  var res='<p class="small muted">เลือกได้มากกว่า 1 ข้อ</p>';
+  if(assessSel.length){
+    var by={}, order=[];
+    assessSel.forEach(function(pid){ var p=PROB[pid]; TOPIC[p.topic].routes.forEach(function(a){ if(!AG[a]) return; if(!by[a]){by[a]=[];order.push(a);} by[a].push(p); }); });
+    res='<p class="strong" aria-live="polite">จากข้อมูลของคุณ เราพบว่าคุณอาจต้องได้รับความช่วยเหลือจาก '+order.length+' หน่วยงาน</p>'
+      +order.map(function(a){ var g=AG[a], ps=by[a];
+        return '<div class="acard" style="'+sty(g.s)+';border-left:5px solid var(--c)"><b>'+agLink(g)+'</b><p>เหตุผล: คุณเลือก “'+ps.map(function(p){return esc(p.t);}).join('” และ “')+'”</p><p>ขั้นตอนต่อไป: '+esc(ps[0].next)+'</p></div>';
+      }).join('')
+      +'<p class="hint" style="margin-top:10px">เป็นการประเมินเบื้องต้นจากกติกาที่กำหนดไว้ ไม่ใช่การตัดสินสิทธิ เจ้าหน้าที่จะตรวจสอบอีกครั้ง</p>'
+      +'<p style="margin-top:12px"><button type="button" class="btn" data-x="assess-go">เล่าเรื่องครั้งเดียวและส่งต่อ '+ICON.arrow+'</button></p>';
+  }
+  return '<h2>ตอนนี้คุณกำลังประสบปัญหาอะไร?</h2><div class="chips">'+chips+'</div><div>'+res+'</div>';
+}
+function assessBox(){ return '<section class="assess" id="assess">'+assessInner()+'</section>'; }
+
+/* --- 2) Timeline + Case Manager --- */
+var CMGRS=['คุณสมชาย ใจดี','คุณวิภา แก้วมณี','คุณนภา สุขสันต์'];
+function cmgrName(id){ var n=0; for(var i=0;i<id.length;i++) n+=id.charCodeAt(i); return CMGRS[n%CMGRS.length]; }
+function tlHTML(c){
+  var steps=[['รับเรื่องแล้ว','ระบบรับเรื่องและออกรหัสให้'],['คัดกรองปัญหา','ระบบจัดหมวดและเสนอหน่วยงาน'],['ส่งต่อหน่วยงาน','ส่งเรื่องไปยังหน่วยงานที่เกี่ยวข้อง'],['รอเจ้าหน้าที่พิจารณา','หน่วยงานปลายทางตรวจสอบเรื่อง'],['นัดหมายประชาชน','ติดต่อกลับตามช่องทางที่เลือก'],['ได้รับความช่วยเหลือ','ดำเนินการตามสิทธิที่เกี่ยวข้อง'],['ปิดเคส','สรุปผลและขอความเห็นจากท่าน']];
+  var done=c.status==='new'?2:(c.status==='routed'?3:7);
+  return '<ol class="tl">'+steps.map(function(x,i){ var n=i+1, cls=n<=done?'done':(n===done+1?'cur':'');
+    return '<li class="'+cls+'"><span class="mk" aria-hidden="true">'+(n<=done?'✓':(n===done+1?'🕐':n))+'</span><div><b>'+esc(x[0])+'</b><p>'+esc(x[1])+(n<=done?' · เสร็จแล้ว':(n===done+1?' · กำลังดำเนินการ':''))+'</p></div></li>';
+  }).join('')+'</ol>';
+}
+function caseMgrHTML(c){ return '<div class="cmgr">👤 <b>Case Manager:</b> '+esc(cmgrName(c.id))+' เป็นผู้รับผิดชอบเคสนี้ <span class="muted">(ชื่อสมมติในต้นแบบ)</span></div>'; }
+
+/* --- 5) Feedback หลังจบเคส --- */
+function feedbackHTML(c){
+  if(c.status!=='closed') return '';
+  if(c.rating) return '<div class="rvok" style="margin-top:16px">ขอบคุณสำหรับความเห็น คุณให้ '+starsHTML(c.rating)+' ('+c.rating+'/5)</div>';
+  var rate=[5,4,3,2,1].map(function(n){return '<label><input type="radio" name="fbrate" value="'+n+'"> '+starsHTML(n)+'</label>';}).join('');
+  return '<div class="formbox" style="margin-top:18px;padding:18px"><h2 style="font-size:1.1rem">คุณได้รับความช่วยเหลือแล้วหรือยัง?</h2><div id="fb-msg" role="alert"></div><div class="radiorow stars-in" style="margin:10px 0">'+rate+'</div><div class="field"><label for="fb-text">สิ่งที่เราควรปรับปรุง</label><textarea id="fb-text" style="min-height:80px"></textarea></div><button type="button" class="btn" data-x="fb" data-id="'+esc(c.id)+'">ส่งความเห็น</button></div>';
+}
+function outcomeKpisHTML(){
+  var rated=cases.filter(function(c){return c.rating;}), closed=cases.filter(function(c){return c.status==='closed';});
+  var dd=closed.filter(function(c){return c.days;});
+  var avg=rated.length?(rated.reduce(function(a,c){return a+c.rating;},0)/rated.length).toFixed(1)+'/5':'—';
+  var pct=cases.length?Math.round(closed.length/cases.length*100)+'%':'—';
+  var days=dd.length?(dd.reduce(function(a,c){return a+c.days;},0)/dd.length).toFixed(1)+' วัน':'—';
+  return '<h3 style="margin-top:30px;font-size:1.05rem">ผลลัพธ์การช่วยเหลือ</h3><div class="kpis" style="margin-top:8px"><div class="kpi"><b>'+avg+'</b><span>ความพึงพอใจเฉลี่ย ('+rated.length+' ความเห็น)</span></div><div class="kpi"><b>'+pct+'</b><span>เคสที่ปิดแล้ว</span></div><div class="kpi"><b>'+days+'</b><span>ระยะเวลาเฉลี่ยในการช่วยเหลือ</span></div></div>';
+}
+
+/* --- 3) แจ้งเตือนเชิงรุก --- */
+var TIPS={work:'โครงการฝึกอาชีพของกรมพัฒนาฝีมือแรงงาน',edu:'หลักสูตร กศน. สำหรับผู้ที่ต้องการกลับมาเรียน',welfare:'สิทธิสวัสดิการและเงินอุดหนุนกลุ่มเปราะบาง',disab:'เงินอุดหนุนและการจ้างงานคนพิการ',lgbtq:'บริการสุขภาพและช่องทางร้องเรียนการเลือกปฏิบัติ',youngmom:'สิทธิและทางเลือกการเรียนต่อสำหรับคุณแม่วัยใส',debt:'การปรับโครงสร้างหนี้ กยศ.',reskill:'คอร์ส Reskill/Upskill ฟรีจาก MOOC',housing:'ความช่วยเหลือด้านที่พักชั่วคราว',other:'ให้เจ้าหน้าที่ช่วยประเมินสิทธิ'};
+function notifsFor(list){
+  var out=[];
+  list.forEach(function(c){
+    var link='#/track?id='+encodeURIComponent(c.id);
+    if(c.status==='new') out.push({e:'📥',h:'รับเรื่องของคุณแล้ว',b:'ขั้นตอนต่อไป: ระบบคัดกรองและส่งต่อไปยังหน่วยงานที่เกี่ยวข้อง',id:c.id,u:link});
+    if(c.status==='routed'){ var ag0=AG[(c.routed||[])[0]]; out.push({e:'🔔',h:'อัปเดตเคสของคุณ',b:'ส่งต่อไปยัง '+(ag0?ag0.sn:'หน่วยงานที่เกี่ยวข้อง')+' แล้ว ขั้นตอนต่อไป: รอนัดหมายจากเจ้าหน้าที่',id:c.id,u:link}); }
+    if(c.status==='closed') out.push({e:'✅',h:'เคสของคุณปิดแล้ว',b:c.rating?'ขอบคุณที่ให้ความเห็น':'ช่วยบอกเราหน่อยว่าคุณได้รับความช่วยเหลือแล้วหรือยัง',id:c.id,u:link});
+    if(TIPS[c.topic]) out.push({e:'🎁',h:'สิทธิที่คุณอาจได้รับ',b:'จากข้อมูลของคุณ คุณอาจมีสิทธิ: '+TIPS[c.topic],id:c.id,u:'#/rights'});
+  });
+  return out;
+}
+function myCases(){ return cases.filter(function(c){return !c.sample;}); }
+function updateBell(){
+  var b=$('#hdr-bell'); if(!b) return;
+  var n=notifsFor(myCases()).length;
+  b.innerHTML='🔔'+(n?'<span class="bell-n">'+n+'</span>':'');
+}
+function viewNotify(){
+  var mine=myCases(), demo=!mine.length, list=notifsFor(demo?cases.filter(function(c){return c.id==='PP-2569-0010'||c.id==='PP-2569-0002';}):mine);
+  var items=list.map(function(n){return '<li class="notice"><span class="e" aria-hidden="true">'+n.e+'</span><div><b>'+esc(n.h)+'</b> <span class="muted small">· '+esc(n.id)+'</span><p>'+esc(n.b)+'</p><a href="'+esc(n.u)+'" style="text-decoration:underline">ดูรายละเอียด</a></div></li>';}).join('');
+  return {title:'การแจ้งเตือน',html:'<div class="wrap"><div class="pagehead"><h1>การแจ้งเตือน</h1><p>ระบบช่วยตามเรื่องให้ท่าน ไม่ต้องกลับมาเช็กเอง</p></div>'
+   +(demo?'<div class="note">ยังไม่มีเรื่องที่ท่านส่งในเบราว์เซอร์นี้ จึงแสดงตัวอย่างจากเคสสมมติ</div>':'')
+   +'<ul class="channels" style="margin-top:14px">'+items+'</ul><div class="note" style="margin-bottom:40px">ต้นแบบแสดงการแจ้งเตือนในหน้านี้เท่านั้น ยังไม่ได้ส่งผ่าน LINE, SMS หรืออีเมลจริง</div></div>'};
+}
+
+/* --- 4) ตรวจสอบสิทธิของฉัน --- */
+var RGROUPS=[
+  {id:'edu',e:'🎓',t:'สิทธิด้านการศึกษา',topic:'edu'},
+  {id:'train',e:'🛠️',t:'สิทธิด้านการฝึกอาชีพ',topic:'reskill'},
+  {id:'welfare',e:'🏥',t:'สิทธิด้านสวัสดิการ',topic:'welfare'},
+  {id:'disab',e:'♿',t:'สิทธิสำหรับคนพิการ',topic:'disab'},
+  {id:'emp',e:'💼',t:'สิทธิด้านการจ้างงาน',topic:'work'},
+  {id:'local',e:'🏘️',t:'สิทธิจากหน่วยงานท้องถิ่น',topic:'other'}
+];
+var SITU=[
+  {id:'unemp',t:'ไม่มีงานทำ / ตกงาน',g:['emp','train']},
+  {id:'lowinc',t:'รายได้ไม่เพียงพอ',g:['welfare','local']},
+  {id:'dropout',t:'หลุดจากระบบการศึกษา / อยากเรียนต่อ',g:['edu','local']},
+  {id:'preg',t:'ตั้งครรภ์ในวัยเรียน',g:['edu','welfare','local']},
+  {id:'dis',t:'มีความพิการ',g:['disab','welfare','emp']},
+  {id:'disc',t:'ถูกเลือกปฏิบัติ',g:['emp','local']},
+  {id:'debt',t:'มีหนี้เพื่อการศึกษา',g:['edu','emp']}
+];
+function viewRights(){
+  var age='<select id="rt-age"><option value="adult">18–59 ปี</option><option value="minor">ต่ำกว่า 18 ปี</option><option value="senior">60 ปีขึ้นไป</option></select>';
+  var chk=SITU.map(function(s){return '<label><input type="checkbox" name="rt" value="'+s.id+'"> '+esc(s.t)+'</label>';}).join('');
+  return {title:'ตรวจสอบสิทธิของฉัน',html:'<div class="wrap"><div class="pagehead"><h1>🔎 ตรวจสอบสิทธิของฉัน</h1><p>ตอบไม่กี่ข้อ เพื่อดูว่าท่านอาจมีสิทธิอะไรและต้องไปติดต่อใคร ไม่ต้องใส่ชื่อหรือเลขบัตร</p></div>'
+   +'<div class="split"><div class="formbox"><div class="field"><label for="rt-age">ช่วงอายุ</label>'+age+'</div><fieldset class="field"><legend>สถานการณ์ของท่าน (เลือกได้หลายข้อ)</legend><div class="checks">'+chk+'</div></fieldset><button type="button" class="btn btn-lg" data-x="rights-go">ตรวจสอบสิทธิ</button></div>'
+   +'<aside class="side"><div id="rights-res" aria-live="polite"><p class="muted">ผลจะแสดงที่นี่</p></div></aside></div></div>'};
+}
+function rightsResult(){
+  var age=$('#rt-age').value, sel=$$('input[name="rt"]:checked').map(function(i){return i.value;});
+  var g={local:1};
+  SITU.forEach(function(s){ if(sel.indexOf(s.id)>-1) s.g.forEach(function(x){g[x]=1;}); });
+  if(age==='senior'){g.welfare=1;} if(age==='minor'){g.edu=1;}
+  var html='<h2>สิทธิที่อาจเกี่ยวข้องกับคุณ</h2>'+RGROUPS.filter(function(r){return g[r.id];}).map(function(r){
+    var ags=TOPIC[r.topic].routes.map(function(a){return AG[a]?AG[a].sn:'';}).filter(Boolean).join(', ');
+    return '<div class="acard"><b>'+r.e+' '+esc(r.t)+'</b><p>หน่วยงาน: '+esc(ags)+'</p><a class="btn" style="margin-top:8px;padding:6px 16px" href="#/help?topic='+r.topic+'">ขอรับสิทธิ</a></div>';
+  }).join('');
+  if(age==='minor') html+='<div class="note">ผู้เยาว์ควรมีผู้ปกครองหรือเจ้าหน้าที่คุ้มครองเด็กร่วมด้วย (สายด่วน พม. 1300)</div>';
+  html+='<p class="hint" style="margin-top:10px">เป็นการประเมินเบื้องต้น ไม่ใช่การยืนยันสิทธิ ต้องผ่านการตรวจสอบจากหน่วยงานเจ้าของสิทธิ</p>';
+  $('#rights-res').innerHTML=html;
+}
+
+/* --- 6) สถานการณ์ชุมชนภาพรวม --- */
+function viewCommunity(){
+  var st=stats();
+  var items=TOPICS.map(function(t){return {label:t.emoji+' '+esc(t.label),n:st.byTopic[t.id],mask:true};}).sort(function(a,b){return b.n-a.n;});
+  var max=Math.max.apply(null,items.map(function(x){return x.n;}).concat([1]));
+  var cs=cases.filter(function(c){return c.evalOk!==false;}).sort(function(a,b){return a.ts<b.ts?-1:1;});
+  var mid=Math.floor(cs.length/2), A=cs.slice(0,mid), B=cs.slice(mid), best=null;
+  TOPICS.forEach(function(t){
+    var na=A.filter(function(c){return c.topic===t.id;}).length, nb=B.filter(function(c){return c.topic===t.id;}).length;
+    if(na>=3&&nb>na){ var p=Math.round((nb-na)/na*100); if(!best||p>best.p) best={t:t,p:p}; }
+  });
+  var trend=best?'ปัญหาที่เพิ่มขึ้น: '+best.t.label+' ↑ '+best.p+'% (ช่วงหลังเทียบช่วงแรกของข้อมูล)':'ข้อมูลยังไม่พอจะบอกแนวโน้ม (ต้องมีอย่างน้อย 3 เรื่องต่อด้านในช่วงแรก)';
+  return {title:'สถานการณ์ชุมชน',html:'<div class="wrap"><div class="pagehead"><h1>สถานการณ์ชุมชนนิมนต์หนองยิ้ม</h1><p>ภาพรวมปัญหาที่ประชาชนแจ้งเข้ามา ไม่ระบุตัวตน นับเฉพาะผู้ที่ยินยอมให้ใช้ข้อมูลเพื่อสถิติ</p></div>'
+   +'<section class="section" style="padding-top:12px"><div class="kpis"><div class="kpi"><b>'+cs.length+'</b><span>เรื่องที่นับในสถิติ</span></div></div>'
+   +'<h3 style="margin-top:26px;font-size:1.1rem">ปัญหา จำนวนเคส</h3><div style="max-width:620px;margin-top:10px">'+barRows(items,max)+'</div>'
+   +'<div class="matchnote" style="margin-top:18px">📈 <b>'+esc(trend)+'</b></div>'
+   +'<p class="muted" style="margin-top:18px;max-width:70ch">วงจร: ประชาชนแจ้งปัญหา → ระบบเก็บข้อมูล → วิเคราะห์ปัญหา → รัฐเห็นปัญหา → ออกนโยบาย → ประชาชนได้รับการช่วยเหลือ</p><p class="hint" style="margin-top:10px">จำนวนน้อยกว่า 3 แสดงเป็น &lt;3 เพื่อป้องกันการระบุตัวบุคคล</p></section></div>'};
+}
+
+/* --- ตัวจัดการคลิกของ add-on --- */
+document.addEventListener('click',function(e){
+  var el=e.target.closest('[data-x]'); if(!el) return;
+  var a=el.getAttribute('data-x');
+  if(a==='prob'){
+    var id=el.getAttribute('data-p'), i=assessSel.indexOf(id);
+    if(i<0) assessSel.push(id); else assessSel.splice(i,1);
+    var box=$('#assess'); if(box) box.innerHTML=assessInner();
+    var f=$('[data-p="'+id+'"]'); if(f) f.focus();
+  }
+  else if(a==='assess-go'){
+    var first=assessSel.length?PROB[assessSel[0]].topic:'';
+    var sel=$('#hf-topic'); if(sel&&first){ sel.value=first; sel.dispatchEvent(new Event('change',{bubbles:true})); sel.scrollIntoView(); sel.focus(); }
+  }
+  else if(a==='rights-go') rightsResult();
+  else if(a==='fb'){
+    var c=cases.filter(function(x){return x.id===el.getAttribute('data-id');})[0], r=$$('input[name="fbrate"]:checked')[0];
+    if(!c) return;
+    if(!r){ $('#fb-msg').innerHTML='<p class="err">เลือกคะแนนก่อนส่ง</p>'; return; }
+    c.rating=parseInt(r.value,10); c.feedback=($('#fb-text').value||'').trim();
+    save(); if(SHARED) caseWrite(c); render();
+  }
+});
 var app=$('#app');
 function parseHash(){
   var h=location.hash.replace(/^#\/?/,'');
@@ -1519,6 +1704,7 @@ function render(){
   document.title=v.title+' · องค์กรพหุพัฒนา';
   $$('[data-nav]').forEach(function(a){ if(a.getAttribute('data-nav')===key) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); });
   closeMenu();
+  updateBell();
   if(v.after) v.after(); else window.scrollTo(0,0);
 }
 function closeMenu(){
@@ -1745,7 +1931,7 @@ document.addEventListener('change',function(e){
   }
   var s=e.target.closest&&e.target.closest('select[data-case]'); if(!s) return;
   var id=s.getAttribute('data-case');
-  cases.forEach(function(c){ if(c.id===id){ c.status=s.value; if(SHARED) caseWrite(c); } });
+  cases.forEach(function(c){ if(c.id===id){ c.status=s.value; if(s.value==='closed'&&!c.days) c.days=Math.max(1,Math.round((Date.now()-new Date(c.ts).getTime())/86400000)); if(SHARED) caseWrite(c); } });
   save(); newId=null; refreshDash();
 });
 document.addEventListener('input',function(e){

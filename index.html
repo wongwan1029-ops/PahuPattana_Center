@@ -418,6 +418,26 @@ dialog .stack{display:grid;gap:10px}
 .bstatus{display:inline-block;font-size:.78rem;border-radius:999px;padding:2px 10px;margin-top:8px;background:var(--surface-2);color:var(--ink-2)}
 .blist{list-style:disc;margin:10px 0 0 20px;padding:0;color:var(--ink-2);font-size:.93rem;display:grid;gap:4px}
 .bresp{border-top:1px solid var(--line);margin-top:30px;padding-top:22px}
+/* decoration */
+.stats{grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;border:0;margin-top:18px}
+.stat{border:1.5px solid var(--line);border-radius:16px;background:var(--surface);padding:18px 20px;margin:0}
+.stat:last-child{border-right:1.5px solid var(--line)}
+.stat b{color:var(--gov)}
+@media (max-width:820px){.stat{border-right:1.5px solid var(--line);border-bottom:1.5px solid var(--line);margin-right:0}}
+.groups{list-style:none;margin:18px 0 6px;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.groups li{display:flex;gap:12px;align-items:flex-start;background:var(--surface);border:1.5px solid var(--line);border-radius:16px;padding:14px 16px;font-size:.94rem;color:var(--ink-2)}
+.groups .e{font-size:1.5rem;line-height:1}
+.flowart{background:var(--surface);border:1.5px solid var(--line);border-radius:22px;padding:18px 18px 10px}
+.flowart svg{display:block;width:100%;height:auto}
+.stackbar{display:flex;height:22px;border-radius:11px;overflow:hidden;margin:10px 0 8px}
+.stackbar i{display:block;height:100%}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.85rem;color:var(--muted);margin-bottom:20px}
+.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--c);margin-right:6px}
+.bphase[style]{border-left:6px solid var(--c);background:var(--surface);border-radius:0 16px 16px 0;padding:16px 20px}
+.about-hero{max-width:none;position:relative}
+.about-hero h1,.about-hero p{max-width:60ch}
+.art-dots{position:absolute;right:0;top:34px;width:210px}
+@media (max-width:900px){.art-dots{display:none}}
 </style>
 </head>
 <body>
@@ -559,6 +579,7 @@ var AGENCIES=[
   {id:'consular',s:'gov',n:'กรมการกงสุล (กระทรวงการต่างประเทศ)',sn:'กรมการกงสุล',d:'หนังสือเดินทางและงานบริการด้านกงสุล',u:'https://www.consular.go.th'},
   {id:'dopa',s:'gov',n:'กรมการปกครอง (กระทรวงมหาดไทย)',sn:'กรมการปกครอง',d:'บัตรประจำตัวประชาชนและงานทะเบียนราษฎร',u:'https://www.dopa.go.th'},
   {id:'dol',s:'gov',n:'กรมที่ดิน',sn:'กรมที่ดิน',d:'งานเอกสารสิทธิ์และการดำเนินการเกี่ยวกับที่ดิน',u:'https://www.dol.go.th'},
+  {id:'mof',s:'gov',n:'กระทรวงการคลัง',sn:'คลัง',d:'บริหารจัดสรรงบประมาณ นโยบายทางการเงิน และมาตรการสิทธิประโยชน์ทางภาษี',u:'https://www.mof.go.th'},
   {id:'studentloan',s:'gov',n:'กองทุนเงินให้กู้ยืมเพื่อการศึกษา (กยศ.)',sn:'กยศ.',d:'เงื่อนไขการกู้ยืม การผ่อนชำระ และการปรับโครงสร้างหนี้เพื่อการศึกษา',u:'https://www.studentloan.or.th'},
 
   {id:'bma',s:'loc',n:'กรุงเทพมหานคร (กทม.)',sn:'กทม.',d:'คลินิกความหลากหลายทางเพศ (BKK Pride Clinic) และศูนย์ฝึกอาชีพ กทม.',u:'https://www.bangkok.go.th'},
@@ -634,21 +655,32 @@ var MOOCS=[
   {e:'🧡',n:'KMITL (สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง)',d:'คอร์สออนไลน์และแพลตฟอร์ม KLIX ด้านเทคโนโลยีดิจิทัล',t:'ทักษะดิจิทัลพื้นฐาน, พื้นฐาน AI และโค้ดดิ้ง',b:'ดูคอร์สออนไลน์ของ สจล.',u:'https://kmitl.ac.th/article/online-course'}
 ];
 
-var BUDGET_TOTAL=5000000;
+var BUDGET_TOTAL=6000000;
 var BUDGET_LEAD='องค์กรปกครองส่วนท้องถิ่น (อปท.) ในพื้นที่ ร่วมกับสถาบันพหุพัฒนา';
-var BUDGET_PARTNERS=['กระทรวงศึกษาธิการ','กระทรวงการอุดมศึกษา วิทยาศาสตร์ วิจัยและนวัตกรรม (อว.)','กระทรวงการพัฒนาสังคมและความมั่นคงของมนุษย์ (พม.)','กระทรวงแรงงาน','กระทรวงสาธารณสุข'];
+var BUDGET_PARTNERS=[
+  {n:'กระทรวงการพัฒนาสังคมและความมั่นคงของมนุษย์ (พม.)',r:'สนับสนุนการพัฒนาทักษะเฉพาะกลุ่ม คุ้มครองสวัสดิภาพ และยกระดับคุณภาพชีวิตกลุ่มเปราะบาง'},
+  {n:'กระทรวงแรงงาน',r:'สนับสนุนข้อมูลตำแหน่งงานว่าง การจับคู่งานและการส่งเสริมอาชีพ'},
+  {n:'กระทรวงศึกษาธิการ',r:'สนับสนุนการศึกษาขั้นพื้นฐานและการเรียนรู้ตลอดชีวิต'},
+  {n:'กระทรวงการอุดมศึกษา วิทยาศาสตร์ วิจัยและนวัตกรรม (อว.)',r:'สนับสนุนองค์ความรู้ การวิจัย และนวัตกรรมเพื่อยกระดับทักษะแรงงาน'},
+  {n:'กระทรวงสาธารณสุข',r:'สนับสนุนการประเมินและดูแลข้อมูลสุขภาพกายและสุขภาพจิตรายบุคคล'},
+  {n:'กระทรวงมหาดไทย',r:'สนับสนุนการเชื่อมโยงฐานข้อมูลทะเบียนราษฎร์และบัตรประชาชนเพื่อยืนยันตัวตน'},
+  {n:'กระทรวงการคลัง',r:'สนับสนุนการบริหารจัดสรรงบประมาณ นโยบายทางการเงิน และมาตรการสิทธิประโยชน์ทางภาษี'}
+];
 var BUDGET_PHASES=[
-  {id:'short',label:'ระยะสั้น (0–6 เดือน)',amount:2500000,spent:1000000,status:'กำลังดำเนินการ',desc:'วางโครงสร้างสถาบันและแพลตฟอร์มนำร่อง',items:[
-    'จัดตั้งสถาบันพหุพัฒนาระดับพื้นที่ อปท. ร่วมกับ 5 กระทรวงหลัก เพื่อเป็นศูนย์กลาง One Stop Service ในการคัดกรองปัญหาและส่งต่อไปยังหน่วยงานที่เกี่ยวข้อง',
-    'พัฒนาแพลตฟอร์มและทักษะเจ้าหน้าที่ เพื่อวิเคราะห์และแก้ไขปัญหาเฉพาะบุคคลอย่างตรงจุด ตลอดจนติดตามผลลัพธ์ตั้งแต่ต้นจนจบ'
+  {id:'short',label:'ระยะสั้น (1 ปี)',amount:2500000,spent:1000000,status:'กำลังดำเนินการ',desc:'วางโครงสร้างสถาบันและแพลตฟอร์มนำร่อง',items:[
+    'จัดตั้งสถาบันพหุพัฒนาระดับพื้นที่ อปท. ร่วมกับ 7 กระทรวงหลัก เพื่อเป็นศูนย์กลาง One Stop Service ในการคัดกรองปัญหาและส่งต่อไปยังหน่วยงานที่เกี่ยวข้อง',
+    'พัฒนาแพลตฟอร์มและทักษะเจ้าหน้าที่ เพื่อวิเคราะห์และแก้ไขปัญหาเฉพาะบุคคลอย่างตรงจุด ตลอดจนคอยดูแลติดตามผลลัพธ์ตั้งแต่ต้นยันจบ'
   ]},
-  {id:'mid',label:'ระยะกลาง (6 เดือน–2 ปี)',amount:2000000,spent:0,status:'ยังไม่เริ่ม',desc:'พัฒนาทักษะและจับคู่ระหว่างนายจ้างและลูกจ้าง',items:[
-    'จัดโปรแกรม Reskill/Upskill สำหรับผู้ต้องการพัฒนาทักษะให้ตอบโจทย์ตลาดแรงงาน และจัดหาอุปกรณ์การเรียนเฉพาะกลุ่มร่วมกับหน่วยงานในพื้นที่',
-    'เชื่อมโยง/จับคู่และผลักดันให้นายจ้างในพื้นที่เปิดรับแรงงานจากกลุ่มคนที่มีเงื่อนไขชีวิตต่างกันเข้าทำงาน'
+  {id:'mid',label:'ระยะกลาง (3 ปี)',amount:2500000,spent:0,status:'ยังไม่เริ่ม',desc:'พัฒนาทักษะและจับคู่ระหว่างนายจ้างและลูกจ้าง',items:[
+    'จัดโปรแกรม Reskill/Upskill สำหรับผู้ที่ต้องการพัฒนาทักษะให้ตอบโจทย์ตลาดแรงงาน และจัดหาอุปกรณ์การเรียนเฉพาะกลุ่มร่วมกับหน่วยงานที่เกี่ยวข้องในพื้นที่',
+    'เชื่อมโยง/จับคู่และผลักดันให้นายจ้างในพื้นที่เปิดใจรับแรงงานจากกลุ่มคนที่มีเงื่อนไขชีวิตต่างกันเข้าทำงาน',
+    'จัดกิจกรรม Job Fair และจับคู่งานกับนายจ้างในพื้นที่'
   ]},
-  {id:'long',label:'ระยะยาว (2–3 ปีขึ้นไป)',amount:500000,spent:0,status:'ยังไม่เริ่ม',desc:'ถอดบทเรียน ประเมินผลลัพธ์ และเสนอร่างกฎหมาย',items:[
-    'เก็บรวบรวมข้อมูลสถิติผลลัพธ์และประเมินความสำเร็จของสถาบัน เพื่อจัดทำร่าง พ.ร.บ.การจ้างงานข้ามภาคส่วน ร่วมกับการรับฟังความคิดเห็นของแต่ละภาคส่วน',
-    'บังคับใช้มาตรการไม่เลือกปฏิบัติ พร้อมมาตรการลงโทษและสิทธิประโยชน์ทางภาษี และขยายสถาบัน One Stop Service ไปทั่วประเทศ'
+  {id:'long',label:'ระยะยาว (5 ปีเป็นต้นไป)',amount:1000000,spent:0,status:'ยังไม่เริ่ม',desc:'ถอดบทเรียน ประเมินผลลัพธ์ และเสนอร่างกฎหมาย',items:[
+    'ลงพื้นที่จัดเวทีประชาพิจารณ์ชุมชน',
+    'เก็บรวบรวมข้อมูลสถิติผลลัพธ์และประเมินความสำเร็จของสถาบัน เพื่อจัดทำร่าง พ.ร.บ.การจ้างงานข้ามภาคส่วน ร่วมกับการรับฟังความคิดเห็นของแต่ละภาคส่วน จากนั้นจึงผลักดันเข้าสู่กระบวนการนิติบัญญัติ',
+    'บังคับใช้มาตรการ กำหนดให้หน่วยงานที่เกี่ยวข้องทุกภาคส่วนต้องไม่เลือกปฏิบัติและยอมรับการจ้างงานจากกลุ่มคนหลากหลาย พร้อมมาตรการลงโทษและสิทธิประโยชน์ทางภาษีหากเข้าร่วม',
+    'ทำคู่มือส่งมอบระบบให้ อปท. อื่นนำไปใช้ เพื่อขยายสถาบัน One Stop Service ไปทั่วประเทศ เป็นตาข่ายความคุ้มครองทางสังคมและโครงสร้างพื้นฐานของรัฐ'
   ]}
 ];
 
@@ -970,6 +1002,34 @@ function caseDetailHTML(c){
 function refreshDash(){var d=$('#dash'); if(d) d.innerHTML=dashHTML();}
 
 /* ---------- views ---------- */
+function dotsSVG(){
+  var c=['gov','loc','pri','civ','int','spe'], o='<svg viewBox="0 0 220 220" width="100%" aria-hidden="true">';
+  for(var i=0;i<6;i++){ var a=(-90+i*60)*Math.PI/180, x=110+80*Math.cos(a), y=110+80*Math.sin(a); o+='<line x1="110" y1="110" x2="'+x.toFixed(1)+'" y2="'+y.toFixed(1)+'" stroke="var(--line-strong)" stroke-width="2"/>'; }
+  for(var k=0;k<6;k++){ var b=(-90+k*60)*Math.PI/180; o+='<circle cx="'+(110+80*Math.cos(b)).toFixed(1)+'" cy="'+(110+80*Math.sin(b)).toFixed(1)+'" r="24" fill="var(--'+c[k]+')"/>'; }
+  return o+'<circle cx="110" cy="110" r="30" fill="var(--ink)"/></svg>';
+}
+function flowArt(){
+  var boxes=[['การศึกษาและทักษะ','gov',18],['การจัดหางาน','loc',78],['สวัสดิการและสุขภาพ','pri',138],['อปท. ติดตามผลในพื้นที่','civ',198]], o='';
+  boxes.forEach(function(b){ var cy=b[2]+22; o+='<line x1="392" y1="125" x2="516" y2="'+cy+'" stroke="var(--line-strong)" stroke-width="2"/><rect x="516" y="'+b[2]+'" width="224" height="44" rx="14" fill="var(--'+b[1]+'-s)" stroke="var(--'+b[1]+')" stroke-width="2"/><text x="628" y="'+(cy+5)+'" text-anchor="middle" font-size="15" font-weight="600" fill="var(--ink)">'+b[0]+'</text>'; });
+  var dots=''; ['gov','loc','pri','civ','int','spe'].forEach(function(c,i){ var a=(-90+i*60)*Math.PI/180; dots+='<circle cx="'+(330+82*Math.cos(a)).toFixed(1)+'" cy="'+(125+82*Math.sin(a)).toFixed(1)+'" r="7" fill="var(--'+c+')"/>'; });
+  return '<div class="flowart"><svg viewBox="0 0 760 250" role="img" aria-label="ประชาชนเล่าเรื่องครั้งเดียว สถาบันพหุพัฒนาส่งต่อไปยังหน่วยงานที่เกี่ยวข้อง" style="font-family:var(--font-body)">'
+   +'<circle cx="80" cy="115" r="46" fill="var(--gov-s)" stroke="var(--gov)" stroke-width="2"/><text x="80" y="128" text-anchor="middle" font-size="38">🧑</text>'
+   +'<text x="80" y="188" text-anchor="middle" font-size="16" font-weight="700" fill="var(--ink)">ประชาชน</text><text x="80" y="210" text-anchor="middle" font-size="13" fill="var(--muted)">เล่าเรื่องครั้งเดียว</text>'
+   +'<line x1="130" y1="125" x2="250" y2="125" stroke="var(--ink)" stroke-width="3"/><polygon points="250,117 266,125 250,133" fill="var(--ink)"/>'
+   +dots+'<circle cx="330" cy="125" r="60" fill="var(--brand)"/><text x="330" y="121" text-anchor="middle" font-size="16" font-weight="700" fill="var(--on-brand)">One Stop</text><text x="330" y="142" text-anchor="middle" font-size="16" font-weight="700" fill="var(--on-brand)">Service</text>'
+   +o+'</svg><p class="small muted" style="text-align:center;margin:4px 0 8px">เล่าเรื่องครั้งเดียว ให้สถาบันพหุพัฒนาคัดกรองและส่งต่อไปยังหน่วยงานที่เกี่ยวข้อง</p></div>';
+}
+function budgetBarHTML(){
+  var cl={short:'gov',mid:'loc','long':'pri'}, tot=BUDGET_PHASES.reduce(function(a,p){return a+p.amount;},0);
+  return '<div style="margin-top:26px"><h2 style="font-size:1.1rem">สัดส่วนงบประมาณตามระยะ</h2><div class="stackbar" role="img" aria-label="สัดส่วนงบประมาณตามระยะ">'+BUDGET_PHASES.map(function(p){return '<i style="width:'+(p.amount/tot*100).toFixed(1)+'%;background:var(--'+cl[p.id]+')"></i>';}).join('')+'</div><div class="legend">'+BUDGET_PHASES.map(function(p){return '<span style="--c:var(--'+cl[p.id]+')">'+esc(p.label)+' · '+(p.amount/1000000).toLocaleString('th-TH')+' ล้านบาท</span>';}).join('')+'</div></div>';
+}
+function outcomesHTML(){
+  return '<h2 style="font-size:1.1rem;margin-top:10px">เป้าหมายและผลลัพธ์ที่คาดการณ์ (กรอบ 5 ปี)</h2><div class="kpis" style="margin-top:10px">'
+   +'<div class="kpi"><b>500</b><span>กลุ่มเปราะบางที่คัดกรองและพัฒนาทักษะ (คน)</span></div>'
+   +'<div class="kpi"><b>300</b><span>คาดบรรจุงานสำเร็จ 60% (คน)</span></div>'
+   +'<div class="kpi"><b>8–10 พัน</b><span>รายได้เฉลี่ย บาท/เดือน</span></div>'
+   +'<div class="kpi"><b>28–30 ล้าน</b><span>รายได้หมุนเวียนในพื้นที่ บาท/ปี (รวม 140–150 ล้านบาทใน 5 ปี)</span></div></div>';
+}
 function viewHome(){
   var tiles=SECTORS.map(function(s){
     return '<a class="tile" href="#/agencies?sector='+s.id+'" style="'+sty(s.id)+'"><span class="tile-badge" aria-hidden="true">'+s.emoji+'</span><span class="tile-name">'+esc(s.name).replace('ท้องถิ่น','<span style="white-space:nowrap">ท้องถิ่น</span>')+'</span><span class="tile-sub">'+esc(s.sub)+'</span></a>';
@@ -985,6 +1045,7 @@ function viewHome(){
    +'<div class="searchbar" role="search"><input id="heroq" type="search" placeholder="ค้นหาบริการ / หน่วยงาน / เรื่องที่ต้องการ" aria-label="ค้นหาบริการ หน่วยงาน หรือเรื่องที่ต้องการ"><button type="button" data-act="hero-search">'+ICON.search+' ค้นหา</button></div>'
    +'<div class="quick"><span>ลองค้นหา:</span>'+quick+'</div>'
    +'</div><aside class="triage" id="triage">'+triageHTML()+'</aside></section></div>'
+   +'<section class="section" style="padding-bottom:0"><div class="wrap">'+flowArt()+'</div></section>'
    +'<section class="section"><div class="wrap"><div class="sec-h"><h2>เชื่อมต่อทุกภาคส่วน</h2><p>เลือกภาคส่วนเพื่อดูหน่วยงานที่เกี่ยวข้อง แต่ละกล่องพาไปยังหน้ารวมหน่วยงานของภาคส่วนนั้น</p></div><div class="tiles">'+tiles+'</div></div></section>'
    +'<section class="section" style="padding-top:8px"><div class="wrap"><div class="sec-h"><h2>บริการยอดนิยม</h2><p>กดแล้วไปที่หน่วยงานเจ้าของบริการโดยตรง</p></div><ul class="rows two">'+pop+'</ul></div></section>'
    +'<section class="band"><div class="wrap"><div><h2>ไม่รู้ว่าต้องติดต่อใคร?</h2><p>เราช่วยค้นหาหน่วยงานที่เกี่ยวข้องให้คุณ</p></div><div class="finder"><select id="fsec" aria-label="เลือกประเภทหน่วยงาน">'+secOpts+'</select><input id="fq" type="search" placeholder="ชื่อหน่วยงาน" aria-label="ค้นหาชื่อหน่วยงาน"><button type="button" class="btn" data-act="finder">ค้นหา</button></div></div></section>'
@@ -994,7 +1055,7 @@ function viewHome(){
 
 function viewAbout(){
   var html='<div class="wrap">'
-   +'<div class="about-hero">'
+   +'<div class="about-hero"><div class="art-dots" aria-hidden="true">'+dotsSVG()+'</div>'
      +'<h1>ระบบหลักประกันสู่การมีงานทำอย่างเท่าเทียม</h1>'
      +'<p>เพราะเราเชื่อว่าการพัฒนาที่ยั่งยืน คือการไม่มีใครถูกทิ้งไว้ข้างหลัง</p>'
    +'</div>'
@@ -1004,22 +1065,58 @@ function viewAbout(){
    +'</section>'
    +'<section class="about-sec">'
      +'<div class="sec-h"><h2>ปัญหาที่เรามองเห็น</h2><p>ความเหลื่อมล้ำเชิงโครงสร้างที่คนหลายกลุ่มในชุมชนต้องเผชิญพร้อมกัน</p></div>'
-     +'<p style="max-width:70ch">เราเห็นบัณฑิตว่างงานที่แบกหนี้ กยศ. พนักงานที่ขาดสวัสดิการรองรับ กลุ่มความหลากหลายทางเพศที่ถูกเลือกปฏิบัติ คุณแม่วัยใสที่ต้องทิ้งการเรียน และผู้พิการที่ขาดโอกาส</p>'
+     +'<p style="max-width:70ch">ประชาชนในชุมชนนิมนต์หนองยิ้มเผชิญปัญหาเชิงโครงสร้างที่ไม่เอื้อต่อการประกอบอาชีพ จนกลายเป็นผู้ตกขบวนจากการพัฒนาของรัฐ เพราะกระบวนการศึกษา การพัฒนาทักษะ และตลาดแรงงานทำงานแยกส่วนกัน และสังคมยังขาดตาข่ายคุ้มครองทางสังคม (Social Safety Net) ที่ครอบคลุมความหลากหลายของประชากร ผู้ได้รับผลกระทบหลักมีจุดร่วมคือการไร้หลักประกันทางสังคม ได้แก่</p>'
+     +'<ul class="groups">'
+       +'<li><span class="e" aria-hidden="true">🎓</span><span>บัณฑิตจบใหม่ที่แบกรับหนี้ กยศ. และตกงานเรื้อรัง</span></li>'
+       +'<li><span class="e" aria-hidden="true">🏳️‍🌈</span><span>กลุ่มทรานส์เจนเดอร์ (LGBTQ+) ที่ถูกปฏิเสธงานจากอคติทางเพศ</span></li>'
+       +'<li><span class="e" aria-hidden="true">💆‍♀️</span><span>พนักงานนวดแผนไทยหญิง (อายุ 44 ปี) ที่ไร้การยกระดับทักษะ</span></li>'
+       +'<li><span class="e" aria-hidden="true">🤱</span><span>คุณแม่วัยใสที่ต้องหลุดจากระบบการศึกษา</span></li>'
+       +'<li><span class="e" aria-hidden="true">👁️</span><span>นักเรียนพิการทางสายตาในโรงเรียนขยายโอกาสที่ขาดแคลนสื่อสนับสนุน</span></li>'
+     +'</ul>'
+     +'<p style="max-width:70ch;margin-top:14px">การที่คนกลุ่มนี้เข้าไม่ถึงการจ้างงาน ก่อให้เกิดต้นทุนมหาศาลจากการสูญเสียศักยภาพแรงงานในการขับเคลื่อนเศรษฐกิจท้องถิ่น และเพิ่มภาระงบประมาณสวัสดิการของภาครัฐ</p>'
      +'<div class="stats">'
-       +'<div class="stat"><b>1.02 ล้านคน</b><span>เด็กหลุดจากระบบการศึกษา (ปี 2562–2567)</span></div>'
-       +'<div class="stat"><b>3.5 แสน + 2,000 คน</b><span>นักเรียนพิการทางร่างกาย และพิการทางสายตาที่ขาดแคลนอุปกรณ์</span></div>'
-       +'<div class="stat"><b>174,000 คน</b><span>ผู้ว่างงาน (ปี 2568)</span></div>'
+       +'<div class="stat"><b>52%</b><span>ส่วนแบ่งรายได้ของกลุ่ม Top 10% ของประเทศ (World Inequality Report)</span></div>'
+       +'<div class="stat"><b>1.02 ล้านคน</b><span>เด็กและเยาวชนหลุดจากระบบการศึกษา (กสศ.)</span></div>'
+       +'<div class="stat"><b>2,027 คน</b><span>ผู้พิการทางสายตาในระบบการศึกษา (สพฐ.)</span></div>'
+       +'<div class="stat"><b>1.4 แสนคน</b><span>บัณฑิต ป.ตรี ว่างงาน ปี 2568 (สำนักงานสถิติแห่งชาติ)</span></div><div class="stat"><b>50.1% → 67.8%</b><span>อัตราการตั้งครรภ์ไม่พร้อมในเยาวชนที่พุ่งสูงขึ้น (สำนักอนามัยการเจริญพันธุ์)</span></div>'
      +'</div>'
+   +'</section>'
+   +'<section class="about-sec">'
+     +'<div class="sec-h"><h2>ทำไมนโยบายท้องถิ่นปัจจุบันยังแก้ปัญหาไม่ได้</h2><p>เกิดจากช่องว่างหลัก 2 ประการ</p></div>'
+     +'<ul class="solutions">'
+       +'<li class="solution"><span class="e" aria-hidden="true">🧩</span><div><h3>การทำงานแบบแยกส่วนของภาครัฐ</h3><p>ต่างคนต่างทำ มีภารกิจซ้ำซ้อน ขาดการบริหารจัดการที่เป็นเอกภาพ และสร้างความยุ่งยากให้ประชาชนในการรับบริการ</p></div></li>'
+       +'<li class="solution"><span class="e" aria-hidden="true">📜</span><div><h3>ข้อจำกัดเชิงโครงสร้างและกฎระเบียบที่ไม่ยืดหยุ่น</h3><p>ไม่เปิดรับความหลากหลาย และเป็นอุปสรรคต่อการพัฒนาทักษะและการจ้างงานข้ามภาคส่วน ส่งผลให้กลุ่มเปราะบางกลายเป็นผู้ตกหล่นเชิงโครงสร้าง</p></div></li>'
+     +'</ul>'
+   +'</section>'
+   +'<section class="about-sec">'
+     +'<div class="sec-h"><h2>นวัตกรรมของเรา: โครงการรวมศูนย์แห่งโอกาสและบริการ 1 เดียว</h2><p>ใช้องค์ความรู้ STEM ออกแบบนโยบายอย่างเป็นระบบ</p></div>'
+     +'<ul class="solutions">'
+       +'<li class="solution"><span class="e" aria-hidden="true">🔬</span><div><h3>S · Science</h3><p>วิเคราะห์ฐานข้อมูลประชากรศาสตร์และข้อมูลเชิงพื้นที่ (GIS) ร่วมกับสถิติความเหลื่อมล้ำระดับประเทศ เพื่อชี้เป้าและระบุกลุ่มเปราะบาง 5 กลุ่มเชิงรุกอย่างตรงจุด ไม่ให้ตกหล่นจากระบบ</p></div></li>'
+       +'<li class="solution"><span class="e" aria-hidden="true">🤖</span><div><h3>T · Technology</h3><p>ประยุกต์ใช้ AI บนแพลตฟอร์ม OSS คัดกรองความต้องการ ค้นหาคอร์สฝึกอบรม จับคู่ตำแหน่งงาน และติดตามผลรายบุคคลแบบครบวงจร</p></div></li>'
+       +'<li class="solution"><span class="e" aria-hidden="true">🏗️</span><div><h3>E · Engineering</h3><p>ออกแบบกระบวนการทำงานใหม่ แก้การทำงานแบบแยกส่วน รวมภารกิจด้านการศึกษา การพัฒนาทักษะ และการจัดหางานไว้ในสถาบันพหุพัฒนา โดยมี อปท. เป็นแกนหลักในการบริหารและประสานงานกับหน่วยงานต่าง ๆ</p></div></li>'
+       +'<li class="solution"><span class="e" aria-hidden="true">📐</span><div><h3>M · Mathematics / Economics</h3><p>งบประมาณ 6 ล้านบาท (กรอบ 5 ปี) คัดกรองและพัฒนาทักษะกลุ่มเปราะบาง 500 คน คาดการณ์บรรจุงานสำเร็จ 60% (300 คน) รายได้เฉลี่ย 8,000–10,000 บาท/เดือน สร้างรายได้หมุนเวียนในพื้นที่ราว 28–30 ล้านบาท/ปี (รวม 140–150 ล้านบาทใน 5 ปี)</p></div></li>'
+     +'</ul>'
    +'</section>'
    +'<section class="about-sec">'
      +'<div class="sec-h"><h2>บริการและกลไกของเรา</h2><p>เราไม่แยกส่วนปัญหา แต่บูรณาการการทำงานของหลายภาคส่วนเข้าไว้ด้วยกัน</p></div>'
      +'<ul class="solutions">'
-       +'<li class="solution"><span class="e" aria-hidden="true">🧭</span><div><h3>บริการแบบ One Stop Service</h3><p>บูรณาการการทำงานของกระทรวงต่าง ๆ — ศึกษาธิการ, อว., พม., สาธารณสุข และแรงงาน — ไว้ในจุดเดียว</p></div></li>'
+       +'<li class="solution"><span class="e" aria-hidden="true">🧭</span><div><h3>บริการแบบ One Stop Service</h3><p>บูรณาการการทำงานของกระทรวงต่าง ๆ — ศึกษาธิการ, อว., พม., สาธารณสุข, แรงงาน, มหาดไทย และการคลัง — ไว้ในจุดเดียว</p></div></li>'
        +'<li class="solution"><span class="e" aria-hidden="true">🤝</span><div><h3>Case Manager ประจำตัว</h3><p>เจ้าหน้าที่ 1 คนดูแล 1 เคสแบบครบวงจร ตั้งแต่ประเมินปัญหา ประสานงาน ไปจนถึงติดตามผลการจ้างงานหรือการกลับเข้าสู่การศึกษา</p></div></li>'
        +'<li class="solution"><span class="e" aria-hidden="true">🧠</span><div><h3>ระบบ AI คัดกรองอัจฉริยะ</h3><p>วิเคราะห์และประเมินปัญหาอย่างแม่นยำเพื่อส่งต่อหน่วยงานที่เกี่ยวข้อง เช่น กรณีเยาวชนอายุไม่ถึงวัยทำงาน ระบบจะแนะนำให้ประสาน พม. และดึงกลับเข้าสู่ระบบการศึกษาแทนการหางาน</p></div></li>'
        +'<li class="solution"><span class="e" aria-hidden="true">💻</span><div><h3>บริการออนไลน์</h3><p>เข้าถึงบริการได้ง่าย ๆ ผ่านเว็บไซต์ ลดข้อจำกัดเรื่องการเดินทาง</p></div></li>'
      +'</ul>'
      +'<p class="hint" style="margin-top:16px">ดูขั้นตอนการทำงานแบบเต็มได้ที่หน้า <a href="#/system" style="text-decoration:underline">ระบบการทำงาน</a></p>'
+   +'</section>'
+   +'<section class="about-sec">'
+     +'<div class="sec-h"><h2>ความสอดคล้องกับยุทธศาสตร์และแผนพัฒนา</h2></div>'
+     +'<ul class="goals">'
+       +'<li><span class="dot2" aria-hidden="true"></span><p><b>SDG 4 (เป้าหมายย่อย 4.5)</b> ขจัดความเหลื่อมล้ำทางเพศ และสร้างหลักประกันว่ากลุ่มเปราะบาง ได้แก่ ผู้พิการ ชนพื้นเมือง และเด็ก เข้าถึงการศึกษาและการฝึกอาชีพทุกระดับอย่างเท่าเทียม</p></li>'
+       +'<li><span class="dot2" aria-hidden="true"></span><p><b>SDG 8 (เป้าหมายย่อย 8.5)</b> บรรลุการจ้างงานเต็มที่ มีผลิตภาพ และการทำงานที่มีคุณค่าสำหรับทุกคน รวมถึงเยาวชน ผู้มีภาวะทุพพลภาพ และผู้หญิง พร้อมค่าตอบแทนที่เท่าเทียมสำหรับงานที่มีคุณค่าเท่ากัน</p></li>'
+       +'<li><span class="dot2" aria-hidden="true"></span><p><b>ยุทธศาสตร์ชาติ 20 ปี ด้านที่ 4</b> การสร้างโอกาสและความเสมอภาคทางสังคม สร้างความเป็นธรรม ลดความเหลื่อมล้ำในทุกมิติ และเพิ่มขีดความสามารถของชุมชนในการพัฒนา พึ่งพา และจัดการตนเอง</p></li>'
+       +'<li><span class="dot2" aria-hidden="true"></span><p><b>แผนพัฒนาเศรษฐกิจและสังคมแห่งชาติ ฉบับที่ 13</b> หมุดหมายที่ 9 ไทยมีความยากจนข้ามรุ่นลดลงและมีความคุ้มครองทางสังคมที่เพียงพอเหมาะสม · หมุดหมายที่ 12 ไทยมีกำลังคนสมรรถนะสูง มุ่งเรียนรู้อย่างต่อเนื่อง</p></li>'
+       +'<li><span class="dot2" aria-hidden="true"></span><p><b>แผนพัฒนาท้องถิ่น (อปท.)</b> อ้างอิงแผนพัฒนาท้องถิ่น พ.ศ. 2566–2570 ของ อบต.กำแพงแสน ยุทธศาสตร์ที่ 2 การพัฒนาด้านสังคม การคุ้มครองทางสังคม การจัดสวัสดิการชุมชนแก่ผู้ด้อยโอกาส ผู้พิการ สตรี และเด็ก รวมถึงการส่งเสริมอาชีพและพัฒนาทักษะแรงงาน</p></li>'
+       +'<li><span class="dot2" aria-hidden="true"></span><p><b>บทเรียนต่างประเทศ: Beijing12345 Hotline</b> ศูนย์รับเรื่องร้องทุกข์แบบบูรณาการผ่านโทรศัพท์และออนไลน์ ตลอด 7 ปีจัดการปัญหากว่า 180 ล้านรายการ และได้คะแนนความพึงพอใจจากประชาชน 86.45%</p></li>'
+     +'</ul>'
    +'</section>'
    +'<section class="about-sec">'
      +'<div class="sec-h"><h2>เป้าหมายของเรา</h2></div>'
@@ -1136,18 +1233,18 @@ function viewBudget(){
   var phases=BUDGET_PHASES.map(function(p){
     var pct=Math.round(p.spent/p.amount*100);
     var items=p.items.map(function(i){return '<li>'+esc(i)+'</li>';}).join('');
-    return '<div class="bphase"><div class="bphase-h"><b>'+esc(p.label)+'</b><span class="bphase-amt">งบประมาณ '+p.amount.toLocaleString('th-TH')+' บาท</span></div>'
+    return '<div class="bphase" style="--c:var(--'+({short:'gov',mid:'loc','long':'pri'}[p.id])+')"><div class="bphase-h"><b>'+esc(p.label)+'</b><span class="bphase-amt">งบประมาณ '+p.amount.toLocaleString('th-TH')+' บาท</span></div>'
       +'<p class="muted small">'+esc(p.desc)+'</p>'
       +'<div class="barrow"><span>เบิกจ่ายแล้ว</span><div class="track"><div class="fill" style="width:'+pct+'%"></div></div><output>'+pct+'%</output></div>'
       +'<span class="bstatus">'+esc(p.status)+'</span>'
       +'<ul class="blist">'+items+'</ul></div>';
   }).join('');
-  var partners=BUDGET_PARTNERS.map(function(p){return '<li>'+esc(p)+'</li>';}).join('');
-  var html='<div class="wrap"><div class="pagehead"><h1>งบประมาณโครงการ</h1><p>ตรวจสอบว่างบประมาณของโครงการ "สถาบันพหุพัฒนา" ถูกวางแผนไว้ใช้ทำอะไรบ้าง แบ่งตามระยะการดำเนินงาน</p></div>'
-   +'<section class="section" style="padding-top:12px">'+kpis+'<div style="margin-top:30px">'+phases+'</div>'
+  var partners=BUDGET_PARTNERS.map(function(p){return '<li><b>'+esc(p.n)+'</b> — '+esc(p.r)+'</li>';}).join('');
+  var html='<div class="wrap"><div class="pagehead"><h1>งบประมาณโครงการ</h1><p>ตรวจสอบว่างบประมาณ 6 ล้านบาท (กรอบเวลา 5 ปี) ของโครงการ "สถาบันพหุพัฒนา" ถูกวางแผนไว้ใช้ทำอะไรบ้าง แบ่งตามระยะการดำเนินงาน</p></div>'
+   +'<section class="section" style="padding-top:12px">'+kpis+budgetBarHTML()+outcomesHTML()+'<div style="margin-top:30px">'+phases+'</div>'
    +'<div class="bresp"><h2 style="font-size:1.1rem">หน่วยงานผู้รับผิดชอบ</h2>'
-     +'<p class="muted small" style="margin-top:6px"><b class="strong">หน่วยงานหลัก:</b> '+esc(BUDGET_LEAD)+'</p>'
-     +'<p class="muted small" style="margin-top:10px"><b class="strong">หน่วยงานร่วม:</b></p><ul class="blist">'+partners+'</ul>'
+     +'<p class="muted small" style="margin-top:6px"><b class="strong">หน่วยงานหลัก:</b> '+esc(BUDGET_LEAD)+' — เป็นแกนหลักในการบริหารจัดการเชิงพื้นที่ ใช้ทรัพยากรและสถานที่จัดตั้งสถาบันพหุพัฒนาเป็นจุดบริการเบ็ดเสร็จในจุดเดียว</p>'
+     +'<p class="muted small" style="margin-top:10px"><b class="strong">หน่วยงานร่วม:</b></p><ul class="blist">'+partners+'</ul><p class="muted small" style="margin-top:14px"><b class="strong">ภาคเอกชนและนายจ้างในพื้นที่:</b> สนับสนุนสื่อและอุปกรณ์การเรียนรู้ ร่วมลงนามข้อตกลง (MOU) รับผู้ผ่านการพัฒนาจากสถาบันพหุพัฒนาเข้าทำงาน โดยได้รับสิทธิประโยชน์ลดหย่อนภาษีนิติบุคคลและภาษีท้องถิ่นตามกฎหมาย</p><p class="muted small" style="margin-top:10px"><b class="strong">ภาคประชาสังคม:</b> เป็นจิตอาสาหนุนเสริมโอกาสทางการศึกษาที่ยืดหยุ่นและไร้กรอบจำกัด ช่วยจัดกระบวนการเรียนรู้ทั้งออนไลน์ ศูนย์เรียนรู้ชุมชน และแหล่งเรียนรู้ตามอัธยาศัยในพื้นที่</p>'
    +'</div>'
    +'<div class="note" style="margin-top:26px">ตัวเลขงบประมาณและแผนการใช้จ่ายอ้างอิงจากข้อเสนอเชิงนโยบาย (Policy Memo) ของโครงการ</div>'
    +'</section></div>';
